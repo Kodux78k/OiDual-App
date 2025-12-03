@@ -1,0 +1,2767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>DualOiNet 10 · Portal Supremo + Streaming + Chat</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#050715" />
+
+  <style>
+    /* ============================
+       TOKENS · NEBULA PRO + MADEIRA
+       ============================ */
+
+    :root{
+      --bg-main: radial-gradient(circle at top, #141429 0%, #050715 45%, #020309 100%);
+      --bg-overlay-default: radial-gradient(circle at 75% 15%, #ff7ad9 0%, #ff9ed5 22%, transparent 68%);
+      --bg-overlay-warm: radial-gradient(circle at 80% 15%, #ff9a6c 0%, #ffce8a 22%, transparent 68%);
+      --bg-overlay-cool: radial-gradient(circle at 25% 10%, #00f6ff 0%, #7cf6ff 22%, transparent 68%);
+      --bg-overlay-deep: radial-gradient(circle at 5% 10%, #9f7dff 0%, #ff7ad9 22%, transparent 70%);
+
+      --accent-main:#ff7ad9;
+      --accent-warm:#ffb5e2;
+      --accent-cold:#00f6ff;
+
+      --card-bg: rgba(8,10,25,0.96);
+      --card-soft: rgba(13,17,40,0.96);
+      --border-soft: rgba(145,166,255,0.45);
+
+      --text-main:#fdfdff;
+      --text-soft:#c6c9ff;
+      --text-muted:#7b81a8;
+
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:16px;
+
+      --shadow-soft:0 18px 40px rgba(0,0,0,0.78);
+
+      --hero-height:260px;
+      --rail-card-width:160px;
+      --rail-card-height:96px;
+
+      --hero-img-url:url("https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=800");
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+      color:var(--text-main);
+      background:var(--bg-main);
+      display:flex;
+      justify-content:center;
+      align-items:stretch;
+      position:relative;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:var(--bg-overlay-default);
+      opacity:0;
+      pointer-events:none;
+      animation:dawnFade 1.6s ease-out 0.12s forwards;
+      z-index:-1;
+    }
+
+    body[data-stream-bg="warm"]::before{
+      background:var(--bg-overlay-warm);
+    }
+    body[data-stream-bg="cool"]::before{
+      background:var(--bg-overlay-cool);
+    }
+    body[data-stream-bg="deep"]::before{
+      background:var(--bg-overlay-deep);
+    }
+
+    @keyframes dawnFade{
+      0%{opacity:0;filter:blur(14px);}
+      40%{opacity:0.6;filter:blur(7px);}
+      100%{opacity:1;filter:blur(0);}
+    }
+
+    .shell{
+      width:100%;
+      max-width:480px;
+      margin:0 auto;
+      padding:18px 0 26px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      position:relative;
+      z-index:1;
+      animation:fadeUp 0.75s ease-out 0.18s both;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(18px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    /* HEADER */
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:0 16px;
+    }
+
+    .header-left{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .menu-button{
+      width:30px;height:30px;
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.7);
+      background:rgba(8,10,30,0.96);
+      color:var(--text-soft);
+      font-size:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow:0 10px 26px rgba(0,0,0,0.85);
+    }
+
+    .logo-title{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+    .logo-title span:nth-child(1){
+      font-size:11px;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      color:var(--text-muted);
+    }
+    .logo-title span:nth-child(2){
+      font-size:15px;
+      font-weight:600;
+      color:var(--text-soft);
+    }
+
+    .mode-toggle{
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      padding:4px 10px 4px 6px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:11px;
+      color:var(--text-soft);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(0,246,255,0.35), transparent 60%),
+        rgba(4,8,28,0.92);
+      box-shadow:0 10px 26px rgba(0,0,0,0.75);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      cursor:pointer;
+      transition:transform 0.2s ease,background 0.25s ease,border-color 0.25s ease;
+    }
+    .mode-toggle:hover{transform:translateY(-1px);}
+    .mode-dot{
+      width:16px;height:16px;border-radius:999px;
+      background:radial-gradient(circle at 30% 20%, #ffffff, var(--accent-cold));
+      box-shadow:0 0 10px rgba(0,246,255,0.85);
+    }
+
+    body[data-theme="madeira"] .mode-toggle{
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,180,140,0.55), transparent 60%),
+        rgba(14,8,4,0.98);
+      border-color:rgba(255,200,160,0.9);
+    }
+    body[data-theme="madeira"] .mode-dot{
+      background:radial-gradient(circle at 30% 20%, #ffffff, #ffce8a);
+      box-shadow:0 0 14px rgba(255,200,160,0.98);
+    }
+
+    /* HERO · STREAMING DO DIA */
+
+    .hero-stream{
+      margin-top:4px;
+      padding:0 16px;
+    }
+
+    .hero-card{
+      position:relative;
+      height:var(--hero-height);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 22px 44px rgba(0,0,0,0.95);
+      border:1px solid rgba(153,175,255,0.35);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,149,214,0.32), transparent 55%),
+        linear-gradient(135deg, rgba(8,10,35,0.98), rgba(4,5,18,0.98));
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      cursor:pointer;
+    }
+
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(0,246,255,0.35), transparent 55%),
+        radial-gradient(circle at 0 100%, rgba(255,122,191,0.45), transparent 55%),
+        var(--hero-img-url);
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      mix-blend-mode:lighten;
+      opacity:0.6;
+      pointer-events:none;
+      transition:opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .hero-gradient{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(3,5,18,0.0) 0%, rgba(3,5,18,0.4) 40%, rgba(3,5,18,0.95) 100%);
+    }
+
+    .hero-content{
+      position:relative;
+      padding:14px 14px 14px;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .hero-tag-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:11px;
+      color:var(--text-muted);
+    }
+
+    .hero-tag{
+      padding:3px 9px;
+      border-radius:999px;
+      border:1px solid rgba(255,149,214,0.75);
+      background:rgba(26,12,32,0.96);
+      color:#ffd8f2;
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+    }
+
+    .hero-mode-pill{
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.25);
+      background:rgba(5,7,24,0.96);
+      font-size:10px;
+      display:flex;
+      align-items:center;
+      gap:5px;
+      color:var(--text-soft);
+    }
+    .hero-mode-pill span.label{
+      opacity:0.9;
+    }
+    .hero-mode-pill span.dot{
+      width:6px;height:6px;border-radius:999px;
+      background:#60f7b3;
+      box-shadow:0 0 8px rgba(96,247,179,0.9);
+    }
+
+    .hero-title{
+      font-size:20px;
+      font-weight:650;
+      letter-spacing:0.02em;
+    }
+
+    .hero-subtitle{
+      font-size:13px;
+      color:var(--accent-warm);
+    }
+
+    .hero-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:4px;
+    }
+
+    .btn-primary{
+      border-radius:999px;
+      border:none;
+      padding:7px 14px;
+      font-size:13px;
+      font-weight:500;
+      background:radial-gradient(circle at 20% 0%, #ffffff, var(--accent-main));
+      color:#1a0c14;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      cursor:pointer;
+      box-shadow:0 0 16px rgba(255,91,155,0.9);
+    }
+
+    .btn-secondary{
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.7);
+      padding:6px 12px;
+      font-size:12px;
+      background:rgba(6,9,28,0.95);
+      color:var(--text-soft);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      cursor:pointer;
+    }
+
+    .tts-btn{
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.8);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,255,255,0.8), var(--accent-cold));
+      color:#10141f;
+      font-size:14px;
+      width:28px;height:28px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow:0 0 12px rgba(0,246,255,0.85);
+      flex-shrink:0;
+    }
+
+    /* GREETING + INTENÇÃO */
+
+    .greeting-strip{
+      padding:4px 16px 0;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .greeting-line{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:13px;
+      color:var(--text-soft);
+    }
+    .greeting-name{font-weight:600;}
+    .time-mini{
+      font-size:11px;
+      color:var(--text-muted);
+    }
+
+    .intent369-field{
+      margin-top:2px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(145,166,255,0.6);
+      background:rgba(9,11,31,0.96);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.85);
+      font-size:12px;
+    }
+
+    .intent369-icon{
+      font-size:15px;
+      color:var(--accent-warm);
+    }
+
+    .intent369-input{
+      flex:1;
+      min-width:0;
+      border:none;
+      background:transparent;
+      color:var(--text-soft);
+      font-size:12px;
+      outline:none;
+    }
+    .intent369-input::placeholder{
+      color:rgba(145,155,210,0.85);
+    }
+
+    /* SEÇÕES + RAILS */
+
+    .section-title{
+      font-size:14px;
+      font-weight:500;
+      padding:12px 16px 4px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      color:var(--text-soft);
+      gap:6px;
+    }
+    .section-title span:nth-child(2){
+      font-size:11px;
+      color:var(--text-muted);
+    }
+
+    .section-title.with-toggle{
+      align-items:center;
+    }
+    .section-title-main{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+
+    .apps-view-toggle{
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.8);
+      background:rgba(7,9,28,0.95);
+      color:var(--text-soft);
+      font-size:11px;
+      padding:4px 10px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    body[data-apps-view="grid"] .apps-view-toggle{
+      background:rgba(255,149,214,0.15);
+      border-color:rgba(255,149,214,0.9);
+      color:#ffd8f2;
+    }
+
+    .rail{
+      padding:0 16px 4px;
+    }
+    .rail-track{
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      padding-bottom:6px;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+    }
+    .rail-track::-webkit-scrollbar{height:4px;}
+    .rail-track::-webkit-scrollbar-thumb{
+      background:rgba(120,135,210,0.7);
+      border-radius:999px;
+    }
+
+    .stream-card{
+      min-width:var(--rail-card-width);
+      max-width:var(--rail-card-width);
+      height:var(--rail-card-height);
+      border-radius:14px;
+      border:1px solid rgba(92,115,205,0.9);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,149,214,0.25), rgba(10,13,35,0.96));
+      box-shadow:0 12px 26px rgba(0,0,0,0.92);
+      scroll-snap-align:start;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+    }
+
+    .stream-thumb{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      mix-blend-mode:lighten;
+      opacity:0.62;
+      transform:scale(1.05);
+      transition:opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .stream-inner{
+      position:relative;
+      padding:8px 8px 8px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+    }
+
+    .stream-card:hover .stream-thumb{
+      opacity:0.8;
+      transform:scale(1.08);
+    }
+
+    .stream-tag{
+      position:absolute;
+      top:6px;left:8px;
+      font-size:10px;
+      padding:2px 6px;
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.85);
+      background:rgba(5,8,26,0.9);
+      color:#e0e3ff;
+    }
+
+    .stream-tts{
+      position:absolute;
+      top:6px;right:6px;
+    }
+
+    .stream-title{
+      font-size:12px;
+      font-weight:500;
+      text-shadow:0 1px 4px rgba(0,0,0,0.8);
+    }
+    .stream-sub{
+      font-size:10px;
+      color:var(--text-muted);
+      text-shadow:0 1px 3px rgba(0,0,0,0.8);
+    }
+
+    /* APP CARDS · GRADIENT GROUPS */
+
+    .stream-card.app-card{
+      border-color:rgba(255,181,226,0.9);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255,181,226,0.45), transparent 55%),
+        radial-gradient(circle at 85% 100%, rgba(0,246,255,0.35), transparent 55%),
+        rgba(6,9,28,0.98);
+    }
+    .app-card .stream-thumb{
+      opacity:0.35;
+      mix-blend-mode:screen;
+    }
+
+    .app-card[data-app-group="dual"]{
+      background:
+        radial-gradient(circle at 10% 0%, rgba(0,246,255,0.55), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(255,122,217,0.5), transparent 55%),
+        rgba(3,6,24,0.98);
+    }
+
+    .app-card[data-app-group="solar"]{
+      background:
+        radial-gradient(circle at 0 0, rgba(255,214,130,0.75), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(255,125,102,0.65), transparent 55%),
+        rgba(22,12,6,0.98);
+    }
+
+    .app-card[data-app-group="docs"]{
+      background:
+        radial-gradient(circle at 0 0, rgba(172,237,255,0.6), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(154,184,255,0.6), transparent 55%),
+        rgba(5,8,26,0.98);
+    }
+
+    .app-card[data-app-group="base"]{
+      background:
+        radial-gradient(circle at 20% 0, rgba(255,181,226,0.5), transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(0,246,255,0.3), transparent 55%),
+        rgba(6,9,28,0.98);
+    }
+
+    /* APPS GRID (PLAY STORE) */
+
+    .apps-grid-section{
+      padding:0 16px 10px;
+    }
+    .apps-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+    .apps-grid .stream-card.app-card{
+      min-width:0;
+      max-width:none;
+      height:auto;
+    }
+
+    #portalGridSection{display:none;}
+    body[data-apps-view="grid"] #portalRailSection{display:none;}
+    body[data-apps-view="grid"] #portalGridSection{display:block;}
+
+    /* STACKS · APPS & UPLOAD HTML & CHAT */
+
+    .apps-stacks{
+      padding:10px 16px 2px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    details.stack-card{
+      background:var(--card-soft);
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(120,143,230,0.65);
+      box-shadow:0 14px 32px rgba(0,0,0,0.85);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      overflow:hidden;
+    }
+
+/* Sanfonas de vídeos (Sinopses, Ambiente, Neuro, Meditações) */
+.video-accordion{
+  padding: 4px 16px 0;
+}
+
+.video-accordion details.stack-card{
+  margin-top: 6px;
+}
+
+    details.stack-card[open]{
+      border-color:rgba(255,149,214,0.95);
+      background:radial-gradient(circle at 10% 0%, rgba(255,149,214,0.18), rgba(6,9,30,0.98));
+    }
+
+    details.stack-card>summary{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      font-size:13px;
+      cursor:pointer;
+    }
+    details.stack-card>summary::-webkit-details-marker{display:none;}
+
+    .stack-summary-main{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .stack-title{
+      font-size:13px;
+      font-weight:500;
+    }
+    .stack-sub{
+      font-size:11px;
+      color:var(--text-muted);
+    }
+    .stack-pill{
+      font-size:11px;
+      padding:4px 9px;
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.9);
+      background:rgba(7,10,32,0.98);
+      color:var(--text-soft);
+    }
+
+    .stack-body{
+      padding:0 12px 10px;
+      border-top:1px solid rgba(92,115,205,0.7);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      font-size:12px;
+    }
+
+    .stack-field-label{
+      font-size:11px;
+      color:var(--text-muted);
+      margin-bottom:2px;
+    }
+
+    .stack-input{
+      width:100%;
+      border-radius:999px;
+      border:1px solid rgba(145,166,255,0.7);
+      background:rgba(5,7,24,0.98);
+      color:var(--text-soft);
+      padding:6px 10px;
+      font-size:12px;
+      outline:none;
+    }
+    .stack-input::placeholder{
+      color:rgba(145,155,210,0.85);
+    }
+
+    .stack-input-row{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    @media (min-width:520px){
+      .stack-input-row{flex-direction:row;}
+    }
+
+    .capsule-list{
+      list-style:none;
+      padding:0;
+      margin:4px 0 0;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .capsule-pill{
+      padding:7px 9px;
+      border-radius:11px;
+      background:rgba(9,11,31,0.98);
+      border:1px solid rgba(92,115,205,0.85);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+    }
+
+    .capsule-main{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .capsule-title{font-size:12px;}
+    .capsule-tag{
+      font-size:10px;
+      color:var(--text-muted);
+    }
+
+    .capsule-actions{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      align-items:flex-end;
+    }
+    @media (min-width:420px){
+      .capsule-actions{flex-direction:row;}
+    }
+
+    .pill-btn{
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.85);
+      background:rgba(7,9,28,0.98);
+      color:var(--text-soft);
+      font-size:10px;
+      padding:4px 7px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+
+    .stack-footnote{
+      font-size:10px;
+      color:var(--text-muted);
+    }
+
+    .stack-viewer-card{
+      margin-top:4px;
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(120,143,230,0.7);
+      background:rgba(8,10,30,0.98);
+      box-shadow:0 16px 36px rgba(0,0,0,0.9);
+      overflow:hidden;
+    }
+
+    .stack-viewer-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px 8px;
+      border-bottom:1px solid rgba(72,94,192,0.8);
+    }
+    .stack-viewer-title{
+      font-size:13px;
+      font-weight:500;
+    }
+    .stack-viewer-sub{
+      font-size:11px;
+      color:var(--text-muted);
+    }
+    .stack-viewer-reset{
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.85);
+      background:rgba(6,9,30,0.98);
+      color:var(--text-soft);
+      font-size:10px;
+      padding:4px 8px;
+      cursor:pointer;
+    }
+
+    .stack-viewer-frame{
+      height:220px;
+      background:radial-gradient(circle at 0 0, rgba(0,246,255,0.16), rgba(3,5,16,0.98));
+    }
+    .stack-viewer-frame iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      border-radius:0 0 var(--radius-lg) var(--radius-lg);
+    }
+    .stack-viewer-note{
+      padding:6px 12px 10px;
+      font-size:10px;
+      color:var(--text-muted);
+    }
+
+    /* CHAT PANEL · SANFONADO SUPREMO */
+
+    .chat-config-grid{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    @media (min-width:520px){
+      .chat-config-grid{
+        flex-direction:row;
+      }
+    }
+
+    .chat-config-col{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .chat-textarea{
+      width:100%;
+      min-height:80px;
+      resize:vertical;
+      border-radius:14px;
+      border:1px solid rgba(145,166,255,0.7);
+      background:rgba(5,7,24,0.98);
+      color:var(--text-soft);
+      font-size:11px;
+      padding:8px 10px;
+      font-family:system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      outline:none;
+    }
+    .chat-textarea::placeholder{
+      color:rgba(145,155,210,0.85);
+    }
+
+    .chat-panel-card{
+      margin-top:4px;
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(120,143,230,0.7);
+      background:rgba(8,10,30,0.98);
+      box-shadow:0 16px 36px rgba(0,0,0,0.9);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      max-height:320px;
+    }
+
+    .chat-panel-header{
+      padding:8px 12px 6px;
+      border-bottom:1px solid rgba(72,94,192,0.8);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      font-size:11px;
+    }
+    .chat-panel-title{
+      font-size:13px;
+      font-weight:500;
+    }
+    .chat-panel-sub{
+      font-size:11px;
+      color:var(--text-muted);
+    }
+
+    .chat-panel-mode-pill{
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.9);
+      padding:3px 8px;
+      font-size:10px;
+      background:rgba(7,10,32,0.98);
+      color:var(--text-soft);
+      white-space:nowrap;
+    }
+
+    .chat-messages{
+      flex:1;
+      padding:8px 10px;
+      overflow-y:auto;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      font-size:12px;
+    }
+
+    .chat-message{
+      max-width:88%;
+      padding:6px 9px;
+      border-radius:13px;
+      line-height:1.4;
+      box-shadow:0 3px 10px rgba(0,0,0,0.6);
+    }
+    .chat-message.me{
+      align-self:flex-end;
+      background:radial-gradient(circle at 0 0, rgba(0,246,255,0.25), rgba(6,9,30,0.98));
+      border:1px solid rgba(0,246,255,0.9);
+    }
+    .chat-message.ai{
+      align-self:flex-start;
+      background:radial-gradient(circle at 100% 0, rgba(255,149,214,0.25), rgba(8,10,33,0.98));
+      border:1px solid rgba(255,149,214,0.9);
+    }
+
+    .chat-input-row{
+      padding:8px 10px 9px;
+      border-top:1px solid rgba(72,94,192,0.8);
+      display:flex;
+      gap:6px;
+      align-items:flex-end;
+      background:rgba(4,6,20,0.98);
+    }
+
+    .chat-input{
+      flex:1;
+      border-radius:999px;
+      border:1px solid rgba(145,166,255,0.7);
+      background:rgba(5,7,24,0.98);
+      color:var(--text-soft);
+      font-size:12px;
+      padding:7px 10px;
+      outline:none;
+    }
+    .chat-input::placeholder{
+      color:rgba(145,155,210,0.85);
+    }
+
+    .chat-send-btn{
+      border-radius:999px;
+      border:none;
+      padding:7px 11px;
+      background:radial-gradient(circle at 20% 0, #ffffff, var(--accent-main));
+      color:#160711;
+      font-size:13px;
+      font-weight:500;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow:0 0 12px rgba(255,91,155,0.9);
+      flex-shrink:0;
+    }
+
+    /* VIEWER BOTTOM-SHEET (STREAMING + APPS) */
+
+    .view-overlay{
+      position:fixed;
+      inset:0;
+      background:radial-gradient(circle at top, rgba(5,8,24,0.4), rgba(0,0,0,0.92));
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 0.24s ease;
+      z-index:55;
+    }
+    .view-overlay.visible{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .view-panel{
+      position:absolute;
+      left:50%;bottom:0;
+      transform:translate(-50%,110%);
+      width:100%;
+      max-width:480px;
+      background:rgba(6,9,28,0.98);
+      border-radius:22px 22px 0 0;
+      box-shadow:0 -20px 44px rgba(0,0,0,0.98);
+      border-top:1px solid rgba(153,175,255,0.5);
+      transition:transform 0.26s ease-out;
+      display:flex;
+      flex-direction:column;
+      max-height:90vh;
+    }
+    .view-overlay.visible .view-panel{
+      transform:translate(-50%,0);
+    }
+
+    .view-header{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px 6px;
+      border-bottom:1px solid rgba(55,72,150,0.7);
+    }
+    .view-back{
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.8);
+      background:rgba(11,15,40,0.98);
+      color:var(--text-soft);
+      width:28px;height:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+      cursor:pointer;
+    }
+    .view-titles{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .view-title{
+      font-size:15px;
+      font-weight:600;
+    }
+    .view-subtitle{
+      font-size:12px;
+      color:var(--text-muted);
+    }
+
+    .view-body{
+      padding:10px 14px 16px;
+      overflow-y:auto;
+      font-size:13px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .view-note{
+      font-size:11px;
+      color:var(--text-muted);
+    }
+
+    #viewVideoHolder iframe{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(92,115,205,0.8);
+      box-shadow:0 14px 34px rgba(0,0,0,0.9);
+      min-height:210px;
+    }
+
+    /* MENU LATERAL */
+
+    .menu-overlay{
+      position:fixed;
+      inset:0;
+      background:radial-gradient(circle at 0 0, rgba(11,16,40,0.95), rgba(0,0,0,0.9));
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 0.22s ease;
+      z-index:60;
+    }
+    .menu-overlay.visible{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .menu-panel{
+      position:absolute;
+      left:0;top:0;bottom:0;
+      width:min(80%,320px);
+      background:rgba(5,8,26,0.98);
+      border-right:1px solid rgba(153,175,255,0.5);
+      box-shadow:18px 0 40px rgba(0,0,0,0.95);
+      padding:14px 14px 18px;
+      transform:translateX(-100%);
+      transition:transform 0.24s ease-out;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .menu-overlay.visible .menu-panel{
+      transform:translateX(0);
+    }
+    .menu-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:4px;
+    }
+    .menu-title{
+      font-size:14px;
+      font-weight:600;
+    }
+    .menu-close{
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.7);
+      background:rgba(11,15,40,0.96);
+      color:var(--text-soft);
+      width:28px;height:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:16px;
+      cursor:pointer;
+    }
+    .menu-section-title{
+      font-size:11px;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      color:var(--text-muted);
+    }
+    .menu-section{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      margin-top:4px;
+    }
+    .menu-item{
+      border-radius:12px;
+      border:1px solid rgba(92,115,205,0.8);
+      background:rgba(9,12,33,0.96);
+      color:var(--text-soft);
+      padding:8px 10px;
+      font-size:13px;
+      text-align:left;
+      cursor:pointer;
+    }
+    .menu-item span{
+      font-size:11px;
+      color:var(--text-muted);
+      display:block;
+      margin-top:2px;
+    }
+
+    /* BODY THEME HOOK (NEBULA vs MADEIRA) */
+
+    body[data-theme="madeira"]{
+      --accent-main:#ffb36f;
+      --accent-warm:#ffe1b3;
+      --accent-cold:#9ff0c8;
+
+      --card-bg:rgba(22,12,6,0.96);
+      --card-soft:rgba(25,13,7,0.96);
+      --border-soft:rgba(255,210,140,0.55);
+
+      --text-soft:#f6e2c1;
+      --text-muted:#b9966c;
+    }
+  </style>
+</head>
+<body data-theme="nebula" data-stream-bg="default" data-apps-view="rail">
+  <div class="shell">
+    <header>
+      <div class="header-left">
+        <button class="menu-button" id="openMenuBtn">≡</button>
+        <div class="logo-title">
+          <span>Dual.Infodose</span>
+          <span>Portal Supremo · Streaming</span>
+        </div>
+      </div>
+      <button class="mode-toggle" id="themeToggleBtn" type="button">
+        <div class="mode-dot"></div>
+        <span>Modo Nebula / Madeira</span>
+      </button>
+    </header>
+
+    <!-- HERO · STREAMING DO DIA -->
+    <section class="hero-stream">
+      <article class="hero-card" id="heroCard">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-gradient"></div>
+
+        <div class="hero-content">
+          <div class="hero-tag-row">
+            <span class="hero-tag" id="heroTag">Streaming do dia</span>
+            <div class="hero-mode-pill">
+              <span class="dot"></span>
+              <span class="label">Portal Supremo ligado</span>
+            </div>
+          </div>
+
+          <h1 class="hero-title" id="heroTitle">Portal Supremo · Sistema em modo Streaming</h1>
+          <p class="hero-subtitle" id="heroSubtitle">
+            Um episódio do seu próprio sistema rodando como canal interno.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn-primary" id="heroPlayBtn" type="button">
+              ▶ Assistir agora
+            </button>
+            <button class="btn-secondary" id="heroOpenAppBtn" type="button">
+              ⧉ Abrir como app
+            </button>
+            <button class="tts-btn" type="button" title="Ouvir descrição" id="heroTtsBtn">
+              ◎
+            </button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Saudação + intenção -->
+    <section class="greeting-strip">
+      <div class="greeting-line">
+        <span class="greeting-name" id="greetingName">Olá, KODUX</span>
+        <span class="time-mini" id="timeMini">Streaming do dia · ready</span>
+      </div>
+      <div class="intent369-field">
+        <span class="intent369-icon">⚡</span>
+        <input
+          id="intentInput"
+          class="intent369-input"
+          type="text"
+          placeholder="Qual é a intenção do seu Streaming de hoje?"
+        />
+      </div>
+    </section>
+
+    <!-- RAILS · STREAMING POR CATEGORIA -->
+
+        <!-- Trilhas & Ativações (fileira de destaque solta) -->
+    <section class="section-title">
+      <span>Trilhas & Ativações</span>
+      <span>Faixas para abrir o campo.</span>
+    </section>
+    <section class="rail">
+      <div class="rail-track" id="streamRailTrilhas"></div>
+    </section>
+
+    <!-- Outras categorias sanfonadas -->
+
+    <section class="video-accordion">
+      <details class="stack-card">
+        <summary>
+          <div class="stack-summary-main">
+            <div class="stack-title">Sinopses & Conhecimento</div>
+            <div class="stack-sub">Fundamentos da Infodose.</div>
+          </div>
+          <span class="stack-pill">Vídeos</span>
+        </summary>
+        <div class="stack-body">
+          <section class="rail">
+            <div class="rail-track" id="streamRailSinopses"></div>
+          </section>
+        </div>
+      </details>
+
+      <details class="stack-card">
+        <summary>
+          <div class="stack-summary-main">
+            <div class="stack-title">Ambiente & Espaço da Mente</div>
+            <div class="stack-sub">Ambientes que conversam com a mente.</div>
+          </div>
+          <span class="stack-pill">Vídeos</span>
+        </summary>
+        <div class="stack-body">
+          <section class="rail">
+            <div class="rail-track" id="streamRailAmbiente"></div>
+          </section>
+        </div>
+      </details>
+
+      <details class="stack-card">
+        <summary>
+          <div class="stack-summary-main">
+            <div class="stack-title">Neurociência & Bem-Estar</div>
+            <div class="stack-sub">Dopamina, atenção e cuidado.</div>
+          </div>
+          <span class="stack-pill">Vídeos</span>
+        </summary>
+        <div class="stack-body">
+          <section class="rail">
+            <div class="rail-track" id="streamRailNeuro"></div>
+          </section>
+        </div>
+      </details>
+
+      <details class="stack-card">
+        <summary>
+          <div class="stack-summary-main">
+            <div class="stack-title">Meditações Guiadas</div>
+            <div class="stack-sub">Jornadas guiadas pelo Espaço da Mente.</div>
+          </div>
+          <span class="stack-pill">Vídeos</span>
+        </summary>
+        <div class="stack-body">
+          <section class="rail">
+            <div class="rail-track" id="streamRailMeditacoes"></div>
+          </section>
+        </div>
+      </details>
+    </section>
+
+    <!-- PORTAL SUPREMO / APPS DO SISTEMA -->
+
+    <section class="section-title with-toggle">
+      <div class="section-title-main">
+        <span>Portal Supremo / Sistema</span>
+        <span>Usando o mesmo viewer e Play Store</span>
+      </div>
+      <button class="apps-view-toggle" id="appsViewToggleBtn" type="button">
+        ▤ Grid
+      </button>
+    </section>
+
+    <!-- Rail de apps -->
+    <section class="rail" id="portalRailSection">
+      <div class="rail-track" id="portalRail"></div>
+    </section>
+
+    <!-- Grid de apps -->
+    <section class="apps-grid-section" id="portalGridSection">
+      <div class="apps-grid" id="portalGrid"></div>
+    </section>
+
+    <!-- STACKS · PLAY STORE / UPLOAD HTML / CHAT -->
+    <section class="apps-stacks">
+      <!-- Stack 1: Meus apps / cápsulas -->
+      <details class="stack-card" open>
+        <summary>
+          <div class="stack-summary-main">
+            <div class="stack-title">Meus apps / cápsulas</div>
+            <div class="stack-sub">
+              Salve links, HTMLs e apps para abrir no viewer ou em aba nova.
+            </div>
+          </div>
+          <span class="stack-pill">Play Store Dual</span>
+        </summary>
+        <div class="stack-body">
+          <div class="stack-input-row">
+            <div style="flex:1;">
+              <div class="stack-field-label">Nome da cápsula</div>
+              <input id="capsuleNameInput" class="stack-input" placeholder="Portal Supremo · Sistema" />
+            </div>
+            <div style="flex:1;">
+              <div class="stack-field-label">URL ou caminho do app/HTML</div>
+              <input id="capsuleUrlInput" class="stack-input" placeholder="https://..." />
+            </div>
+          </div>
+
+          <div class="stack-input-row">
+            <div style="flex:1;">
+              <div class="stack-field-label">Thumb (opcional)</div>
+              <input id="capsuleThumbInput" class="stack-input" placeholder="https://imagem.jpg" />
+            </div>
+            <div style="flex:1;">
+              <div class="stack-field-label">Tag / tipo</div>
+              <input id="capsuleTagInput" class="stack-input" placeholder="Portal · Streaming · App" />
+            </div>
+          </div>
+
+          <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;">
+            <button class="pill-btn" id="saveCapsuleBtn" type="button">💾 Salvar cápsula (URL)</button>
+            <button class="pill-btn" id="clearCapsulesBtn" type="button">🧹 Limpar tudo</button>
+          </div>
+
+          <ul class="capsule-list" id="capsuleList"></ul>
+
+          <div class="stack-footnote">
+            Dica: use o botão “Abrir no viewer” para usar o mesmo player do Streaming do dia.
+          </div>
+
+          <div class="stack-viewer-card">
+            <div class="stack-viewer-header">
+              <div>
+                <div class="stack-viewer-title">Preview rápido</div>
+                <div class="stack-viewer-sub">
+                  Visualize apps HTML simples direto aqui.
+                </div>
+              </div>
+              <button class="stack-viewer-reset" id="resetLocalViewerBtn" type="button">
+                Limpar preview
+              </button>
+            </div>
+            <div class="stack-viewer-frame" id="localViewerFrame"></div>
+            <div class="stack-viewer-note">
+              Para visualização mais completa (vídeos, embeds), use o viewer principal lá embaixo.
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Stack 2: Upload HTML / Canal interno -->
+      <details class="stack-card">
+        <summary>
+          <div class="stack-summary-main">
+            <div class="stack-title">Upload de HTML local</div>
+            <div class="stack-sub">
+              Carregue um HTML do seu dispositivo e abra como Streaming interno.
+            </div>
+          </div>
+          <span class="stack-pill">Canal interno</span>
+        </summary>
+        <div class="stack-body">
+          <div class="stack-field-label">HTML (cole o código ou use input file no futuro)</div>
+          <textarea
+            id="htmlPasteArea"
+            class="stack-input"
+            style="border-radius:14px;min-height:90px;font-family:monospace;font-size:11px;resize:vertical;padding:8px 10px;"
+            placeholder="Cole aqui o HTML que quer testar como canal interno..."
+          ></textarea>
+          <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;">
+            <button class="pill-btn" id="previewHtmlBtn" type="button">
+              ▶ Preview no mini-viewer
+            </button>
+            <button class="pill-btn" id="openHtmlInViewerBtn" type="button">
+              ⧉ Abrir no viewer principal
+            </button>
+            <button class="pill-btn" id="saveHtmlCapsuleBtn" type="button">
+              💾 Salvar HTML como cápsula
+            </button>
+          </div>
+          <div class="stack-footnote">
+            Isso reaproveita o mesmo viewer de Streaming do Dia, só que usando o seu HTML local.
+          </div>
+        </div>
+      </details>
+
+      <!-- Stack 3: Painel de Chat / Webhook / OpenRouter -->
+      <details class="stack-card">
+        <summary>
+          <div class="stack-summary-main">
+            <div class="stack-title">Chat · Webhook / OpenRouter</div>
+            <div class="stack-sub">
+              Painel sanfonado para falar com o Blue, webhooks e modelos externos.
+            </div>
+          </div>
+          <span class="stack-pill">Chat Supremo</span>
+        </summary>
+        <div class="stack-body">
+          <div class="chat-config-grid">
+            <div class="chat-config-col">
+              <div>
+                <div class="stack-field-label">Webhook URL (Twilio / Blue / backend)</div>
+                <input
+                  id="chatWebhookUrlInput"
+                  class="stack-input"
+                  placeholder="https://seu-servidor.com/webhook"
+                />
+              </div>
+              <div>
+                <div class="stack-field-label">Identidade (nome do usuário)</div>
+                <input
+                  id="chatUserNameInput"
+                  class="stack-input"
+                  placeholder="Kodux, Blue, etc."
+                />
+              </div>
+            </div>
+            <div class="chat-config-col">
+              <div>
+                <div class="stack-field-label">OpenRouter API Key (opcional)</div>
+                <input
+                  id="chatOpenRouterKeyInput"
+                  class="stack-input"
+                  placeholder="sk-or-v1-..."
+                />
+              </div>
+              <div>
+                <div class="stack-field-label">Modelo (OpenRouter)</div>
+                <input
+                  id="chatOpenRouterModelInput"
+                  class="stack-input"
+                  placeholder="openai/gpt-4.1-mini ou outro"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="stack-field-label">System / Prompt-base do Portal Supremo</div>
+            <textarea
+              id="chatSystemPromptInput"
+              class="chat-textarea"
+              placeholder="Cole aqui o prompt-base / Persona que você quer usar no chat..."
+            ></textarea>
+          </div>
+
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;">
+            <button class="pill-btn" id="chatSaveConfigBtn" type="button">💾 Salvar configuração</button>
+            <button class="pill-btn" id="chatClearConfigBtn" type="button">🧹 Limpar configuração</button>
+          </div>
+
+          <div class="chat-panel-card">
+            <div class="chat-panel-header">
+              <div>
+                <div class="chat-panel-title">Canal · Chat Supremo</div>
+                <div class="chat-panel-sub" id="chatModeLabel">
+                  Esperando mensagem · Webhook se existir, senão OpenRouter
+                </div>
+              </div>
+              <div class="chat-panel-mode-pill" id="chatModePill">
+                Auto · Webhook → OpenRouter
+              </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages"></div>
+
+            <div class="chat-input-row">
+              <input
+                id="chatInput"
+                class="chat-input"
+                placeholder="Digite sua mensagem para o Portal Supremo..."
+              />
+              <button class="chat-send-btn" id="chatSendBtn" type="button">➤</button>
+            </div>
+          </div>
+
+          <div class="stack-footnote">
+            Lógica: se houver Webhook preenchido, envia primeiro pra ele. Se não houver,
+            usa OpenRouter (se API Key + modelo estiverem configurados).
+          </div>
+        </div>
+      </details>
+    </section>
+  </div>
+
+  <!-- VIEWER PRINCIPAL (STREAMING + APPS) -->
+  <div class="view-overlay" id="viewOverlay">
+    <div class="view-panel">
+      <div class="view-header">
+        <button class="view-back" id="viewBackBtn" type="button">✕</button>
+        <div class="view-titles">
+          <div class="view-title" id="viewTitle">Streaming do dia</div>
+          <div class="view-subtitle" id="viewSubtitle">Portal Supremo / Sistema</div>
+        </div>
+      </div>
+      <div class="view-body">
+        <div id="viewVideoHolder"></div>
+        <p class="view-note" id="viewNote">
+          Abrindo com o viewer interno do Portal Supremo. Use este espaço como seu “canal de Streaming do dia”.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU LATERAL BÁSICO -->
+  <div class="menu-overlay" id="menuOverlay">
+    <div class="menu-panel">
+      <div class="menu-top">
+        <div class="menu-title">Menu DualOiNet 10</div>
+        <button class="menu-close" id="menuCloseBtn" type="button">✕</button>
+      </div>
+
+      <div>
+        <div class="menu-section-title">modos</div>
+        <div class="menu-section">
+          <button class="menu-item" id="menuStreamingBtn" type="button">
+            Streaming do dia
+            <span>Hero + rails de categorias deste arquivo</span>
+          </button>
+          <button class="menu-item" id="menuPortalBtn" type="button">
+            Portal Supremo / Sistema
+            <span>Play Store + viewer para apps HTML e canais internos</span>
+          </button>
+          <button class="menu-item" id="menuChatBtn" type="button">
+            Chat Supremo
+            <span>Abrir stack de Chat / Webhook / OpenRouter</span>
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-title">tema</div>
+        <div class="menu-section">
+          <button class="menu-item" id="menuNebulaBtn" type="button">
+            Nebula Pro
+            <span>Glow azul/rosa espacial</span>
+          </button>
+          <button class="menu-item" id="menuMadeiraBtn" type="button">
+            Base Madeira
+            <span>Tom amadeirado quente · modo KOBLLUX</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ============================
+    // HELPERS · YOUTUBE + PLAYLIST
+    // ============================
+
+    function categoryToBg(cat){
+      switch(cat){
+        case "Trilhas e Ativações": return "deep";
+        case "Sinopses": return "warm";
+        case "Ambiente e Espaço da Mente": return "cool";
+        case "Neurociência e Bem-Estar": return "deep";
+        case "Meditações Guiadas": return "cool";
+        default: return "default";
+      }
+    }
+
+    function ytVideo({id, title, subtitle, tag, category, bgMode}){
+      return {
+        id,
+        title,
+        subtitle,
+        tag: tag || category,
+        category,
+        thumb: `https://img.youtube.com/vi/${id}/hqdefault.jpg`,
+        heroImg: `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
+        embedUrl: `https://www.youtube.com/embed/${id}`,
+        bgMode: bgMode || categoryToBg(category),
+        kind: "youtube"
+      };
+    }
+
+    function ytPlaylist({listId, title, subtitle, tag, category, bgMode, thumbVideoId}){
+      return {
+        id: listId,
+        title,
+        subtitle,
+        tag: tag || "Playlist",
+        category,
+        thumb: thumbVideoId
+          ? `https://img.youtube.com/vi/${thumbVideoId}/hqdefault.jpg`
+          : "",
+        heroImg: thumbVideoId
+          ? `https://img.youtube.com/vi/${thumbVideoId}/maxresdefault.jpg`
+          : "",
+        embedUrl: `https://www.youtube.com/embed/videoseries?list=${listId}`,
+        bgMode: bgMode || categoryToBg(category),
+        kind: "youtube-playlist"
+      };
+    }
+
+    // ============================
+    // DADOS · STREAMING DO DIA (seus vídeos)
+    // ============================
+
+    const streamingItems = [
+      // Trilhas e Ativações
+      ytVideo({
+        id: "Bt_rLbMjJDk",
+        title: "Trilhas Potencializadoras dos Aromas",
+        subtitle: "Ative aromas, memórias e intenção no mesmo fluxo.",
+        tag: "Trilhas",
+        category: "Trilhas e Ativações"
+      }),
+      ytVideo({
+        id: "_0wVkryxanE",
+        title: "Desperte a magia dos 12 arquétipos",
+        subtitle: "Introdução viva à magia arquetípica da Infodose.",
+        tag: "Arquétipos",
+        category: "Trilhas e Ativações"
+      }),
+      ytVideo({
+        id: "Id2NI9tv1r4",
+        title: "Infodose – Pra quem merece saber",
+        subtitle: "Se chegou até aqui, é porque você merece.",
+        tag: "Infodose",
+        category: "Trilhas e Ativações"
+      }),
+      ytPlaylist({
+        listId: "PL_XiIUPFx4DSKFuJZZiKCxVUy20PtDdaB",
+        title: "Infodose – Se chegou até você merece saber (Playlist)",
+        subtitle: "Série completa para manter o campo ativo.",
+        tag: "Playlist",
+        category: "Trilhas e Ativações",
+        thumbVideoId: "Id2NI9tv1r4"
+      }),
+
+      // Sinopses e Conhecimentos Fundamentais
+      ytVideo({
+        id: "qldgs0aLdB0",
+        title: "Sinopse – A Fórmula da Dopamina Sexy",
+        subtitle: "Entenda a base da dopamina aplicada à criação.",
+        tag: "Sinopse",
+        category: "Sinopses"
+      }),
+      ytVideo({
+        id: "FbutKMpd8MY",
+        title: "Sinopse – O Espaço da Mente",
+        subtitle: "O lugar onde tudo acontece antes de acontecer.",
+        tag: "Sinopse",
+        category: "Sinopses"
+      }),
+      ytVideo({
+        id: "1L9_rFmIGJ8",
+        title: "Sinopse – A Recompensa",
+        subtitle: "Por que seu cérebro busca tanto a recompensa?",
+        tag: "Sinopse",
+        category: "Sinopses"
+      }),
+      ytPlaylist({
+        listId: "PL_XiIUPFx4DQam6tyiwimO5b3X_T1Y1wd",
+        title: "Sinopse dos Livros – Espaço da Mente & Dopamina Sexy",
+        subtitle: "Playlist unindo os dois pilares da Infodose.",
+        tag: "Playlist",
+        category: "Sinopses",
+        thumbVideoId: "qldgs0aLdB0"
+      }),
+
+      // Ambiente e Espaço da Mente
+      ytVideo({
+        id: "koKhjQKGJSc",
+        title: "Manipulação da energia – O poder das cortinas",
+        subtitle: "Como um detalhe muda a energia do ambiente.",
+        tag: "Ambiente",
+        category: "Ambiente e Espaço da Mente"
+      }),
+      ytVideo({
+        id: "KrtOVrk8aDk",
+        title: "Poder sob seus pés – Pisos criam fluxos de energia",
+        subtitle: "Sua base física também é base energética.",
+        tag: "Ambiente",
+        category: "Ambiente e Espaço da Mente"
+      }),
+
+      // Neurociência e Bem-Estar
+      ytVideo({
+        id: "NBWDV6xjUP0",
+        title: "Dopamina – O segredo que não te contaram sobre vícios",
+        subtitle: "A mecânica real da dopamina além dos clichês.",
+        tag: "Neurociência",
+        category: "Neurociência e Bem-Estar"
+      }),
+      ytVideo({
+        id: "dGYbN8jgdNQ",
+        title: "TDAH e Dopamina – A verdade está aqui",
+        subtitle: "Reenquadrando atenção, foco e dopamina.",
+        tag: "Neurociência",
+        category: "Neurociência e Bem-Estar"
+      }),
+      ytVideo({
+        id: "JBjFhAutIVk",
+        title: "Como manipular seu subconsciente",
+        subtitle: "Ferramentas práticas para reprogramar padrões.",
+        tag: "Subconsciente",
+        category: "Neurociência e Bem-Estar"
+      }),
+      ytVideo({
+        id: "GSBv45vigRE",
+        title: "Esquece das coisas? Entenda o real motivador disso tudo",
+        subtitle: "Esquecimento, fuga e o que está por trás disso.",
+        tag: "Neurociência",
+        category: "Neurociência e Bem-Estar"
+      }),
+
+      // Meditações Guiadas
+      ytVideo({
+        id: "hfQ1L6fCfAo",
+        title: "Meditação Guiada – À deriva no espaço da mente",
+        subtitle: "Soltar o corpo e viajar pelo espaço interno.",
+        tag: "Meditação",
+        category: "Meditações Guiadas"
+      }),
+      ytVideo({
+        id: "Tq99vQNQ6dQ",
+        title: "Meditação Guiada – À deriva na mente do espaço da mente",
+        subtitle: "Camada meta do espaço da mente.",
+        tag: "Meditação",
+        category: "Meditações Guiadas"
+      }),
+      ytVideo({
+        id: "DTDfkHwuMic",
+        title: "Meditação Guiada – Navegando pelo Universo da Mente",
+        subtitle: "Exploração profunda em múltiplos espaços internos.",
+        tag: "Meditação",
+        category: "Meditações Guiadas"
+      }),
+      ytVideo({
+        id: "OVfqxW_Xlhw",
+        title: "Meditação Guiada – Sinfonia da Expansão Criativa",
+        subtitle: "Ativação criativa em estado meditativo.",
+        tag: "Meditação",
+        category: "Meditações Guiadas"
+      }),
+      ytVideo({
+        id: "kCHvLOtJIwQ",
+        title: "Meditação Guiada – Uma Jornada de Transformação",
+        subtitle: "Percurso guiado de mudança interna.",
+        tag: "Meditação",
+        category: "Meditações Guiadas"
+      })
+    ];
+
+    // ============================
+    // PLAY STORE · APPS DO SISTEMA
+    // ============================
+
+    const playStoreApps = [
+      {
+        key: "Orc",
+        title: "🗒️ CostaRibeiro-Orc",
+        desc: "PWA offline com dashboard, lembrete e relat.",
+        icon: "icons/icon-180.png",
+        url: "./apps/CostaRibeiro-ORc.html"
+      },
+      {
+        key: "catcr",
+        title: "CATCR",
+        desc: "Regularize seu .",
+        icon: "icons/icon-181.png",
+        url: "./apps/CATCR.html"
+      },
+      {
+        key: "catalogos-orc",
+        title: "📑 Catálogos (Orçamentos)",
+        desc: "Gere orçamentos.",
+        icon: "icons/icon-182.png",
+        url: "./apps/CostaRibero-Cotar0.html"
+      },
+      {
+        key: "catalogos-geral",
+        title: "📑 Catálogos",
+        desc: "Gere catálogos.",
+        icon: "icons/icon-192.png",
+        url: "./apps/CatCostaRibeiro.html"
+      },
+      {
+        key: "d0x",
+        title: "📜 infoD0X",
+        desc: "Livro vivo.",
+        icon: "icons/icon-d0x.png",
+        url: "./apps/index_final_cards_nossolar.html"
+      },
+      {
+        key: "ticos",
+        title: "🗒️ Práticas — NR10/NR35 (Ultra)",
+        desc: "PWA offline com dashboard, lembrete e relatos com áudio.",
+        icon: "icons/icon-192.png",
+        url: "./PWA_TICO_Ultra/index.html"
+      },
+      {
+        key: "reg-imovel",
+        title: "🏠 Regularização",
+        desc: "Regularize seu imóvel.",
+        icon: "icons/icon-192.png",
+        url: "./apps/lp-reg-10-ok-R-5.html"
+      },
+      {
+        key: "contratos",
+        title: "📑 Gerar Contrato",
+        desc: "Gere contratos.",
+        icon: "icons/icon-192.png",
+        url: "./apps/JHBARROS-contratos.html"
+      },
+      {
+        key: "d0x-2",
+        title: "📜 infoD0X (alt)",
+        desc: "Livro vivo (variação).",
+        icon: "icons/icon-192.png",
+        url: "./apps/index_final_cards_nossolar.html"
+      },
+      {
+        key: "dual-editor",
+        title: "✏️ Dual Editor • Kodux",
+        desc: "Editor vivo para códigos, prompts e HTML Dual.",
+        icon: "icons/icon-192.png",
+        url: "https://kodux78k.github.io/Dual-Editor/"
+      },
+      {
+        key: "unouno-oraculo",
+        title: "🌀 UnoUno • Oráculo Dual",
+        desc: "Oráculo simbólico estilo HUB Uno, experimental.",
+        icon: "icons/icon-192.png",
+        url: "https://kodux78k.github.io/Unouno-/index.html"
+      },
+      {
+        key: "info-doc",
+        title: "📚 Info-Doc • Livro Vivo",
+        desc: "Leitor/organizador de documentos e livros vivos Infodose.",
+        icon: "icons/icon-192.png",
+        url: "https://kodux78k.github.io/info-Doc/index.html"
+      },
+      {
+        key: "nossolar-dual",
+        title: "☀️ Nos.S°lar – dual.infodose",
+        desc: "Painel solar simbólico com cards e rede Nos.S°lar.",
+        icon: "icons/icon-192.png",
+        url: "https://kodux78k.github.io/NosSolar-dualInfodose/",
+        featured: true
+      },
+      {
+        key: "dual-app",
+        title: "🌐 Dual App • Hub",
+        desc: "App central Dual para experimentos de interface e fluxo.",
+        icon: "icons/icon-192.png",
+        url: "https://kodux78k.github.io/dual-app/index.html"
+      },
+      {
+        key: "dual-splash",
+        title: "✨ A.Dual.Infodose • Splash",
+        desc: "Tela de abertura / splash ritual da A.Dual.Infodose.",
+        icon: "icons/icon-192.png",
+        url: "https://kodux78k.github.io/A.Dual.Infodose/splash.html"
+      }
+    ];
+
+    const FEATURED_APP_KEY = "nossolar-dual";
+    const featuredApp =
+      playStoreApps.find(a => a.key === FEATURED_APP_KEY) || playStoreApps[0];
+
+    // ============================
+    // ELEMENTOS
+    // ============================
+
+    const heroCard = document.getElementById("heroCard");
+    const heroBg = document.getElementById("heroBg");
+    const heroTag = document.getElementById("heroTag");
+    const heroTitle = document.getElementById("heroTitle");
+    const heroSubtitle = document.getElementById("heroSubtitle");
+    const heroPlayBtn = document.getElementById("heroPlayBtn");
+    const heroOpenAppBtn = document.getElementById("heroOpenAppBtn");
+    const heroTtsBtn = document.getElementById("heroTtsBtn");
+
+    const viewOverlay = document.getElementById("viewOverlay");
+    const viewBackBtn = document.getElementById("viewBackBtn");
+    const viewTitle = document.getElementById("viewTitle");
+    const viewSubtitle = document.getElementById("viewSubtitle");
+    const viewVideoHolder = document.getElementById("viewVideoHolder");
+    const viewNote = document.getElementById("viewNote");
+
+    const greetingName = document.getElementById("greetingName");
+    const timeMini = document.getElementById("timeMini");
+    const intentInput = document.getElementById("intentInput");
+
+    const capsuleNameInput = document.getElementById("capsuleNameInput");
+    const capsuleUrlInput = document.getElementById("capsuleUrlInput");
+    const capsuleThumbInput = document.getElementById("capsuleThumbInput");
+    const capsuleTagInput = document.getElementById("capsuleTagInput");
+    const saveCapsuleBtn = document.getElementById("saveCapsuleBtn");
+    const clearCapsulesBtn = document.getElementById("clearCapsulesBtn");
+    const capsuleListEl = document.getElementById("capsuleList");
+    const localViewerFrame = document.getElementById("localViewerFrame");
+    const resetLocalViewerBtn = document.getElementById("resetLocalViewerBtn");
+
+    const htmlPasteArea = document.getElementById("htmlPasteArea");
+    const previewHtmlBtn = document.getElementById("previewHtmlBtn");
+    const openHtmlInViewerBtn = document.getElementById("openHtmlInViewerBtn");
+    const saveHtmlCapsuleBtn = document.getElementById("saveHtmlCapsuleBtn");
+
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+
+    const openMenuBtn = document.getElementById("openMenuBtn");
+    const menuOverlay = document.getElementById("menuOverlay");
+    const menuCloseBtn = document.getElementById("menuCloseBtn");
+    const menuStreamingBtn = document.getElementById("menuStreamingBtn");
+    const menuPortalBtn = document.getElementById("menuPortalBtn");
+    const menuChatBtn = document.getElementById("menuChatBtn");
+    const menuNebulaBtn = document.getElementById("menuNebulaBtn");
+    const menuMadeiraBtn = document.getElementById("menuMadeiraBtn");
+
+    const appsViewToggleBtn = document.getElementById("appsViewToggleBtn");
+    const portalRail = document.getElementById("portalRail");
+    const portalGrid = document.getElementById("portalGrid");
+
+    // Chat elements
+    const chatWebhookUrlInput = document.getElementById("chatWebhookUrlInput");
+    const chatUserNameInput = document.getElementById("chatUserNameInput");
+    const chatOpenRouterKeyInput = document.getElementById("chatOpenRouterKeyInput");
+    const chatOpenRouterModelInput = document.getElementById("chatOpenRouterModelInput");
+    const chatSystemPromptInput = document.getElementById("chatSystemPromptInput");
+    const chatSaveConfigBtn = document.getElementById("chatSaveConfigBtn");
+    const chatClearConfigBtn = document.getElementById("chatClearConfigBtn");
+    const chatMessagesEl = document.getElementById("chatMessages");
+    const chatInputEl = document.getElementById("chatInput");
+    const chatSendBtn = document.getElementById("chatSendBtn");
+    const chatModeLabel = document.getElementById("chatModeLabel");
+    const chatModePill = document.getElementById("chatModePill");
+
+    // ============================
+    // FUNÇÕES AUXILIARES
+    // ============================
+
+    function formatTimeMini(){
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2,"0");
+      const m = String(now.getMinutes()).padStart(2,"0");
+      return `${h}:${m} · modo Streaming`;
+    }
+
+    function applyBgTheme(bgMode){
+      const mode = bgMode || "default";
+      document.body.setAttribute("data-stream-bg", mode);
+    }
+
+    function applyHeroFromItem(item){
+      if(!item) return;
+      heroTag.textContent = item.tag || "Streaming";
+      heroTitle.textContent = item.title;
+      heroSubtitle.textContent = item.subtitle || "";
+      document.documentElement.style.setProperty(
+        "--hero-img-url",
+        `url("${item.heroImg || item.thumb}")`
+      );
+      applyBgTheme(item.bgMode);
+    }
+
+    function openInViewer({title, subtitle, url, note}){
+      viewTitle.textContent = title || "Viewer interno";
+      viewSubtitle.textContent = subtitle || "";
+      viewNote.textContent = note || "Abrindo com o viewer interno.";
+      viewVideoHolder.innerHTML = "";
+
+      if(url){
+        const iframe = document.createElement("iframe");
+        iframe.src = url;
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.allowFullscreen = true;
+        viewVideoHolder.appendChild(iframe);
+      }
+
+      viewOverlay.classList.add("visible");
+    }
+
+    function closeViewer(){
+      viewOverlay.classList.remove("visible");
+      viewVideoHolder.innerHTML = "";
+    }
+
+    // ============================
+    // RENDER · STREAMING POR CATEGORIA
+    // ============================
+
+    function createStreamCard(item){
+      const card = document.createElement("article");
+      card.className = "stream-card";
+      card.dataset.streamId = item.id;
+
+      const thumb = document.createElement("div");
+      thumb.className = "stream-thumb";
+      if(item.thumb){
+        thumb.style.backgroundImage = `url("${item.thumb}")`;
+      }
+
+      const inner = document.createElement("div");
+      inner.className = "stream-inner";
+
+      const tag = document.createElement("div");
+      tag.className = "stream-tag";
+      tag.textContent = item.tag || "Streaming";
+
+      const ttsBtn = document.createElement("button");
+      ttsBtn.className = "tts-btn stream-tts";
+      ttsBtn.type = "button";
+      ttsBtn.textContent = "◎";
+      ttsBtn.title = "Ouvir título";
+
+      const title = document.createElement("div");
+      title.className = "stream-title";
+      title.textContent = item.title;
+
+      const sub = document.createElement("div");
+      sub.className = "stream-sub";
+      sub.textContent = item.subtitle || "";
+
+      inner.appendChild(title);
+      inner.appendChild(sub);
+
+      card.appendChild(thumb);
+      card.appendChild(inner);
+      card.appendChild(tag);
+      card.appendChild(ttsBtn);
+
+      card.addEventListener("click", () => {
+        applyHeroFromItem(item);
+        openInViewer({
+          title: item.title,
+          subtitle: item.subtitle,
+          url: item.embedUrl,
+          note: "Streaming do dia rodando no viewer interno."
+        });
+      });
+
+      ttsBtn.addEventListener("click", ev => {
+        ev.stopPropagation();
+        if("speechSynthesis" in window){
+          const u = new SpeechSynthesisUtterance(
+            `${item.title}. ${item.subtitle || ""}`
+          );
+          u.lang = "pt-BR";
+          window.speechSynthesis.speak(u);
+        }
+      });
+
+      return card;
+    }
+
+    function renderStreamingRails(){
+      const railsConfig = [
+        {
+          id: "streamRailTrilhas",
+          categories: ["Trilhas e Ativações"]
+        },
+        {
+          id: "streamRailSinopses",
+          categories: ["Sinopses"]
+        },
+        {
+          id: "streamRailAmbiente",
+          categories: ["Ambiente e Espaço da Mente"]
+        },
+        {
+          id: "streamRailNeuro",
+          categories: ["Neurociência e Bem-Estar"]
+        },
+        {
+          id: "streamRailMeditacoes",
+          categories: ["Meditações Guiadas"]
+        }
+      ];
+
+      railsConfig.forEach(cfg => {
+        const track = document.getElementById(cfg.id);
+        if(!track) return;
+        track.innerHTML = "";
+
+        const list = streamingItems.filter(item =>
+          cfg.categories.includes(item.category)
+        );
+
+        if(!list.length){
+          const emptyMsg = document.createElement("div");
+          emptyMsg.style.fontSize = "11px";
+          emptyMsg.style.color = "var(--text-muted)";
+          emptyMsg.style.padding = "8px 2px";
+          emptyMsg.textContent = "Sem vídeos nessa categoria ainda.";
+          track.appendChild(emptyMsg);
+          return;
+        }
+
+        list.forEach(item => {
+          track.appendChild(createStreamCard(item));
+        });
+      });
+    }
+
+    // ============================
+    // APP GROUPS · PARA GRADIENT
+    // ============================
+
+    function getAppGroup(app){
+      const k = (app.key || "").toLowerCase();
+      const t = (app.title || "").toLowerCase();
+
+      if(k.includes("dual") || k.includes("unouno") || t.includes("dual")){
+        return "dual";
+      }
+      if(k.includes("solar") || t.includes("solar") || t.includes("nos.s°lar")){
+        return "solar";
+      }
+      if(k.includes("d0x") || k.includes("info") || t.includes("livro")){
+        return "docs";
+      }
+      return "base";
+    }
+
+    // ============================
+    // RENDER · PORTAL SUPREMO (apps)
+    // ============================
+
+    function createAppCard(app){
+      const card = document.createElement("article");
+      card.className = "stream-card app-card";
+      card.dataset.portalId = app.key;
+      card.dataset.appGroup = getAppGroup(app);
+
+      const thumb = document.createElement("div");
+      thumb.className = "stream-thumb";
+      if(app.icon){
+        thumb.style.backgroundImage = `url("${app.icon}")`;
+      }
+
+      const inner = document.createElement("div");
+      inner.className = "stream-inner";
+
+      const tag = document.createElement("div");
+      tag.className = "stream-tag";
+      tag.textContent = "App";
+
+      const title = document.createElement("div");
+      title.className = "stream-title";
+      title.textContent = app.title;
+
+      const sub = document.createElement("div");
+      sub.className = "stream-sub";
+      sub.textContent = app.desc || "";
+
+      inner.appendChild(title);
+      inner.appendChild(sub);
+
+      card.appendChild(thumb);
+      card.appendChild(inner);
+      card.appendChild(tag);
+
+      card.addEventListener("click", () => {
+        applyBgTheme("deep");
+        openInViewer({
+          title: app.title,
+          subtitle: app.desc || "",
+          url: app.url,
+          note: "App do Portal Supremo rodando no viewer (Play Store interna)."
+        });
+      });
+
+      return card;
+    }
+
+    function renderPortalApps(){
+      portalRail.innerHTML = "";
+      portalGrid.innerHTML = "";
+      playStoreApps.forEach(app => {
+        const cardRail = createAppCard(app);
+        portalRail.appendChild(cardRail);
+
+        const cardGrid = createAppCard(app);
+        portalGrid.appendChild(cardGrid);
+      });
+    }
+
+    // ============================
+    // PLAY STORE / CÁPSULAS (locais)
+    // ============================
+
+    const CAPSULE_KEY = "dual_portal_stream_capsules_v1";
+
+    function loadCapsules(){
+      try{
+        const raw = localStorage.getItem(CAPSULE_KEY);
+        if(!raw) return [];
+        return JSON.parse(raw);
+      }catch(e){
+        return [];
+      }
+    }
+
+    function saveCapsules(caps){
+      localStorage.setItem(CAPSULE_KEY, JSON.stringify(caps));
+    }
+
+    function renderCapsules(){
+      const caps = loadCapsules();
+      capsuleListEl.innerHTML = "";
+      if(!caps.length){
+        const empty = document.createElement("li");
+        empty.className = "capsule-pill";
+        empty.innerHTML =
+          '<div class="capsule-main"><div class="capsule-title">Nenhuma cápsula salva ainda</div><div class="capsule-tag">Salve um link ou HTML para começar.</div></div>';
+        capsuleListEl.appendChild(empty);
+        return;
+      }
+
+      caps.forEach((cap, index) => {
+        const li = document.createElement("li");
+        li.className = "capsule-pill";
+
+        const main = document.createElement("div");
+        main.className = "capsule-main";
+
+        const title = document.createElement("div");
+        title.className = "capsule-title";
+        title.textContent = cap.name || "(sem nome)";
+
+        const isHtml = !!cap.html || cap.isHtml;
+        const tag = document.createElement("div");
+        tag.className = "capsule-tag";
+        tag.textContent = cap.tag
+          ? cap.tag + (isHtml ? " · HTML" : "")
+          : isHtml
+          ? "HTML interno"
+          : cap.url || "";
+
+        main.appendChild(title);
+        main.appendChild(tag);
+
+        const actions = document.createElement("div");
+        actions.className = "capsule-actions";
+
+        const btnViewer = document.createElement("button");
+        btnViewer.className = "pill-btn";
+        btnViewer.type = "button";
+        btnViewer.textContent = "▶ Abrir no viewer";
+        btnViewer.addEventListener("click", () => {
+          applyBgTheme("deep");
+          openInViewer({
+            title: cap.name || "Cápsula",
+            subtitle: cap.tag || "",
+            url: isHtml ? "about:blank" : cap.url,
+            note: isHtml
+              ? "HTML interno sendo renderizado pelo viewer."
+              : "Cápsula da Play Store interna usando o viewer do Portal."
+          });
+
+          if(isHtml){
+            const iframe = viewVideoHolder.querySelector("iframe");
+            if(iframe){
+              iframe.addEventListener("load", () => {
+                iframe.contentWindow.document.open();
+                iframe.contentWindow.document.write(cap.html || "");
+                iframe.contentWindow.document.close();
+              });
+            }
+          }
+        });
+
+        const btnPreview = document.createElement("button");
+        btnPreview.className = "pill-btn";
+        btnPreview.type = "button";
+        btnPreview.textContent = "⧉ Preview local";
+        btnPreview.addEventListener("click", () => {
+          if(isHtml && cap.html){
+            localViewerFrame.innerHTML = cap.html;
+          }else if(cap.url){
+            localViewerFrame.innerHTML =
+              `<iframe src="${cap.url}" style="width:100%;height:100%;border:0;border-radius:0 0 18px 18px;"></iframe>`;
+          }
+        });
+
+        const btnRemove = document.createElement("button");
+        btnRemove.className = "pill-btn";
+        btnRemove.type = "button";
+        btnRemove.textContent = "🗑 Remover";
+        btnRemove.addEventListener("click", () => {
+          const updated = loadCapsules().filter((_, i) => i !== index);
+          saveCapsules(updated);
+          renderCapsules();
+        });
+
+        actions.appendChild(btnViewer);
+        actions.appendChild(btnPreview);
+        actions.appendChild(btnRemove);
+
+        li.appendChild(main);
+        li.appendChild(actions);
+
+        capsuleListEl.appendChild(li);
+      });
+    }
+
+    saveCapsuleBtn.addEventListener("click", () => {
+      const name = capsuleNameInput.value.trim();
+      const url = capsuleUrlInput.value.trim();
+      const thumb = capsuleThumbInput.value.trim();
+      const tag = capsuleTagInput.value.trim();
+
+      if(!url){
+        alert("Precisa pelo menos de uma URL.");
+        return;
+      }
+
+      const caps = loadCapsules();
+      caps.unshift({name, url, thumb, tag, isHtml:false});
+      saveCapsules(caps);
+      renderCapsules();
+
+      capsuleNameInput.value = "";
+      capsuleUrlInput.value = "";
+      capsuleThumbInput.value = "";
+      capsuleTagInput.value = "";
+    });
+
+    clearCapsulesBtn.addEventListener("click", () => {
+      if(confirm("Apagar todas as cápsulas salvas?")){
+        localStorage.removeItem(CAPSULE_KEY);
+        renderCapsules();
+      }
+    });
+
+    resetLocalViewerBtn.addEventListener("click", () => {
+      localViewerFrame.innerHTML = "";
+    });
+
+    // HTML colado
+    previewHtmlBtn.addEventListener("click", () => {
+      const html = htmlPasteArea.value.trim();
+      if(!html){
+        alert("Cole algum HTML primeiro.");
+        return;
+      }
+      localViewerFrame.innerHTML = html;
+    });
+
+    openHtmlInViewerBtn.addEventListener("click", () => {
+      const html = htmlPasteArea.value.trim();
+      if(!html){
+        alert("Cole algum HTML primeiro.");
+        return;
+      }
+      openInViewer({
+        title: "HTML local",
+        subtitle: "Conteúdo colado sendo exibido pelo viewer interno.",
+        url: "about:blank",
+        note: "HTML colado sendo renderizado diretamente dentro do viewer."
+      });
+      const iframe = viewVideoHolder.querySelector("iframe");
+      if(iframe){
+        iframe.addEventListener("load", () => {
+          iframe.contentWindow.document.open();
+          iframe.contentWindow.document.write(html);
+          iframe.contentWindow.document.close();
+        });
+      }
+    });
+
+    // Salvar HTML como cápsula
+    saveHtmlCapsuleBtn.addEventListener("click", () => {
+      const html = htmlPasteArea.value.trim();
+      if(!html){
+        alert("Cole algum HTML primeiro para salvar.");
+        return;
+      }
+      const name = capsuleNameInput.value.trim() || "Canal interno HTML";
+      const tag = capsuleTagInput.value.trim() || "HTML interno";
+
+      const caps = loadCapsules();
+      caps.unshift({
+        name,
+        url: "",
+        html,
+        tag,
+        isHtml: true
+      });
+      saveCapsules(caps);
+      renderCapsules();
+    });
+
+    // ============================
+    // CHAT SUPREMO · STATE + CONFIG
+    // ============================
+
+    const CHAT_CFG_KEY = "dual_portal_chat_config_v1";
+
+    function loadChatConfig(){
+      try{
+        const raw = localStorage.getItem(CHAT_CFG_KEY);
+        if(!raw) return {};
+        return JSON.parse(raw);
+      }catch(e){
+        return {};
+      }
+    }
+
+    function saveChatConfig(cfg){
+      localStorage.setItem(CHAT_CFG_KEY, JSON.stringify(cfg));
+    }
+
+    function refreshChatModeLabel(cfg){
+      const hasWebhook = !!cfg.webhookUrl;
+      const hasOR = !!cfg.openRouterKey && !!cfg.openRouterModel;
+      let label = "Sem destino configurado ainda.";
+      let pill = "Modo ocioso";
+
+      if(hasWebhook && hasOR){
+        label = "Envia primeiro para Webhook · fallback OpenRouter.";
+        pill = "Webhook → OpenRouter";
+      }else if(hasWebhook){
+        label = "Enviando mensagens apenas para seu Webhook.";
+        pill = "Somente Webhook";
+      }else if(hasOR){
+        label = "Enviando mensagens apenas para OpenRouter.";
+        pill = "Somente OpenRouter";
+      }
+
+      chatModeLabel.textContent = label;
+      chatModePill.textContent = pill;
+    }
+
+    function applyChatConfigToInputs(cfg){
+      chatWebhookUrlInput.value = cfg.webhookUrl || "";
+      chatUserNameInput.value = cfg.userName || "";
+      chatOpenRouterKeyInput.value = cfg.openRouterKey || "";
+      chatOpenRouterModelInput.value = cfg.openRouterModel || "";
+      chatSystemPromptInput.value = cfg.systemPrompt || "";
+      refreshChatModeLabel(cfg);
+    }
+
+    const chatConfigInitial = loadChatConfig();
+    applyChatConfigToInputs(chatConfigInitial);
+
+    chatSaveConfigBtn.addEventListener("click", () => {
+      const cfg = {
+        webhookUrl: chatWebhookUrlInput.value.trim(),
+        userName: chatUserNameInput.value.trim(),
+        openRouterKey: chatOpenRouterKeyInput.value.trim(),
+        openRouterModel: chatOpenRouterModelInput.value.trim(),
+        systemPrompt: chatSystemPromptInput.value.trim()
+      };
+      saveChatConfig(cfg);
+      refreshChatModeLabel(cfg);
+      alert("Configuração de chat salva.");
+    });
+
+    chatClearConfigBtn.addEventListener("click", () => {
+      if(!confirm("Limpar configuração de chat (Webhook / OpenRouter / Prompt)?")) return;
+      localStorage.removeItem(CHAT_CFG_KEY);
+      applyChatConfigToInputs({});
+    });
+
+    // ============================
+    // CHAT SUPREMO · MENSAGENS
+    // ============================
+
+    const chatMessages = [];
+
+    function renderChatMessages(){
+      chatMessagesEl.innerHTML = "";
+      chatMessages.forEach(msg => {
+        const div = document.createElement("div");
+        div.className = "chat-message " + msg.role;
+        div.textContent = msg.text;
+        chatMessagesEl.appendChild(div);
+      });
+      chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+    }
+
+    function pushChatMessage(role, text){
+      chatMessages.push({role, text});
+      renderChatMessages();
+    }
+
+    async function sendChat(){
+      const text = chatInputEl.value.trim();
+      if(!text) return;
+
+      const cfg = loadChatConfig();
+      const {webhookUrl, openRouterKey, openRouterModel, systemPrompt, userName} = cfg;
+
+      pushChatMessage("me", text);
+      chatInputEl.value = "";
+
+      let used = null;
+      let reply = "";
+
+      try{
+        if(webhookUrl){
+          used = "webhook";
+          const payload = {
+            sender: userName || "Kodux",
+            message: text,
+            system: systemPrompt || "",
+            source: "DualOiNet-10"
+          };
+
+          const res = await fetch(webhookUrl, {
+            method:"POST",
+            headers:{
+              "Content-Type":"application/json"
+            },
+            body:JSON.stringify(payload)
+          });
+
+          if(!res.ok){
+            throw new Error("Status " + res.status);
+          }
+
+          const data = await res.json().catch(() => ({}));
+          reply =
+            data.reply ||
+            data.response ||
+            data.message ||
+            data.content ||
+            JSON.stringify(data).slice(0,400);
+        }else if(openRouterKey && openRouterModel){
+          used = "openrouter";
+          const body = {
+            model: openRouterModel,
+            messages: [
+              systemPrompt
+                ? {role:"system", content:systemPrompt}
+                : null,
+              {
+                role:"user",
+                content: (userName ? userName + ": " : "") + text
+              }
+            ].filter(Boolean)
+          };
+
+          const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method:"POST",
+            headers:{
+              "Content-Type":"application/json",
+              "Authorization":"Bearer " + openRouterKey
+            },
+            body:JSON.stringify(body)
+          });
+
+          if(!res.ok){
+            throw new Error("Status " + res.status);
+          }
+
+          const data = await res.json();
+          reply =
+            data.choices?.[0]?.message?.content?.trim() ||
+            "[Sem conteúdo de resposta do modelo]";
+        }else{
+          used = "none";
+          reply =
+            "Nenhum destino configurado.\n" +
+            "Preencha o Webhook ou a API Key + Modelo do OpenRouter em cima para ativar o Chat Supremo.";
+        }
+      }catch(err){
+        reply = "Erro ao buscar resposta (" + (used || "indefinido") + "): " + err.message;
+      }
+
+      pushChatMessage("ai", reply);
+    }
+
+    chatSendBtn.addEventListener("click", sendChat);
+    chatInputEl.addEventListener("keydown", ev => {
+      if(ev.key === "Enter" && !ev.shiftKey){
+        ev.preventDefault();
+        sendChat();
+      }
+    });
+
+    // ============================
+    // TEMA E MENU
+    // ============================
+
+    function setTheme(theme){
+      document.body.setAttribute("data-theme", theme);
+      localStorage.setItem("dual_portal_theme", theme);
+    }
+
+    function toggleTheme(){
+      const current = document.body.getAttribute("data-theme") || "nebula";
+      setTheme(current === "nebula" ? "madeira" : "nebula");
+    }
+
+    themeToggleBtn.addEventListener("click", toggleTheme);
+
+    const savedTheme = localStorage.getItem("dual_portal_theme");
+    if(savedTheme){
+      setTheme(savedTheme);
+    }
+
+    openMenuBtn.addEventListener("click", () => {
+      menuOverlay.classList.add("visible");
+    });
+    menuCloseBtn.addEventListener("click", () => {
+      menuOverlay.classList.remove("visible");
+    });
+    menuOverlay.addEventListener("click", e => {
+      if(e.target === menuOverlay){
+        menuOverlay.classList.remove("visible");
+      }
+    });
+
+    menuStreamingBtn.addEventListener("click", () => {
+      menuOverlay.classList.remove("visible");
+      window.scrollTo({top:0,behavior:"smooth"});
+    });
+
+    menuPortalBtn.addEventListener("click", () => {
+      menuOverlay.classList.remove("visible");
+      const appsStacks = document.querySelector(".apps-stacks");
+      if(appsStacks){
+        const rect = appsStacks.getBoundingClientRect();
+        const offset = window.scrollY + rect.top - 40;
+        window.scrollTo({top:offset,behavior:"smooth"});
+      }
+    });
+
+    menuChatBtn.addEventListener("click", () => {
+      menuOverlay.classList.remove("visible");
+      const stacks = document.querySelectorAll(".apps-stacks details.stack-card");
+      const chatStack = stacks[2]; // terceiro stack (Chat Supremo)
+      if(chatStack){
+        chatStack.open = true;
+        const rect = chatStack.getBoundingClientRect();
+        const offset = window.scrollY + rect.top - 40;
+        window.scrollTo({top:offset,behavior:"smooth"});
+      }
+    });
+
+    menuNebulaBtn.addEventListener("click", () => setTheme("nebula"));
+    menuMadeiraBtn.addEventListener("click", () => setTheme("madeira"));
+
+    // ============================
+    // HERO / VIEWER
+    // ============================
+
+    heroCard.addEventListener("click", () => {
+      const first = streamingItems[0];
+      if(!first) return;
+      applyHeroFromItem(first);
+      openInViewer({
+        title: first.title,
+        subtitle: first.subtitle,
+        url: first.embedUrl,
+        note: "Streaming do dia rodando no viewer interno."
+      });
+    });
+
+    heroPlayBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      const first = streamingItems[0];
+      if(!first) return;
+      applyHeroFromItem(first);
+      openInViewer({
+        title: first.title,
+        subtitle: first.subtitle,
+        url: first.embedUrl,
+        note: "Streaming do dia rodando no viewer interno."
+      });
+    });
+
+    heroOpenAppBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      if(!featuredApp) return;
+      openInViewer({
+        title: featuredApp.title,
+        subtitle: featuredApp.desc || "",
+        url: featuredApp.url,
+        note: "App destaque (cápsula destacada) rodando como Streaming automático do dia."
+      });
+    });
+
+    heroTtsBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      if("speechSynthesis" in window){
+        const u = new SpeechSynthesisUtterance(
+          `${heroTitle.textContent}. ${heroSubtitle.textContent || ""}`
+        );
+        u.lang = "pt-BR";
+        window.speechSynthesis.speak(u);
+      }
+    });
+
+    viewBackBtn.addEventListener("click", closeViewer);
+    viewOverlay.addEventListener("click", e => {
+      if(e.target === viewOverlay) closeViewer();
+    });
+
+    // ============================
+    // SAUDAÇÃO / INTENÇÃO
+    // ============================
+
+    greetingName.textContent = "Olá, KODUX";
+    timeMini.textContent = formatTimeMini();
+
+    if(featuredApp){
+      heroSubtitle.textContent =
+        "Streaming alinhado com o app destaque: " + featuredApp.title;
+    }
+
+    intentInput.addEventListener("change", () => {
+      const txt = intentInput.value.trim();
+      if(!txt) return;
+      localStorage.setItem("dual_portal_intent_of_the_day", txt);
+    });
+
+    const savedIntent = localStorage.getItem("dual_portal_intent_of_the_day");
+    if(savedIntent){
+      intentInput.value = savedIntent;
+    }
+
+    // ============================
+    // TOGGLE GRID / RAIL (APPS)
+    // ============================
+
+    function applyAppsView(mode){
+      const finalMode = mode === "grid" ? "grid" : "rail";
+      document.body.setAttribute("data-apps-view", finalMode);
+      localStorage.setItem("dual_portal_apps_view", finalMode);
+      if(finalMode === "grid"){
+        appsViewToggleBtn.textContent = "↔ Rail";
+      }else{
+        appsViewToggleBtn.textContent = "▤ Grid";
+      }
+    }
+
+    const savedAppsView = localStorage.getItem("dual_portal_apps_view") || "rail";
+    applyAppsView(savedAppsView);
+
+    appsViewToggleBtn.addEventListener("click", () => {
+      const current = document.body.getAttribute("data-apps-view") || "rail";
+      applyAppsView(current === "rail" ? "grid" : "rail");
+    });
+
+    // ============================
+    // BOOT
+    // ============================
+
+    renderStreamingRails();
+    renderPortalApps();
+    renderCapsules();
+    applyHeroFromItem(streamingItems[2] || streamingItems[0]);
+  </script>
+</body>
+</html>
