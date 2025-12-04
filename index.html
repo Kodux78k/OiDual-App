@@ -1344,6 +1344,62 @@
       --text-soft:#f6e2c1;
       --text-muted:#b9966c;
     }
+
+/* OVERRIDE · VIEWER PRINCIPAL v2
+   Compacto = antigo maximizado
+   Full = modo app 9:16 vertical  */
+
+.view-overlay{
+  transition: background 0.25s ease;
+}
+
+.view-panel{
+  transition: max-height 0.25s ease, transform 0.25s ease;
+}
+
+/* MODO COMPACTO
+   - Padrão “maximizado antigo”
+   - Viewer grande, mas ainda com respiro pro resto da UI */
+.view-overlay[data-size="compact"] .view-panel{
+  max-height: 96vh;           /* era 260px; agora quase tela cheia */
+}
+
+/* Altura boa pro app/vídeo em modo compacto */
+.view-overlay[data-size="compact"] #viewVideoHolder iframe{
+  width: 100%;
+  min-height: min(60vh, 520px);
+}
+
+/* MODO FULL
+   - Modo app 9:16 vertical
+   - Quase tela inteira, foco total no iFrame */
+.view-overlay[data-size="full"] .view-panel{
+  max-height: 100vh;
+}
+
+/* iFrame em 9:16 vertical (height > width) */
+.view-overlay[data-size="full"] #viewVideoHolder iframe{
+  width: 100%;
+  aspect-ratio: 9 / 16;         /* vertical */
+  min-height: min(80vh, 720px); /* fallback se aspect-ratio não pegar */
+}
+
+/* Opcional: corpo rolável no full, pra não estourar */
+.view-overlay[data-size="full"] .view-body{
+  max-height: calc(100vh - 64px); /* header + margem */
+  overflow-y: auto;
+}
+
+/* Em telas muito pequenas, dá uma segurada */
+@media (max-width: 640px){
+  .view-overlay[data-size="compact"] #viewVideoHolder iframe{
+    min-height: 33vh; margin-bottom:12vh;
+  }
+  .view-overlay[data-size="full"] #viewVideoHolder iframe{
+    min-height: 87vh; margin-bottom:12vh;
+  }
+}
+
   </style>
 </head>
 <body data-theme="nebula" data-stream-bg="default" data-apps-view="rail">
@@ -4031,6 +4087,8 @@
 
 
 <!-- OVERRIDE v9 · Viewers (mini + principal) -->
+
+<!-- OVERRIDE v10 · Viewers (mini + principal) -->
 <style>
   /* ============================
      MINI VIEWER · ALTURA 220/620
@@ -4063,7 +4121,7 @@
     height: 220px;
   }
 
-  /* Estado expandido: 620px (como você esticou) */
+  /* Estado expandido: 620px */
   .stack-viewer-card[data-size="max"] .stack-viewer-frame{
     height: 620px;
   }
@@ -4077,29 +4135,72 @@
   /* ============================
      VIEWER PRINCIPAL · COMPACT/FULL
      ============================ */
+
+  /* Mantém o fade de opacidade e adiciona background */
   .view-overlay{
-    transition: background 0.25s ease;
+    transition: opacity 0.24s ease, background 0.25s ease;
   }
 
   .view-panel{
     transition: max-height 0.25s ease, transform 0.25s ease;
   }
 
-  /* Compacto: painel baixinho no rodapé */
+  /* Agora o body ocupa a altura do panel */
+  .view-body{
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  /* Zera a min-height fixa anterior do iframe
+     (este seletor ganha do #viewVideoHolder iframe isolado) */
+  .view-overlay #viewVideoHolder iframe{
+    min-height: 0;
+    height: auto;
+  }
+
+  /* COMPACT = “antigo maximizado” (viewer grande padrão) */
   .view-overlay[data-size="compact"] .view-panel{
-    max-height: 260px;
+    max-height: 60vh;
   }
 
-  /* Full: já é o padrão 90vh, só deixamos explícito */
+  .view-overlay[data-size="compact"] #viewVideoHolder iframe{
+    height: 296px;
+    min-height: 296px;
+  }
+
+  /* FULL = modo app 9:16, quase tela cheia */
   .view-overlay[data-size="full"] .view-panel{
-    max-height: 90vh;
+    max-height: 100vh;
+    height: 100vh;
   }
 
+  .view-overlay[data-size="full"] .view-body{
+    padding-bottom: 4px;
+  }
+
+  .view-overlay[data-size="full"] #viewVideoHolder iframe{
+    height: 78vh;
+    min-height: 78vh;
+  }
+
+  /* Mobile: garante que continua gigante no iPhone */
+  @media (max-width: 640px){
+    .view-overlay[data-size="compact"] #viewVideoHolder iframe{
+      height: 39vh;
+      min-height: 39vh;
+    }
+    .view-overlay[data-size="full"] #viewVideoHolder iframe{
+      height: 78vh;
+      min-height: 78vh;
+    }
+  }
+
+  /* Botão de tamanho do viewer (mesmo estilo que você já tinha) */
   .view-size-toggle-btn{
     border-radius: 999px;
     border: 0;
     padding: 6px 10px;
-    font-size: 11px;
+    font-size: 8px;
     cursor: pointer;
     background: radial-gradient(circle at 100% 0, #ffcf8a 0%, #ff7ad9 35%, #141429 100%);
     color: #02030a;
@@ -4111,19 +4212,13 @@
   }
 
   .view-size-toggle-btn span{
-    font-size: 12px;
+    font-size: 8px;
   }
 
   .view-header-actions{
     display: inline-flex;
     align-items: center;
     gap: 6px;
-  }
-
-  @media (max-width: 640px){
-    .view-overlay[data-size="compact"] .view-panel{
-      max-height: 220px;
-    }
   }
 </style>
 
