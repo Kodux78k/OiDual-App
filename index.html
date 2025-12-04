@@ -111,7 +111,216 @@
       to{opacity:1;transform:translateY(0);}
     }
 
-    /* HEADER */
+   /* PATCH · TEXT BLOCKS & CALLOUTS · KOBLLUX BEAUTY v1  */
+/* MOBILE-FIRST VERTICAL HARD-LOCK */
+
+:root{
+  --txt-block-bg: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
+  --txt-block-border: rgba(148,163,184,0.55);
+  --txt-block-shadow: 0 14px 30px rgba(0,0,0,0.72);
+
+  --callout-info-bg: radial-gradient(circle at 0 0, rgba(56,189,248,0.28), rgba(15,23,42,0.96));
+  --callout-info-border: rgba(56,189,248,0.75);
+
+  --callout-warn-bg: radial-gradient(circle at 0 0, rgba(251,191,36,0.32), rgba(15,23,42,0.98));
+  --callout-warn-border: rgba(251,191,36,0.85);
+
+  --callout-success-bg: radial-gradient(circle at 0 0, rgba(34,197,94,0.32), rgba(15,23,42,0.98));
+  --callout-success-border: rgba(34,197,94,0.85);
+
+  --callout-aside-bg: radial-gradient(circle at 0 0, rgba(148,163,184,0.22), rgba(15,23,42,0.98));
+  --callout-aside-border: rgba(148,163,184,0.7);
+
+  --callout-question-bg: radial-gradient(circle at 0 0, rgba(129,140,248,0.32), rgba(15,23,42,0.98));
+  --callout-question-border: rgba(129,140,248,0.9);
+}
+
+/* 1) TEXTOS SOLTOS DENTRO DOS STACKS VÃO VIRAR BLOCOS */
+
+.stack-body > p{
+  margin: 0 0 0.55rem;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: var(--txt-block-bg);
+  border: 1px solid var(--txt-block-border);
+  box-shadow: var(--txt-block-shadow);
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text-soft,#cbd5f5);
+}
+
+/* Quando tiver vários parágrafos seguidos, eles grudam visualmente */
+.stack-body > p + p{
+  margin-top: 4px;
+}
+
+/* Se tiver .flow-text, respeita ela (só ajusta um pouco) */
+.stack-body .flow-text{
+  margin: 0 0 0.6rem;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: var(--txt-block-bg);
+  border: 1px solid var(--txt-block-border);
+  box-shadow: var(--txt-block-shadow);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+/* 2) BLOCOS “RENDER RESPONSE” / LIVRO VIVO */
+
+.render-response,
+.render-block,
+.infodoc-block{
+  border-radius: 14px;
+  padding: 10px 11px;
+  margin: 0 0 0.7rem;
+  background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(2,6,23,0.98));
+  border: 1px solid rgba(148,163,184,0.55);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.9);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-soft,#d1ddff);
+}
+
+.render-response h1,
+.render-response h2,
+.render-response h3,
+.render-response h4,
+.render-block h1,
+.render-block h2,
+.render-block h3,
+.render-block h4,
+.infodoc-block h1,
+.infodoc-block h2,
+.infodoc-block h3,
+.infodoc-block h4{
+  margin: 0 0 0.4rem;
+  font-size: 0.9rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--text-strong,#f9fafb);
+}
+
+.render-response p,
+.render-block p,
+.infodoc-block p{
+  margin: 0 0 0.45rem;
+}
+
+.render-response p:last-child,
+.render-block p:last-child,
+.infodoc-block p:last-child{
+  margin-bottom: 0;
+}
+
+/* Código dentro da resposta rende bonitinho também */
+.render-response code,
+.render-block code,
+.infodoc-block code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.78rem;
+  padding: 1px 4px;
+  border-radius: 6px;
+  background: rgba(15,23,42,0.95);
+  border: 1px solid rgba(75,85,99,0.9);
+}
+
+/* 3) CALLOUTS TIPO LIVRO VIVO (::info, ::warn, ::success, ::aside, ::question)  */
+
+/* Base genérica (caso teu parser gere .callout) */
+.callout,
+.infodoc-callout{
+  position: relative;
+  margin: 0 0 0.6rem;
+  padding: 7px 9px 7px 11px;
+  border-radius: 12px;
+  border: 1px solid var(--callout-aside-border);
+  background: var(--callout-aside-bg);
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--text-soft,#e5e7f5);
+}
+
+.callout::before,
+.infodoc-callout::before{
+  content: "⊙";
+  position: absolute;
+  left: 8px;
+  top: 7px;
+  font-size: 11px;
+  opacity: 0.9;
+}
+
+/* Info */
+.callout.info,
+.infodoc-callout.info{
+  background: var(--callout-info-bg);
+  border-color: var(--callout-info-border);
+}
+.callout.info::before,
+.infodoc-callout.info::before{
+  content: "ℹ";
+}
+
+/* Warn / danger */
+.callout.warn,
+.callout.warning,
+.infodoc-callout.warn,
+.infodoc-callout.warning{
+  background: var(--callout-warn-bg);
+  border-color: var(--callout-warn-border);
+}
+.callout.warn::before,
+.callout.warning::before,
+.infodoc-callout.warn::before,
+.infodoc-callout.warning::before{
+  content: "⚠";
+}
+
+/* Success */
+.callout.success,
+.infodoc-callout.success{
+  background: var(--callout-success-bg);
+  border-color: var(--callout-success-border);
+}
+.callout.success::before,
+.infodoc-callout.success::before{
+  content: "✔";
+}
+
+/* Aside (observação lateral) */
+.callout.aside,
+.infodoc-callout.aside{
+  background: var(--callout-aside-bg);
+  border-color: var(--callout-aside-border);
+}
+.callout.aside::before,
+.infodoc-callout.aside::before{
+  content: "☍";
+}
+
+/* Question (pergunta / reflexão) */
+.callout.question,
+.infodoc-callout.question{
+  background: var(--callout-question-bg);
+  border-color: var(--callout-question-border);
+}
+.callout.question::before,
+.infodoc-callout.question::before{
+  content: "?";
+}
+
+/* Títulos dentro de callout (se tiver) */
+.callout strong:first-child,
+.infodoc-callout strong:first-child{
+  display:block;
+  margin-bottom: 2px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: #f9fafb;
+}
+ /* HEADER */
 
     header{
       display:flex;
@@ -2771,6 +2980,1279 @@
     renderCapsules();
     applyHeroFromItem(streamingItems[2] || streamingItems[0]);
   </script>
+
+<!-- OVERRIDE v2 · Organizador de stack-card com data-stack-target -->
+<script>
+  (function () {
+    const ATTR_TARGET = "data-stack-target";
+    const ATTR_ORDER = "data-stack-order";
+
+    function moveStacks(root) {
+      const scope = root || document;
+      const selector = "details.stack-card[" + ATTR_TARGET + "]";
+      const cards = Array.from(scope.querySelectorAll(selector));
+
+      cards.forEach(function (card) {
+        const targetSelector = card.getAttribute(ATTR_TARGET) || ".apps-stacks";
+        if (!targetSelector) return;
+
+        const target = document.querySelector(targetSelector);
+        if (!target) return;
+
+        // já está dentro do target? não mexe
+        if (card.closest(targetSelector) === target) return;
+
+        const orderRaw = card.getAttribute(ATTR_ORDER);
+        const order = orderRaw != null ? parseFloat(orderRaw) : null;
+
+        if (order == null || Number.isNaN(order)) {
+          target.appendChild(card);
+          return;
+        }
+
+        // insere respeitando data-stack-order
+        const siblings = Array.from(
+          target.querySelectorAll("details.stack-card[" + ATTR_ORDER + "]")
+        ).filter(function (el) {
+          return el !== card;
+        });
+
+        let inserted = false;
+        for (let i = 0; i < siblings.length; i++) {
+          const sOrderRaw = siblings[i].getAttribute(ATTR_ORDER);
+          const sOrder = sOrderRaw != null ? parseFloat(sOrderRaw) : null;
+          if (sOrder != null && !Number.isNaN(sOrder) && sOrder > order) {
+            target.insertBefore(card, siblings[i]);
+            inserted = true;
+            break;
+          }
+        }
+
+        if (!inserted) {
+          target.appendChild(card);
+        }
+      });
+    }
+
+    function initMove() {
+      moveStacks(document);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initMove);
+    } else {
+      initMove();
+    }
+
+    // Observa novos patches (ex: injetor HTML jogando cards depois)
+    const observer = new MutationObserver(function (mutations) {
+      for (const m of mutations) {
+        m.addedNodes.forEach(function (node) {
+          if (!(node instanceof Element)) return;
+
+          if (
+            node.matches &&
+            node.matches("details.stack-card[" + ATTR_TARGET + "]")
+          ) {
+            moveStacks(node);
+          } else if (node.querySelector) {
+            const inner = node.querySelector("details.stack-card[" + ATTR_TARGET + "]");
+            if (inner) moveStacks(node);
+          }
+        });
+      }
+    });
+
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true
+    });
+
+    console.log("[OVERRIDE v2] Ativo · aguardando stack-card com data-stack-target");
+  })();
+</script>
+
+<!-- STACK · Motor de Stacks v3 · Nested + Add App (inner card) + TTS global -->
+<details
+  class="stack-card"
+  id="stack-manager-override"
+  data-stack-target=".apps-stacks"
+  data-stack-order="0"
+>
+  <summary>
+    <div class="stack-summary-main">
+      <div class="stack-title">Motor de Stacks v3 · Nested</div>
+      <div class="stack-sub">
+        Ler todos os cards, ligar/desligar, agrupar, criar apps/patches e ativar TTS global.
+      </div>
+    </div>
+    <span class="stack-pill">Manager · Global</span>
+  </summary>
+
+  <div class="stack-body">
+    <!-- VISÃO GERAL -->
+    <div class="stack-field-label">Visão geral</div>
+    <p class="flow-text" style="font-size:11px;color:var(--text-soft);line-height:1.6;margin-bottom:0.4rem;">
+      Este motor enxerga todos os <code>details.stack-card</code> do seu index
+      (vídeos, apps, root...) e permite:
+      <br>· Ligar/desligar cada card (ON/OFF)
+      <br>· Ligar/desligar grupos inteiros (nested)
+      <br>· Criar novos cards de patch ou App
+      <br>· Adicionar TTS em todos os stacks, com botão dedicado por card
+    </p>
+
+    <!-- GRUPOS NESTED -->
+    <div class="stack-field-label">Grupos de cards (nested)</div>
+    <div id="stackMgrGroupsNested" style="display:flex;flex-direction:column;gap:6px;margin-bottom:0.6rem;">
+      <!-- grupos + cards gerados via JS -->
+    </div>
+
+    <button class="pill-btn" type="button" id="stackMgrReloadBtn" style="font-size:11px;margin-bottom:0.7rem;">
+      🔄 Recarregar lista de cards
+    </button>
+
+    <hr style="border:none;border-top:1px solid var(--border-soft,rgba(148,163,184,0.5));margin:0.7rem 0;">
+
+    <!-- INNER CARD · CRIAÇÃO DE NOVOS CARDS -->
+    <details class="mgr-inner-card" open>
+      <summary>
+        <div class="mgr-inner-header">
+          <div class="mgr-inner-main">
+            <div class="mgr-inner-title">Criar novo card</div>
+            <div class="mgr-inner-sub">Patch genérico ou App nested com URL, tag e TTS.</div>
+          </div>
+          <span class="mgr-inner-pill">Novo · Stack</span>
+        </div>
+      </summary>
+
+      <div class="mgr-inner-body">
+        <!-- Tipo de card -->
+        <div id="stackMgrTypeRow" style="display:flex;gap:4px;flex-wrap:wrap;margin:0.2rem 0 0.45rem;">
+          <button type="button" class="mgr-type-pill is-active" data-type="patch">
+            🧩 Patch genérico
+          </button>
+          <button type="button" class="mgr-type-pill" data-type="app">
+            📱 App (nested)
+          </button>
+        </div>
+
+        <div class="stack-input-row" style="display:flex;flex-direction:column;gap:4px;margin-bottom:0.35rem;">
+          <label style="font-size:11px;color:var(--text-soft);">
+            Título do card
+            <input
+              id="stackMgrNewTitle"
+              class="stack-input"
+              type="text"
+              placeholder="Ex: Emoção v3 · Modo experimental"
+            >
+          </label>
+
+          <label style="font-size:11px;color:var(--text-soft);">
+            Grupo (<code>data-stack-group</code>)
+            <input
+              id="stackMgrNewGroup"
+              class="stack-input"
+              type="text"
+              placeholder="Ex: apps, videos, grego, ritual (default: apps p/ tipo App)"
+            >
+          </label>
+
+          <label style="font-size:11px;color:var(--text-soft);">
+            Target (<code>data-stack-target</code>)
+            <input
+              id="stackMgrNewTarget"
+              class="stack-input"
+              type="text"
+              placeholder=".apps-stacks"
+              value=".apps-stacks"
+            >
+          </label>
+
+          <label style="font-size:11px;color:var(--text-soft);">
+            Ordem opcional (<code>data-stack-order</code>)
+            <input
+              id="stackMgrNewOrder"
+              class="stack-input"
+              type="number"
+              min="0"
+              step="1"
+              placeholder="Ex: 10"
+            >
+          </label>
+        </div>
+
+        <!-- Campos extras para tipo App -->
+        <div id="stackMgrAppFields" style="display:none;flex-direction:column;gap:4px;margin-bottom:0.35rem;">
+          <div class="stack-field-label" style="margin-bottom:0;">Campos para tipo App</div>
+
+          <label style="font-size:11px;color:var(--text-soft);">
+            URL do app
+            <input
+              id="stackMgrNewAppUrl"
+              class="stack-input"
+              type="text"
+              placeholder="Ex: https://meu-app.vercel.app"
+            >
+          </label>
+
+          <label style="font-size:11px;color:var(--text-soft);">
+            Tag / categoria do app
+            <input
+              id="stackMgrNewAppTag"
+              class="stack-input"
+              type="text"
+              placeholder="Ex: Player, Editor, Ritual"
+            >
+          </label>
+
+          <label style="font-size:11px;color:var(--text-soft);">
+            Descrição curta (usada também no TTS)
+            <input
+              id="stackMgrNewAppDesc"
+              class="stack-input"
+              type="text"
+              placeholder="Ex: Player de trilhas do KOBLLUX"
+            >
+          </label>
+        </div>
+
+        <label class="stack-field-label" for="stackMgrNewHtml">
+          HTML interno do card (modo Patch genérico)
+        </label>
+        <textarea
+          id="stackMgrNewHtml"
+          class="stack-input"
+          rows="5"
+          placeholder="Modo Patch: cole aqui o conteúdo interno do card (sem &lt;details&gt;).&#10;Modo App: este campo é opcional."
+          style="font-family:monospace;font-size:11px;"
+        ></textarea>
+
+        <div style="display:flex;gap:6px;margin-top:0.4rem;flex-wrap:wrap;">
+          <button class="pill-btn" type="button" id="stackMgrAddBtn" style="font-size:11px;">
+            ➕ Criar card
+          </button>
+          <button class="pill-btn" type="button" id="stackMgrClearFormBtn" style="font-size:11px;">
+            🧹 Limpar formulário
+          </button>
+        </div>
+
+        <div class="stack-footnote" style="margin-top:0.4rem;">
+          • Tipo <strong>Patch</strong> cria um stack genérico com o HTML que você colar.<br>
+          • Tipo <strong>App</strong> cria um card com botão de abrir e descrição, entrando no grupo definido (ou em <code>apps</code> por padrão).
+        </div>
+      </div>
+    </details>
+  </div>
+</details>
+
+<style>
+  /* Motor de Stacks v3 · estilos locais (nested + inner card + TTS global) */
+
+  /* INNER CARD (nested dentro do Manager) */
+  #stack-manager-override .mgr-inner-card {
+    border-radius: 10px;
+    border: 1px solid var(--border-soft, rgba(148,163,184,0.7));
+    background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.88));
+    margin-top: 0.4rem;
+    overflow: hidden;
+  }
+  #stack-manager-override .mgr-inner-card summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  #stack-manager-override .mgr-inner-card summary::-webkit-details-marker {
+    display: none;
+  }
+  #stack-manager-override .mgr-inner-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 8px;
+  }
+  #stack-manager-override .mgr-inner-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  #stack-manager-override .mgr-inner-title {
+    font-size: 11px;
+    color: var(--text-strong,#e5f0ff);
+  }
+  #stack-manager-override .mgr-inner-sub {
+    font-size: 10px;
+    color: var(--text-soft,#9ca3af);
+  }
+  #stack-manager-override .mgr-inner-pill {
+    font-size: 10px;
+    padding-inline: 0.6rem;
+    padding-block: 0.2rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft,rgba(148,163,184,0.8));
+    background: rgba(15,23,42,0.92);
+    white-space: nowrap;
+  }
+  #stack-manager-override .mgr-inner-body {
+    padding: 4px 8px 8px;
+    border-top: 1px solid rgba(15,23,42,0.96);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #stack-manager-override .mgr-type-pill {
+    font-size: 10px;
+    padding-inline: 0.6rem;
+    padding-block: 0.2rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft, rgba(148,163,184,0.6));
+    background: rgba(15,23,42,0.92);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .18s ease, border-color .18s ease, transform .08s ease;
+  }
+  #stack-manager-override .mgr-type-pill.is-active {
+    border-color: var(--accent, #38bdf8);
+    background: radial-gradient(circle at 0% 0%, rgba(56,189,248,0.32), transparent 68%);
+    transform: translateY(-1px);
+  }
+
+  /* GRUPOS NESTED */
+  #stack-manager-override .mgr-group {
+    border-radius: 10px;
+    border: 1px solid var(--border-soft, rgba(148,163,184,0.6));
+    background: rgba(15,23,42,0.9);
+    overflow: hidden;
+  }
+
+  #stack-manager-override .mgr-group summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  #stack-manager-override .mgr-group summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #stack-manager-override .mgr-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 8px;
+  }
+
+  #stack-manager-override .mgr-group-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  #stack-manager-override .mgr-group-title {
+    font-size: 11px;
+    color: var(--text-strong, #e5f0ff);
+  }
+
+  #stack-manager-override .mgr-group-meta {
+    font-size: 10px;
+    color: var(--text-soft, #9ca3af);
+  }
+
+  #stack-manager-override .mgr-group-btn {
+    font-size: 10px;
+    padding-inline: 0.5rem;
+    padding-block: 0.15rem;
+    border-radius: 999px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--border-soft, rgba(148,163,184,0.6));
+    background: rgba(15,23,42,0.9);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  #stack-manager-override .mgr-group-btn.is-off {
+    border-color: #f97316;
+    background: radial-gradient(circle at 0% 0%, rgba(248,113,113,0.24), transparent 70%);
+    color: #fed7aa;
+  }
+
+  #stack-manager-override .mgr-group-body {
+    padding: 4px 8px 6px;
+    border-top: 1px solid rgba(15,23,42,0.9);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #stack-manager-override .mgr-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    border-radius: 7px;
+    border: 1px solid var(--border-soft, rgba(148,163,184,0.5));
+    background: rgba(15,23,42,0.98);
+  }
+
+  #stack-manager-override .mgr-row-main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #stack-manager-override .mgr-row-title {
+    font-size: 11px;
+    color: var(--text-strong, #e5f0ff);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #stack-manager-override .mgr-row-meta {
+    font-size: 10px;
+    color: var(--text-soft, #9ca3af);
+  }
+
+  #stack-manager-override .mgr-row-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  #stack-manager-override .mgr-btn {
+    font-size: 10px;
+    padding-inline: 0.5rem;
+    padding-block: 0.15rem;
+    border-radius: 999px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--border-soft, rgba(148,163,184,0.6));
+    background: rgba(15,23,42,0.9);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  #stack-manager-override .mgr-btn-toggle-on {
+    border-color: #22c55e;
+    background: radial-gradient(circle at 0% 0%, rgba(34,197,94,0.24), transparent 70%);
+    color: #bbf7d0;
+  }
+
+  #stack-manager-override .mgr-btn-toggle-off {
+    border-color: #f97316;
+    background: radial-gradient(circle at 0% 0%, rgba(248,113,113,0.24), transparent 70%);
+    color: #fed7aa;
+  }
+
+  #stack-manager-override .mgr-btn-tts {
+    border-color: #38bdf8;
+    background: radial-gradient(circle at 0% 0%, rgba(56,189,248,0.28), transparent 70%);
+    color: #e0f2fe;
+    border-radius: 999px;
+    min-width: 26px;
+    min-height: 26px;
+    padding-inline: 0.3rem;
+  }
+
+  #stack-manager-override .mgr-btn-tts span {
+    font-size: 13px;
+  }
+
+  /* Botão TTS global que aparece em TODO stack-card (fora do manager) */
+  .stack-tts-btn {
+    margin-left: 4px;
+    border-radius: 999px;
+    border: 1px solid rgba(148,163,184,0.7);
+    background: radial-gradient(circle at 0% 0%, rgba(56,189,248,0.3), transparent 70%);
+    padding: 0 6px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .stack-tts-btn span {
+    font-size: 11px;
+  }
+</style>
+
+<script>
+  // Motor de Stacks v3 · Nested + Add App + TTS global
+  (function () {
+    const root = document.getElementById("stack-manager-override");
+    if (!root) return;
+
+    const VIS_KEY = "dual_stack_visibility_v3";
+    const GROUP_KEY = "dual_stack_groups_v3";
+
+    const groupsContainer = root.querySelector("#stackMgrGroupsNested");
+    const reloadBtn = root.querySelector("#stackMgrReloadBtn");
+
+    const titleInput = root.querySelector("#stackMgrNewTitle");
+    const groupInput = root.querySelector("#stackMgrNewGroup");
+    const targetInput = root.querySelector("#stackMgrNewTarget");
+    const orderInput = root.querySelector("#stackMgrNewOrder");
+    const htmlInput = root.querySelector("#stackMgrNewHtml");
+
+    const appFieldsBox = root.querySelector("#stackMgrAppFields");
+    const appUrlInput = root.querySelector("#stackMgrNewAppUrl");
+    const appTagInput = root.querySelector("#stackMgrNewAppTag");
+    const appDescInput = root.querySelector("#stackMgrNewAppDesc");
+
+    const typeRow = root.querySelector("#stackMgrTypeRow");
+    const typePills = typeRow ? Array.from(typeRow.querySelectorAll(".mgr-type-pill")) : [];
+    let currentType = "patch";
+
+    const addBtn = root.querySelector("#stackMgrAddBtn");
+    const clearBtn = root.querySelector("#stackMgrClearFormBtn");
+
+    const CARD_SELECTOR = "details.stack-card";
+    const SELF_ID = "stack-manager-override";
+
+    // ==== TTS helper ====
+    function speakText(text) {
+      try {
+        // Modo IA externo (OpenRouter etc.)
+        if (window.stackTtsMode === "ai" && typeof window.playStackTtsAI === "function") {
+          window.playStackTtsAI(text);
+          return;
+        }
+        // Modo TTS custom do app
+        if (typeof window.playStackTts === "function") {
+          window.playStackTts(text);
+          return;
+        }
+      } catch (e) {}
+
+      // Fallback: Web Speech API
+      if (!("speechSynthesis" in window)) return;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = "pt-BR";
+      utter.rate = 1;
+      utter.pitch = 1;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
+    }
+
+    // Adiciona botão TTS em TODO stack-card (uma vez só)
+    function ensureStackTtsButton(card, groupName) {
+      if (!card || card.id === SELF_ID) return;
+      const summary = card.querySelector("summary");
+      if (!summary) return;
+
+      // já existe botão?
+      if (summary.querySelector(".stack-tts-btn")) return;
+
+      const anchor =
+        summary.querySelector(".stack-summary-main") ||
+        summary;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "stack-tts-btn";
+      btn.title = "Ouvir este card";
+      btn.innerHTML = "<span>◎</span>";
+
+      btn.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        const title = getTitle(card);
+        let bodyText = "";
+        const body = card.querySelector(".stack-body");
+        if (body) {
+          bodyText = body.innerText || body.textContent || "";
+        }
+        const phrase = "Grupo " + groupName + ". Card: " + title + ". " + bodyText;
+        speakText(phrase);
+      });
+
+      anchor.appendChild(btn);
+    }
+
+    // Tipo de card (Patch/App)
+    if (typeRow) {
+      typePills.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const t = btn.dataset.type || "patch";
+          currentType = t;
+
+          typePills.forEach((b) => b.classList.toggle("is-active", b === btn));
+
+          if (t === "app") {
+            appFieldsBox.style.display = "flex";
+          } else {
+            appFieldsBox.style.display = "none";
+          }
+        });
+      });
+    }
+
+    function loadMap(key) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveMap(key, map) {
+      try {
+        localStorage.setItem(key, JSON.stringify(map));
+      } catch (e) {}
+    }
+
+    function getAllCards() {
+      const all = Array.from(document.querySelectorAll(CARD_SELECTOR));
+      return all.filter(function (el) {
+        return el.id !== SELF_ID;
+      });
+    }
+
+    function ensureCardId(card, idx) {
+      let id = card.getAttribute("id") || card.getAttribute("data-stack-id");
+      if (!id) {
+        id = "stack-" + (idx + 1) + "-" + Date.now();
+        card.setAttribute("data-stack-id", id);
+      }
+      return id;
+    }
+
+    function detectGroup(card) {
+      const explicit = card.getAttribute("data-stack-group");
+      if (explicit) return explicit;
+
+      if (card.closest(".video-accordion")) return "videos";
+      if (card.closest(".apps-stacks")) return "apps";
+
+      return "root";
+    }
+
+    function getTitle(card) {
+      const t = card.querySelector(".stack-title");
+      if (t && t.textContent.trim()) return t.textContent.trim();
+      return card.getAttribute("id") || card.getAttribute("data-stack-id") || "Stack sem título";
+    }
+
+    function applyVisibility(card, visible, visMap, id) {
+      const key = id || ensureCardId(card, 0);
+      visMap[key] = !!visible;
+      card.hidden = !visible;
+    }
+
+    function render() {
+      const cards = getAllCards();
+      const visMap = loadMap(VIS_KEY);
+      const groupState = loadMap(GROUP_KEY);
+
+      // Estado inicial respeita tela ou storage
+      cards.forEach(function (card, idx) {
+        const id = ensureCardId(card, idx);
+        const currentVisible = !card.hidden;
+        const stored = visMap.hasOwnProperty(id) ? !!visMap[id] : currentVisible;
+        card.hidden = !stored;
+        visMap[id] = stored;
+      });
+      saveMap(VIS_KEY, visMap);
+
+      // Agrupar por grupo detectado
+      const groups = {};
+      cards.forEach(function (card, idx) {
+        const g = detectGroup(card);
+        if (!groups[g]) groups[g] = [];
+        groups[g].push(card);
+      });
+
+      // Render nested
+      groupsContainer.innerHTML = "";
+      Object.keys(groups)
+        .sort()
+        .forEach(function (g) {
+          const groupCards = groups[g];
+          const active = groupState[g] !== false; // default: true
+
+          const details = document.createElement("details");
+          details.className = "mgr-group";
+          details.open = true;
+
+          const summary = document.createElement("summary");
+          const header = document.createElement("div");
+          header.className = "mgr-group-header";
+
+          const main = document.createElement("div");
+          main.className = "mgr-group-main";
+
+          const titleEl = document.createElement("div");
+          titleEl.className = "mgr-group-title";
+          titleEl.textContent = g;
+
+          const metaEl = document.createElement("div");
+          metaEl.className = "mgr-group-meta";
+          metaEl.textContent = groupCards.length + " card(s)";
+
+          main.appendChild(titleEl);
+          main.appendChild(metaEl);
+
+          const btnGroup = document.createElement("button");
+          btnGroup.type = "button";
+          btnGroup.className = "mgr-group-btn" + (active ? "" : " is-off");
+          btnGroup.textContent = active ? "Grupo ON" : "Grupo OFF";
+
+          btnGroup.addEventListener("click", function (ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+
+            const nowActive = groupState[g] !== false;
+            const next = !nowActive;
+            groupState[g] = next;
+            saveMap(GROUP_KEY, groupState);
+
+            btnGroup.classList.toggle("is-off", !next);
+            btnGroup.textContent = next ? "Grupo ON" : "Grupo OFF";
+
+            const visMapLocal = loadMap(VIS_KEY);
+            groupCards.forEach(function (card, idx) {
+              const id = ensureCardId(card, idx);
+              if (!next) {
+                applyVisibility(card, false, visMapLocal, id);
+              } else {
+                const stored = visMapLocal.hasOwnProperty(id) ? !!visMapLocal[id] : true;
+                applyVisibility(card, stored, visMapLocal, id);
+              }
+            });
+            saveMap(VIS_KEY, visMapLocal);
+          });
+
+          header.appendChild(main);
+          header.appendChild(btnGroup);
+          summary.appendChild(header);
+
+          const body = document.createElement("div");
+          body.className = "mgr-group-body";
+
+          groupCards.forEach(function (card, idx) {
+            const id = ensureCardId(card, idx);
+            const visible = !card.hidden;
+            const title = getTitle(card);
+            const order = card.getAttribute("data-stack-order") || "—";
+
+            // garante botão TTS no próprio stack
+            ensureStackTtsButton(card, g);
+
+            const row = document.createElement("div");
+            row.className = "mgr-row";
+            row.dataset.stackId = id;
+
+            const rMain = document.createElement("div");
+            rMain.className = "mgr-row-main";
+
+            const rTitle = document.createElement("div");
+            rTitle.className = "mgr-row-title";
+            rTitle.textContent = title;
+
+            const rMeta = document.createElement("div");
+            rMeta.className = "mgr-row-meta";
+            rMeta.textContent = "id: " + id + " · ordem: " + order;
+
+            rMain.appendChild(rTitle);
+            rMain.appendChild(rMeta);
+
+            const actions = document.createElement("div");
+            actions.className = "mgr-row-actions";
+
+            // Botão TTS (resumo curto do card)
+            const btnTts = document.createElement("button");
+            btnTts.type = "button";
+            btnTts.className = "mgr-btn mgr-btn-tts";
+            btnTts.innerHTML = "<span>◎</span>";
+            btnTts.title = "Ouvir resumo do card";
+
+            btnTts.addEventListener("click", function (ev) {
+              ev.stopPropagation();
+              const bodyEl = card.querySelector(".stack-body");
+              const shortText = bodyEl
+                ? (bodyEl.innerText || bodyEl.textContent || "").slice(0, 240)
+                : "";
+              const phrase = "Grupo " + g + ". Card: " + title + ". " + shortText;
+              speakText(phrase);
+            });
+
+            // Botão ON/OFF
+            const btnToggle = document.createElement("button");
+            btnToggle.type = "button";
+            btnToggle.className =
+              "mgr-btn " + (visible ? "mgr-btn-toggle-on" : "mgr-btn-toggle-off");
+            btnToggle.textContent = visible ? "ON" : "OFF";
+
+            btnToggle.addEventListener("click", function () {
+              const visMapLocal = loadMap(VIS_KEY);
+              const nowVisible = !card.hidden;
+              const next = !nowVisible;
+              applyVisibility(card, next, visMapLocal, id);
+              saveMap(VIS_KEY, visMapLocal);
+
+              btnToggle.textContent = next ? "ON" : "OFF";
+              btnToggle.classList.toggle("mgr-btn-toggle-on", next);
+              btnToggle.classList.toggle("mgr-btn-toggle-off", !next);
+            });
+
+            actions.appendChild(btnTts);
+            actions.appendChild(btnToggle);
+
+            row.appendChild(rMain);
+            row.appendChild(actions);
+            body.appendChild(row);
+          });
+
+          details.appendChild(summary);
+          details.appendChild(body);
+          groupsContainer.appendChild(details);
+        });
+    }
+
+    if (reloadBtn) {
+      reloadBtn.addEventListener("click", render);
+    }
+
+    if (addBtn) {
+      addBtn.addEventListener("click", function () {
+        const title = (titleInput && titleInput.value.trim()) || "Card";
+        let group = groupInput && groupInput.value.trim();
+        const target = (targetInput && targetInput.value.trim()) || ".apps-stacks";
+        const order = orderInput && orderInput.value.trim();
+        const innerHtml = (htmlInput && htmlInput.value.trim()) || "";
+
+        let type = currentType || "patch";
+
+        if (type === "app" && !group) {
+          group = "apps";
+        }
+
+        const details = document.createElement("details");
+        details.className = "stack-card";
+        details.setAttribute("data-stack-target", target);
+        if (group) details.setAttribute("data-stack-group", group);
+        if (order) details.setAttribute("data-stack-order", order);
+
+        const summary = document.createElement("summary");
+        summary.innerHTML =
+          '<div class="stack-summary-main">' +
+          '<div class="stack-title">' + title.replace(/</g, "&lt;") + '</div>' +
+          '<div class="stack-sub">Card criado via Motor de Stacks v3 · ' +
+          (type === "app" ? "App" : "Patch") +
+          '.</div>' +
+          "</div>" +
+          '<span class="stack-pill">' + (type === "app" ? "App" : "Patch") + "</span>";
+
+        const body = document.createElement("div");
+        body.className = "stack-body";
+
+        if (type === "app") {
+          const url = appUrlInput && appUrlInput.value.trim();
+          const tag = appTagInput && appTagInput.value.trim();
+          const desc = appDescInput && appDescInput.value.trim();
+
+          body.innerHTML =
+            '<div class="stack-field-label">App</div>' +
+            '<p style="font-size:11px;color:var(--text-soft);line-height:1.6;margin-bottom:0.45rem;">' +
+            (desc ? desc.replace(/</g, "&lt;") : "App criado via Manager.") +
+            "</p>" +
+            '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:0.4rem;">' +
+            (tag
+              ? '<span class="stack-pill" style="font-size:10px;">' +
+                tag.replace(/</g, "&lt;") +
+                "</span>"
+              : "") +
+            (url
+              ? '<button type="button" class="pill-btn app-open-btn" data-app-url="' +
+                url.replace(/"/g, "&quot;") +
+                '" style="font-size:11px;">Abrir app</button>'
+              : "") +
+            "</div>" +
+            (url
+              ? '<div class="stack-footnote" style="font-size:10px;word-break:break-all;">' +
+                url.replace(/</g, "&lt;") +
+                "</div>"
+              : "");
+        } else {
+          if (innerHtml) {
+            body.innerHTML = innerHtml;
+          } else {
+            body.innerHTML =
+              '<div class="stack-field-label">Novo card vazio</div>' +
+              '<p style="font-size:11px;color:var(--text-soft);">Edite este conteúdo depois.</p>';
+          }
+        }
+
+        details.appendChild(summary);
+        details.appendChild(body);
+
+        document.body.appendChild(details);
+
+        // apps: botão "Abrir app"
+        setTimeout(() => {
+          const btns = details.querySelectorAll(".app-open-btn");
+          btns.forEach((b) => {
+            b.addEventListener("click", () => {
+              const url = b.getAttribute("data-app-url");
+              if (!url) return;
+
+              const frame = document.getElementById("localViewerFrame");
+              if (frame && frame.tagName === "IFRAME") {
+                frame.src = url;
+              } else {
+                window.open(url, "_blank");
+              }
+            });
+          });
+        }, 0);
+
+        setTimeout(render, 200);
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        if (titleInput) titleInput.value = "";
+        if (groupInput) groupInput.value = "";
+        if (orderInput) orderInput.value = "";
+        if (htmlInput) htmlInput.value = "";
+        if (appUrlInput) appUrlInput.value = "";
+        if (appTagInput) appTagInput.value = "";
+        if (appDescInput) appDescInput.value = "";
+      });
+    }
+
+    function init() {
+      render();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<!-- ============ OVERRIDE V9 — TTS ORB NOS STACKS ============ -->
+<script>
+(() => {
+  // Só roda quando o DOM estiver pronto
+  const run = () => {
+    const stacks = document.querySelectorAll('details.stack-card');
+    if (!stacks.length) return;
+
+    // Função de fala reutilizável
+    function speak(text) {
+      if (!text || !('speechSynthesis' in window)) return;
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'pt-BR';
+      u.rate = 1.0;
+      u.pitch = 1.02;
+      try { window.speechSynthesis.cancel(); } catch (e) {}
+      window.speechSynthesis.speak(u);
+    }
+
+    // Monta o texto de um stack inteiro
+    function getStackText(stackEl) {
+      const parts = [];
+
+      const title = stackEl.querySelector('.stack-title');
+      if (title && title.textContent.trim()) {
+        parts.push(title.textContent.trim());
+      }
+
+      const sub = stackEl.querySelector('.stack-sub');
+      if (sub && sub.textContent.trim()) {
+        parts.push(sub.textContent.trim());
+      }
+
+      // labels + possíveis valores
+      stackEl.querySelectorAll('.stack-field-label').forEach(lbl => {
+        const labelText = lbl.textContent.trim();
+        let valueText = '';
+
+        // tenta achar um input/textarea logo depois
+        const next = lbl.nextElementSibling;
+        if (next && next.classList.contains('stack-input')) {
+          if ('value' in next && next.value) {
+            valueText = next.value.trim();
+          } else if (next.textContent) {
+            valueText = next.textContent.trim();
+          }
+        }
+
+        if (labelText || valueText) {
+          parts.push(labelText + (valueText ? ': ' + valueText : ''));
+        }
+      });
+
+      // notas/footnotes e parágrafos
+      stackEl.querySelectorAll('.stack-footnote, .stack-body p').forEach(el => {
+        const t = el.textContent.trim();
+        if (t) parts.push(t);
+      });
+
+      return parts.join('. ');
+    }
+
+    stacks.forEach(stackEl => {
+      const summary = stackEl.querySelector('summary');
+      if (!summary) return;
+
+      // Se já tiver orb de TTS, não duplica
+      if (summary.querySelector('.tts-btn, .stack-tts')) return;
+
+      // Cria orb usando a mesma estética de TTS já existente
+      const orb = document.createElement('button');
+      orb.type = 'button';
+      orb.className = 'tts-btn stack-tts';
+      orb.setAttribute('aria-label', 'Ouvir este stack');
+      orb.textContent = '◎';
+
+      orb.addEventListener('click', (ev) => {
+        ev.stopPropagation(); // não abrir/fechar o details ao clicar no orb
+        const text = getStackText(stackEl);
+        speak(text);
+      });
+
+      // Joga o orb no final do summary (lado direito, junto da pill)
+      summary.appendChild(orb);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run, { once: true });
+  } else {
+    run();
+  }
+})();
+</script>
+<!-- ============ /OVERRIDE V9 — TTS ORB NOS STACKS ============ -->
+
+
+<!-- OVERRIDE v9 · Viewers (mini + principal) -->
+<style>
+  /* ============================
+     MINI VIEWER · ALTURA 220/620
+     ============================ */
+  .stack-viewer-card{
+    position: relative;
+  }
+
+  .stack-viewer-toggle-size{
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 11px;
+    border: 0;
+    cursor: pointer;
+    background: radial-gradient(circle at 0 0, #3bffb3 0%, #00d4ff 40%, #141429 100%);
+    color: #02030a;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .stack-viewer-toggle-size span{
+    font-size: 12px;
+  }
+
+  /* Estado padrão: compacto (220px) */
+  .stack-viewer-card[data-size="min"] .stack-viewer-frame{
+    height: 220px;
+  }
+
+  /* Estado expandido: 620px (como você esticou) */
+  .stack-viewer-card[data-size="max"] .stack-viewer-frame{
+    height: 620px;
+  }
+
+  @media (max-width: 640px){
+    .stack-viewer-card[data-size="max"] .stack-viewer-frame{
+      height: 520px;
+    }
+  }
+
+  /* ============================
+     VIEWER PRINCIPAL · COMPACT/FULL
+     ============================ */
+  .view-overlay{
+    transition: background 0.25s ease;
+  }
+
+  .view-panel{
+    transition: max-height 0.25s ease, transform 0.25s ease;
+  }
+
+  /* Compacto: painel baixinho no rodapé */
+  .view-overlay[data-size="compact"] .view-panel{
+    max-height: 260px;
+  }
+
+  /* Full: já é o padrão 90vh, só deixamos explícito */
+  .view-overlay[data-size="full"] .view-panel{
+    max-height: 90vh;
+  }
+
+  .view-size-toggle-btn{
+    border-radius: 999px;
+    border: 0;
+    padding: 6px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    background: radial-gradient(circle at 100% 0, #ffcf8a 0%, #ff7ad9 35%, #141429 100%);
+    color: #02030a;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .view-size-toggle-btn span{
+    font-size: 12px;
+  }
+
+  .view-header-actions{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  @media (max-width: 640px){
+    .view-overlay[data-size="compact"] .view-panel{
+      max-height: 220px;
+    }
+  }
+</style>
+
+<script>
+  (function(){
+    /* =========================================
+       MINI VIEWER (localViewerFrame) · TOGGLE
+       ========================================= */
+    const MINI_KEY = "dual_stackViewerSize_v1";
+
+    function setupMiniViewerToggle(){
+      const card = document.querySelector(".stack-viewer-card");
+      if(!card) return;
+
+      const resetBtn = card.querySelector(".stack-viewer-reset");
+      const header  = card.querySelector(".stack-viewer-header");
+      if(!header || !resetBtn) return;
+
+      const currentSize = localStorage.getItem(MINI_KEY) === "max" ? "max" : "min";
+      card.dataset.size = currentSize;
+
+      // Cria o botão de toggle
+      const toggleBtn = document.createElement("button");
+      toggleBtn.type = "button";
+      toggleBtn.className = "stack-viewer-toggle-size";
+      const iconSpan = document.createElement("span");
+      iconSpan.textContent = "⬍";
+      const labelSpan = document.createElement("span");
+      toggleBtn.appendChild(iconSpan);
+      toggleBtn.appendChild(labelSpan);
+
+      function applyLabel(size){
+        if(size === "max"){
+          labelSpan.textContent = "Minimizar preview";
+        }else{
+          labelSpan.textContent = "Expandir preview";
+        }
+      }
+      applyLabel(currentSize);
+
+      toggleBtn.addEventListener("click", function(){
+        const next = card.dataset.size === "max" ? "min" : "max";
+        card.dataset.size = next;
+        localStorage.setItem(MINI_KEY, next);
+        applyLabel(next);
+      });
+
+      // Insere o botão antes do reset pra ficar lado a lado
+      resetBtn.parentNode.insertBefore(toggleBtn, resetBtn);
+    }
+
+    /* =========================================
+       VIEWER PRINCIPAL (viewOverlay) · TOGGLE
+       ========================================= */
+    const VIEW_KEY = "dual_viewOverlaySize_v1";
+
+    function setupMainViewerToggle(){
+      const viewOverlay = document.getElementById("viewOverlay");
+      if(!viewOverlay) return;
+
+      const header = viewOverlay.querySelector(".view-header");
+      const backBtn = document.getElementById("viewBackBtn");
+      if(!header) return;
+
+      // Wrapper opcional pra alinhar botões à direita
+      let actionsWrap = header.querySelector(".view-header-actions");
+      if(!actionsWrap){
+        actionsWrap = document.createElement("div");
+        actionsWrap.className = "view-header-actions";
+        // joga o botão back existente pra dentro do wrapper
+        if(backBtn && backBtn.parentNode === header){
+          header.removeChild(backBtn);
+          actionsWrap.appendChild(backBtn);
+        }
+        header.appendChild(actionsWrap);
+      }
+
+      const sizeBtn = document.createElement("button");
+      sizeBtn.type = "button";
+      sizeBtn.className = "view-size-toggle-btn";
+      const iconSpan = document.createElement("span");
+      iconSpan.textContent = "▢";
+      const labelSpan = document.createElement("span");
+      sizeBtn.appendChild(iconSpan);
+      sizeBtn.appendChild(labelSpan);
+      actionsWrap.appendChild(sizeBtn);
+
+      function applyViewSize(mode){
+        const safe = mode === "full" ? "full" : "compact";
+        viewOverlay.dataset.size = safe;
+        localStorage.setItem(VIEW_KEY, safe);
+        if(safe === "full"){
+          labelSpan.textContent = "Modo compacto";
+        }else{
+          labelSpan.textContent = "Maximizar viewer";
+        }
+      }
+
+      const initialMode = localStorage.getItem(VIEW_KEY) || "compact";
+      applyViewSize(initialMode);
+
+      sizeBtn.addEventListener("click", function(){
+        const next = viewOverlay.dataset.size === "full" ? "compact" : "full";
+        applyViewSize(next);
+      });
+
+      // Hook leve no openInViewer pra respeitar o último modo escolhido
+      if(typeof window.openInViewer === "function"){
+        const originalOpen = window.openInViewer;
+        window.openInViewer = function(opts){
+          originalOpen(opts || {});
+          const saved = localStorage.getItem(VIEW_KEY) || "compact";
+          applyViewSize(saved);
+        };
+      }
+    }
+
+    // Run depois que tudo existe no DOM
+    if(document.readyState === "loading"){
+      document.addEventListener("DOMContentLoaded", function(){
+        setupMiniViewerToggle();
+        setupMainViewerToggle();
+      });
+    }else{
+      setupMiniViewerToggle();
+      setupMainViewerToggle();
+    }
+  })();
+</script>
 
   <script>
   if ('serviceWorker' in navigator) {
