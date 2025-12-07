@@ -1,19 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>DualOiNet 10 · Portal Supremo + Streaming + Chat</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#050715" />
-<meta name="theme-color" content="#050814" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portal Supremo · Dual.Infodose</title>
 
-<link rel="manifest" href="./manifest.webmanifest" />
-
-<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
-<link rel="apple-touch-icon" href="./icon-192.png" />
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <style>
     /* ============================
        TOKENS · NEBULA PRO + MADEIRA
@@ -111,216 +102,7 @@
       to{opacity:1;transform:translateY(0);}
     }
 
-   /* PATCH · TEXT BLOCKS & CALLOUTS · KOBLLUX BEAUTY v1  */
-/* MOBILE-FIRST VERTICAL HARD-LOCK */
-
-:root{
-  --txt-block-bg: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
-  --txt-block-border: rgba(148,163,184,0.55);
-  --txt-block-shadow: 0 14px 30px rgba(0,0,0,0.72);
-
-  --callout-info-bg: radial-gradient(circle at 0 0, rgba(56,189,248,0.28), rgba(15,23,42,0.96));
-  --callout-info-border: rgba(56,189,248,0.75);
-
-  --callout-warn-bg: radial-gradient(circle at 0 0, rgba(251,191,36,0.32), rgba(15,23,42,0.98));
-  --callout-warn-border: rgba(251,191,36,0.85);
-
-  --callout-success-bg: radial-gradient(circle at 0 0, rgba(34,197,94,0.32), rgba(15,23,42,0.98));
-  --callout-success-border: rgba(34,197,94,0.85);
-
-  --callout-aside-bg: radial-gradient(circle at 0 0, rgba(148,163,184,0.22), rgba(15,23,42,0.98));
-  --callout-aside-border: rgba(148,163,184,0.7);
-
-  --callout-question-bg: radial-gradient(circle at 0 0, rgba(129,140,248,0.32), rgba(15,23,42,0.98));
-  --callout-question-border: rgba(129,140,248,0.9);
-}
-
-/* 1) TEXTOS SOLTOS DENTRO DOS STACKS VÃO VIRAR BLOCOS */
-
-.stack-body > p{
-  margin: 0 0 0.55rem;
-  padding: 7px 10px;
-  border-radius: 10px;
-  background: var(--txt-block-bg);
-  border: 1px solid var(--txt-block-border);
-  box-shadow: var(--txt-block-shadow);
-  font-size: 0.86rem;
-  line-height: 1.6;
-  color: var(--text-soft,#cbd5f5);
-}
-
-/* Quando tiver vários parágrafos seguidos, eles grudam visualmente */
-.stack-body > p + p{
-  margin-top: 4px;
-}
-
-/* Se tiver .flow-text, respeita ela (só ajusta um pouco) */
-.stack-body .flow-text{
-  margin: 0 0 0.6rem;
-  padding: 7px 10px;
-  border-radius: 10px;
-  background: var(--txt-block-bg);
-  border: 1px solid var(--txt-block-border);
-  box-shadow: var(--txt-block-shadow);
-  font-size: 0.88rem;
-  line-height: 1.7;
-}
-
-/* 2) BLOCOS “RENDER RESPONSE” / LIVRO VIVO */
-
-.render-response,
-.render-block,
-.infodoc-block{
-  border-radius: 14px;
-  padding: 10px 11px;
-  margin: 0 0 0.7rem;
-  background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(2,6,23,0.98));
-  border: 1px solid rgba(148,163,184,0.55);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.9);
-  font-size: 0.88rem;
-  line-height: 1.7;
-  color: var(--text-soft,#d1ddff);
-}
-
-.render-response h1,
-.render-response h2,
-.render-response h3,
-.render-response h4,
-.render-block h1,
-.render-block h2,
-.render-block h3,
-.render-block h4,
-.infodoc-block h1,
-.infodoc-block h2,
-.infodoc-block h3,
-.infodoc-block h4{
-  margin: 0 0 0.4rem;
-  font-size: 0.9rem;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: var(--text-strong,#f9fafb);
-}
-
-.render-response p,
-.render-block p,
-.infodoc-block p{
-  margin: 0 0 0.45rem;
-}
-
-.render-response p:last-child,
-.render-block p:last-child,
-.infodoc-block p:last-child{
-  margin-bottom: 0;
-}
-
-/* Código dentro da resposta rende bonitinho também */
-.render-response code,
-.render-block code,
-.infodoc-block code{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.78rem;
-  padding: 1px 4px;
-  border-radius: 6px;
-  background: rgba(15,23,42,0.95);
-  border: 1px solid rgba(75,85,99,0.9);
-}
-
-/* 3) CALLOUTS TIPO LIVRO VIVO (::info, ::warn, ::success, ::aside, ::question)  */
-
-/* Base genérica (caso teu parser gere .callout) */
-.callout,
-.infodoc-callout{
-  position: relative;
-  margin: 0 0 0.6rem;
-  padding: 7px 9px 7px 11px;
-  border-radius: 12px;
-  border: 1px solid var(--callout-aside-border);
-  background: var(--callout-aside-bg);
-  font-size: 0.84rem;
-  line-height: 1.6;
-  color: var(--text-soft,#e5e7f5);
-}
-
-.callout::before,
-.infodoc-callout::before{
-  content: "⊙";
-  position: absolute;
-  left: 8px;
-  top: 7px;
-  font-size: 11px;
-  opacity: 0.9;
-}
-
-/* Info */
-.callout.info,
-.infodoc-callout.info{
-  background: var(--callout-info-bg);
-  border-color: var(--callout-info-border);
-}
-.callout.info::before,
-.infodoc-callout.info::before{
-  content: "ℹ";
-}
-
-/* Warn / danger */
-.callout.warn,
-.callout.warning,
-.infodoc-callout.warn,
-.infodoc-callout.warning{
-  background: var(--callout-warn-bg);
-  border-color: var(--callout-warn-border);
-}
-.callout.warn::before,
-.callout.warning::before,
-.infodoc-callout.warn::before,
-.infodoc-callout.warning::before{
-  content: "⚠";
-}
-
-/* Success */
-.callout.success,
-.infodoc-callout.success{
-  background: var(--callout-success-bg);
-  border-color: var(--callout-success-border);
-}
-.callout.success::before,
-.infodoc-callout.success::before{
-  content: "✔";
-}
-
-/* Aside (observação lateral) */
-.callout.aside,
-.infodoc-callout.aside{
-  background: var(--callout-aside-bg);
-  border-color: var(--callout-aside-border);
-}
-.callout.aside::before,
-.infodoc-callout.aside::before{
-  content: "☍";
-}
-
-/* Question (pergunta / reflexão) */
-.callout.question,
-.infodoc-callout.question{
-  background: var(--callout-question-bg);
-  border-color: var(--callout-question-border);
-}
-.callout.question::before,
-.infodoc-callout.question::before{
-  content: "?";
-}
-
-/* Títulos dentro de callout (se tiver) */
-.callout strong:first-child,
-.infodoc-callout strong:first-child{
-  display:block;
-  margin-bottom: 2px;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  color: #f9fafb;
-}
- /* HEADER */
+    /* HEADER */
 
     header{
       display:flex;
@@ -558,7 +340,7 @@
       flex-shrink:0;
     }
 
-    /* GREETING + INTENÇÃO */
+    /* GREETING + INTENÇÃO + CARD DO DIA */
 
     .greeting-strip{
       padding:4px 16px 0;
@@ -609,6 +391,42 @@
     }
     .intent369-input::placeholder{
       color:rgba(145,155,210,0.85);
+    }
+
+    .card-of-day{
+      margin-top:8px;
+      padding:10px 12px;
+      border-radius:18px;
+      border:1px solid rgba(255,181,226,0.85);
+      background:
+        radial-gradient(circle at 10% 0, rgba(255,181,226,0.25), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(0,246,255,0.2), transparent 55%),
+        rgba(7,9,30,0.98);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      box-shadow:0 14px 30px rgba(0,0,0,0.9);
+      font-size:12px;
+    }
+    .card-of-day-main{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+    .card-of-day-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      color:var(--text-muted);
+    }
+    .card-of-day-title{
+      font-size:13px;
+      font-weight:500;
+      color:var(--text-soft);
+    }
+    .card-of-day-symbol{
+      font-size:20px;
     }
 
     /* SEÇÕES + RAILS */
@@ -819,14 +637,14 @@
       overflow:hidden;
     }
 
-/* Sanfonas de vídeos (Sinopses, Ambiente, Neuro, Meditações) */
-.video-accordion{
-  padding: 4px 16px 0;
-}
+    /* Sanfonas de vídeos (Sinopses, Ambiente, Neuro, Meditações) */
+    .video-accordion{
+      padding: 4px 16px 0;
+    }
 
-.video-accordion details.stack-card{
-  margin-top: 6px;
-}
+    .video-accordion details.stack-card{
+      margin-top: 6px;
+    }
 
     details.stack-card[open]{
       border-color:rgba(255,149,214,0.95);
@@ -998,7 +816,7 @@
     }
 
     .stack-viewer-frame{
-      height:620px;
+      height:220px;
       background:radial-gradient(circle at 0 0, rgba(0,246,255,0.16), rgba(3,5,16,0.98));
     }
     .stack-viewer-frame iframe{
@@ -1106,6 +924,7 @@
       border-radius:13px;
       line-height:1.4;
       box-shadow:0 3px 10px rgba(0,0,0,0.6);
+      cursor:pointer;
     }
     .chat-message.me{
       align-self:flex-end;
@@ -1330,7 +1149,138 @@
       margin-top:2px;
     }
 
-    /* BODY THEME HOOK (NEBULA vs MADEIRA) */
+    /* ORB SUPREMO */
+
+    .orb-fab{
+      position:fixed;
+      right:18px;
+      bottom:20px;
+      width:56px;
+      height:56px;
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.85);
+      background:
+        radial-gradient(circle at 30% 10%, rgba(255,255,255,0.9), rgba(0,246,255,0.8)),
+        radial-gradient(circle at 80% 90%, rgba(255,149,214,0.7), rgba(4,6,22,0.98));
+      box-shadow:
+        0 0 18px rgba(0,246,255,0.9),
+        0 14px 30px rgba(0,0,0,0.95);
+      color:#050713;
+      font-size:22px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      z-index:70;
+      animation:orbPulse 3.6s ease-in-out infinite;
+    }
+    @keyframes orbPulse{
+      0%,100%{transform:translateY(0) scale(1);box-shadow:0 0 18px rgba(0,246,255,0.7),0 14px 30px rgba(0,0,0,0.95);}
+      50%{transform:translateY(-3px) scale(1.03);box-shadow:0 0 26px rgba(255,149,214,0.9),0 18px 40px rgba(0,0,0,0.98);}
+    }
+
+    /* LIVRO VIVO · PARSER VISUAL */
+
+    .lv-callout{
+      border-radius:12px;
+      padding:6px 8px;
+      margin:3px 0;
+      font-size:11px;
+      line-height:1.4;
+    }
+    .lv-callout.lv-info{
+      border:1px solid rgba(0,246,255,0.7);
+      background:rgba(3,15,35,0.96);
+    }
+    .lv-callout.lv-warn{
+      border:1px solid rgba(255,214,130,0.9);
+      background:rgba(32,18,4,0.96);
+    }
+    .lv-callout.lv-success{
+      border:1px solid rgba(96,247,179,0.9);
+      background:rgba(6,24,18,0.96);
+    }
+    .lv-callout.lv-question{
+      border:1px solid rgba(154,184,255,0.9);
+      background:rgba(7,10,32,0.96);
+    }
+    .lv-callout.lv-aside{
+      border:1px solid rgba(145,166,255,0.5);
+      background:rgba(8,10,25,0.96);
+      font-style:italic;
+    }
+
+    .lv-btn{
+      border-radius:999px;
+      border:1px solid rgba(153,175,255,0.85);
+      background:rgba(7,9,28,0.98);
+      color:var(--text-soft);
+      font-size:10px;
+      padding:2px 7px;
+      margin:1px 3px 1px 0;
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      cursor:pointer;
+    }
+
+    .lv-code-inline{
+      background:rgba(255,255,255,0.06);
+      padding:0 4px;
+      border-radius:6px;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:11px;
+    }
+
+    /* EMBED · DO SEU JEITO · RENDER LIVRO VIVO */
+
+    .embed-response-card{
+      margin-top:8px;
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(120,143,230,0.7);
+      background:rgba(5,7,24,0.98);
+      box-shadow:0 16px 36px rgba(0,0,0,0.9);
+      overflow:hidden;
+    }
+    .embed-header{
+      padding:8px 12px;
+      border-bottom:1px solid rgba(72,94,192,0.8);
+      font-size:11px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+    }
+    .embed-header strong{
+      font-size:12px;
+    }
+    .embed-body{
+      max-height:260px;
+      overflow-y:auto;
+      padding:8px 10px;
+      font-size:12px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .embed-footer{
+      padding:6px 10px 8px;
+      font-size:10px;
+      color:var(--text-muted);
+      border-top:1px solid rgba(72,94,192,0.8);
+    }
+
+    .embed-page-block{
+      border-radius:12px;
+      border:1px solid rgba(92,115,205,0.8);
+      background:rgba(8,10,30,0.95);
+      padding:6px 8px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.8);
+      cursor:pointer;
+    }
+    .embed-page-block:hover{
+      border-color:rgba(255,149,214,0.9);
+    }
 
     body[data-theme="madeira"]{
       --accent-main:#ffb36f;
@@ -1344,858 +1294,7 @@
       --text-soft:#f6e2c1;
       --text-muted:#b9966c;
     }
-
-/* OVERRIDE · VIEWER PRINCIPAL v2
-   Compacto = antigo maximizado
-   Full = modo app 9:16 vertical  */
-
-.view-overlay{
-  transition: background 0.25s ease;
-}
-
-.view-panel{
-  transition: max-height 0.25s ease, transform 0.25s ease;
-}
-
-/* MODO COMPACTO
-   - Padrão “maximizado antigo”
-   - Viewer grande, mas ainda com respiro pro resto da UI */
-.view-overlay[data-size="compact"] .view-panel{
-  max-height: 96vh;           /* era 260px; agora quase tela cheia */
-}
-
-/* Altura boa pro app/vídeo em modo compacto */
-.view-overlay[data-size="compact"] #viewVideoHolder iframe{
-  width: 100%;
-  min-height: min(60vh, 520px);
-}
-
-/* MODO FULL
-   - Modo app 9:16 vertical
-   - Quase tela inteira, foco total no iFrame */
-.view-overlay[data-size="full"] .view-panel{
-  max-height: 100vh;
-}
-
-/* iFrame em 9:16 vertical (height > width) */
-.view-overlay[data-size="full"] #viewVideoHolder iframe{
-  width: 100%;
-  aspect-ratio: 9 / 16;         /* vertical */
-  min-height: min(80vh, 720px); /* fallback se aspect-ratio não pegar */
-}
-
-/* Opcional: corpo rolável no full, pra não estourar */
-.view-overlay[data-size="full"] .view-body{
-  max-height: calc(100vh - 64px); /* header + margem */
-  overflow-y: auto;
-}
-
-/* Em telas muito pequenas, dá uma segurada */
-@media (max-width: 640px){
-  .view-overlay[data-size="compact"] #viewVideoHolder iframe{
-    min-height: 33vh; margin-bottom:12vh;
-  }
-  .view-overlay[data-size="full"] #viewVideoHolder iframe{
-    min-height: 87vh; margin-bottom:12vh;
-  }
-}
-
   </style>
-
- <style>
-  /* MOBILE-FIRST VERTICAL HARD-LOCK */
-
-  :root {
-    /* Nebula Pro vibes (baseado nos teus apps)  [oai_citation:0‡nebula-live-editor-card-1.html](sediment://file_000000001ba471f5afdc1c77dcbd16f9)  [oai_citation:1‡Injetor-V9.html](sediment://file_00000000fdf471f597ec762815f52b9f) */
-    --nebula-bg-1: #050015;
-    --nebula-bg-2: #0b021f;
-    --nebula-bg-3: #02000a;
-
-    --nebula-accent-pink: #ff77e9;
-    --nebula-accent-cyan: #5df2ff;
-    --nebula-accent-green: #7bffb0;
-    --nebula-accent-amber: #ffb56c;
-
-    --nebula-text-main: #f9fbff;
-    --nebula-text-soft: #c5bddf;
-    --nebula-text-muted: #8e8bb0;
-
-    --nebula-border-soft: rgba(255, 255, 255, 0.10);
-    --nebula-card-bg: rgba(10, 13, 36, 0.98);
-
-    --radius-lg: 22px;
-    --radius-md: 18px;
-    --radius-sm: 12px;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-      "Segoe UI", sans-serif;
-    background:
-      radial-gradient(circle at top, #10153c 0, transparent 55%),
-      radial-gradient(circle at bottom, #290714 0, transparent 60%),
-      linear-gradient(to bottom, var(--nebula-bg-1), var(--nebula-bg-2), var(--nebula-bg-3));
-    color: var(--nebula-text-main);
-  }
-
-  main {
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 1.25rem 0.9rem 2.5rem;
-  }
-
-  /* App shell Hub1 */
-
-  .app-shell {
-    border-radius: 24px;
-    padding: 0.85rem 0.95rem 0.9rem;
-    margin-bottom: 1rem;
-    background:
-      radial-gradient(circle at top left,
-        rgba(255, 119, 233, 0.16),
-        rgba(93, 242, 255, 0.08),
-        rgba(0, 0, 0, 0.9));
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow: 0 22px 80px rgba(0, 0, 0, 0.85);
-  }
-
-  .app-shell-header {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-
-  .app-orb {
-    width: 38px;
-    height: 38px;
-    border-radius: 999px;
-    background:
-      radial-gradient(circle at 30% 20%, #ffffff, #ffdfff 34%, transparent 60%),
-      radial-gradient(circle at 70% 80%, #ff77e9, #5df2ff 70%);
-    box-shadow:
-      0 0 20px rgba(255, 119, 233, 0.8),
-      0 0 32px rgba(93, 242, 255, 0.6);
-    position: relative;
-    flex-shrink: 0;
-  }
-  .app-orb::after {
-    content: "◎";
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.15rem;
-    color: rgba(6, 0, 10, 0.8);
-    text-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
-  }
-
-  .app-shell-title {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .app-shell-title h1 {
-    margin: 0;
-    font-size: 1rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-  }
-
-  .app-shell-title span {
-    font-size: 0.82rem;
-    color: var(--nebula-text-soft);
-  }
-
-  .app-shell-pills {
-    margin-top: 0.4rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-
-  .app-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.22rem 0.7rem;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    color: var(--nebula-text-soft);
-  }
-  .app-pill strong {
-    color: var(--nebula-accent-cyan);
-  }
-
-  /* Tabs (Editor / Analyzer / Injetor) */
-
-  .mode-tabs {
-    display: flex;
-    gap: 0.4rem;
-    margin-top: 0.8rem;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 0.2rem;
-  }
-
-  .mode-tabs button {
-    border: 0;
-    border-radius: 999px;
-    padding: 0.45rem 0.95rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    white-space: nowrap;
-    background: rgba(11, 15, 40, 0.95);
-    color: var(--nebula-text-soft);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.08s ease, color 0.12s ease;
-  }
-
-  .mode-tabs button span.badge {
-    font-size: 0.7rem;
-    padding: 0.1rem 0.45rem;
-    border-radius: 999px;
-    background: rgba(93, 242, 255, 0.14);
-    color: var(--nebula-accent-cyan);
-  }
-
-  .mode-tabs button.active {
-    background: radial-gradient(circle at top left, #ffe0ff, #ff77e9);
-    color: #170315;
-    box-shadow: 0 0 18px rgba(255, 119, 233, 0.6);
-  }
-
-  .mode-tabs button:active {
-    transform: translateY(1px) scale(0.99);
-    box-shadow: none;
-  }
-
-  /* Cards base */
-
-  .card {
-    border-radius: var(--radius-lg);
-    padding: 0.95rem 1rem 1rem;
-    background:
-      radial-gradient(circle at top,
-        rgba(93, 242, 255, 0.12) 0%,
-        rgba(10, 13, 36, 0.98) 35%,
-        rgba(3, 3, 12, 1) 100%);
-    border: 1px solid var(--nebula-border-soft);
-    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.82);
-    margin-top: 0.9rem;
-  }
-
-  .card-header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .card-header-main {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .card-header-main h2 {
-    margin: 0;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .card-header-main p {
-    margin: 0;
-    font-size: 0.8rem;
-    color: var(--nebula-text-soft);
-  }
-
-  .badge-pill {
-    padding: 0.25rem 0.6rem;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--nebula-accent-cyan);
-    white-space: nowrap;
-  }
-
-  .hint {
-    font-size: 0.74rem;
-    color: var(--nebula-text-muted);
-    margin-top: 0.15rem;
-  }
-
-  .field-label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 0.4rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .field-label-row span {
-    font-size: 0.78rem;
-    color: var(--nebula-text-soft);
-  }
-
-  .field-label-row small {
-    font-size: 0.72rem;
-    color: var(--nebula-text-muted);
-  }
-
-  textarea,
-  input[type="text"] {
-    width: 100%;
-    border-radius: var(--radius-sm);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    padding: 0.55rem 0.7rem;
-    background: #05000c;
-    color: var(--nebula-text-main);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-      "Liberation Mono", "Courier New", monospace;
-    font-size: 0.8rem;
-    resize: vertical;
-  }
-
-  textarea:focus-visible,
-  input[type="text"]:focus-visible {
-    outline: 2px solid rgba(93, 242, 255, 0.7);
-    outline-offset: 1px;
-  }
-
-  .controls-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.55rem;
-  }
-
-  button.primary,
-  .btn {
-    border-radius: 999px;
-    border: 0;
-    padding: 0.45rem 0.95rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    background: linear-gradient(135deg,
-      var(--nebula-accent-pink),
-      var(--nebula-accent-cyan));
-    color: #050010;
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7);
-    white-space: nowrap;
-  }
-
-  button.secondary {
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    padding: 0.45rem 0.9rem;
-    font-size: 0.78rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    background: rgba(12, 15, 40, 0.96);
-    color: var(--nebula-text-soft);
-  }
-
-  button.ghost {
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 0.38rem 0.8rem;
-    font-size: 0.76rem;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    background: rgba(4, 5, 18, 0.96);
-    color: var(--nebula-text-soft);
-  }
-
-  button:active {
-    transform: translateY(1px) scale(0.99);
-    box-shadow: none;
-  }
-
-  .toggle-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-    align-items: center;
-    margin-top: 0.4rem;
-  }
-
-  .toggle-row label {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.78rem;
-    color: var(--nebula-text-soft);
-    cursor: pointer;
-  }
-
-  .toggle-row input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--nebula-accent-cyan);
-  }
-
-  .grid-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 0.6rem;
-  }
-
-  .preview-frame {
-    width: 100%;
-    min-height: 280px;
-    border-radius: 16px;
-    border: 1px solid var(--nebula-border-soft);
-    background: #ffffff;
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.85);
-  }
-
-  .small-note {
-    font-size: 0.72rem;
-    color: var(--nebula-text-muted);
-    margin-top: 0.15rem;
-  }
-
-  .table-scroll {
-    max-height: 260px;
-    overflow: auto;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(5, 7, 22, 0.96);
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.78rem;
-  }
-
-  th,
-  td {
-    padding: 0.35rem 0.6rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    text-align: left;
-    vertical-align: top;
-  }
-
-  th {
-    background: rgba(255, 255, 255, 0.04);
-    font-weight: 600;
-  }
-
-  tr:last-child td {
-    border-bottom: none;
-  }
-
-  .chips-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-top: 0.4rem;
-  }
-
-  .chip {
-    border-radius: 999px;
-    padding: 0.22rem 0.6rem;
-    background: rgba(12, 20, 52, 0.98);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    font-size: 0.74rem;
-    color: var(--nebula-text-soft);
-    white-space: nowrap;
-  }
-
-  .chip strong {
-    color: var(--nebula-accent-green);
-  }
-
-  .pill-warn {
-    color: var(--nebula-accent-amber);
-    border-color: rgba(255, 181, 108, 0.6);
-  }
-
-  .mode-panel {
-    display: none;
-  }
-
-  .mode-panel.active {
-    display: block;
-  }
-
-  .radio-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    margin-top: 0.35rem;
-  }
-
-  .radio-row label {
-    font-size: 0.78rem;
-    color: var(--nebula-text-soft);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    cursor: pointer;
-  }
-
-  .radio-row input[type="radio"] {
-    accent-color: var(--nebula-accent-pink);
-  }
-
-  .toast {
-    position: fixed;
-    left: 50%;
-    bottom: 16px;
-    transform: translateX(-50%);
-    padding: 0.5rem 0.85rem;
-    border-radius: 999px;
-    background: rgba(5, 5, 10, 0.9);
-    color: #fff;
-    font-size: 0.78rem;
-    z-index: 99;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85);
-    pointer-events: none;
-  }
-
-  @media (min-width: 840px) {
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.9rem;
-      align-items: flex-start;
-    }
-  }
-  </style>
-
-<style>
-/* === Markdown+ blocks === */
-pre.md-code{
-  position:relative;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.08);
-  padding:12px 14px;
-  border-radius:12px;
-  overflow:auto;
-  font:500 13px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;
-  margin:12px 0;
-}
-pre.md-code .copy-hint{
-  position:absolute;
-  right:10px;
-  top:10px;
-  font-size:.8rem;
-  opacity:.6;
-}
-code.code-inline{
-  background:rgba(255,255,255,.06);
-  padding:.1rem .3rem;
-  border-radius:6px;
-}
-
-table.md-table{
-  width:100%;
-  border-collapse:collapse;
-  margin:12px 0;
-  border-radius:12px;
-  overflow:hidden;
-}
-table.md-table th,
-table.md-table td{
-  border:1px solid rgba(255,255,255,.12);
-  padding:8px 10px;
-  vertical-align:top;
-}
-table.md-table th{
-  background:rgba(255,255,255,.06);
-  font-weight:700;
-}
-
-ul.md-list,
-ol.md-list{
-  padding-left:1.1rem;
-  margin:10px 0;
-}
-ul.md-task{
-  list-style:none;
-  padding-left:0;
-}
-ul.md-task li{
-  display:flex;
-  gap:.5rem;
-  align-items:flex-start;
-  margin:6px 0;
-}
-ul.md-task input[type=checkbox]{
-  accent-color:var(--cyan);
-  pointer-events:none;
-}
-
-.callout{
-  border-left:3px solid var(--cyan);
-  background:rgba(255,255,255,.03);
-  border-radius:12px;
-  padding:12px;
-  margin:12px 0;
-}
-.callout.warn{border-color:#ffda7a}
-.callout.tip{border-color:#9ff7b9}
-
-.hr{
-  height:1px;
-  border:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
-  margin:16px 0;
-}
-img.md-img{
-  max-width:100%;
-  display:block;
-  margin:10px auto;
-  border-radius:12px;
-}
-.kbd{
-  font:600 12px ui-monospace,monospace;
-  background:rgba(255,255,255,.06);
-  padding:.1rem .35rem;
-  border-radius:6px;
-  border:1px solid rgba(255,255,255,.12);
-}
-
-/* === PATCH EQ/QUOTE/FN === */
-.equation{white-space:pre-wrap}
-blockquote.bq{
-  border-left:3px solid var(--cyan);
-  background:rgba(255,255,255,.03);
-  border-radius:12px;
-  padding:10px 12px;
-  margin:12px 0;
-  position:relative;
-}
-blockquote.bq .bq-line{margin:6px 0}
-blockquote.bq-l2{border-left-width:6px;opacity:.96}
-blockquote.bq-l3{border-left-width:9px;opacity:.92}
-.callout.note{border-left:3px solid #7ad0ff}
-.callout.aside{border-left:3px solid var(--muted)}
-.callout.success{border-left:3px solid #9ff7b9}
-.callout.danger{border-left:3px solid #ff9f9f}
-.callout.question{border-left:3px solid #b7a6ff}
-
-/* === Welcome panel & inputs === */
-.welcome{
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.03);
-  border-radius:14px;
-  padding:12px;
-  margin:12px 0;
-}
-.welcome .row{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-.field{
-  width:min(360px,100%);
-  border:1px solid rgba(255,255,255,.12);
-  background:#0a0e18;
-  color:var(--ink);
-  border-radius:10px;
-  padding:8px 10px;
-}
-.small{font-size:.9rem;color:var(--muted)}
-.equation{white-space:pre-wrap}
-
-/* === Master Block (Topo do Documento) === */
-.master-block{
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.03);
-  border-radius:12px;
-  padding:12px;
-  margin:12px 0;
-}
-.master-block .row{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  align-items:center;
-}
-.master-block .title{
-  flex:1;
-  min-width:200px;
-  border:1px solid rgba(255,255,255,.12);
-  background:#0a0e18;
-  color:var(--ink);
-  border-radius:10px;
-  padding:8px 10px;
-}
-
-/* === Stacks (Home) === */
-/* MOBILE-FIRST VERTICAL HARD-LOCK: sempre 1 coluna */
-.stack-grid{
-  display:grid;
-  grid-template-columns:1fr !important;
-  gap:10px;
-  margin-top:10px;
-}
-.stack-card{
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:12px;
-  padding:10px;
-  background:rgba(255,255,255,.03);
-}
-.stack-card h4{margin:0 0 6px 0}
-.stack-card .meta{
-  font-size:.85rem;
-  color:var(--muted);
-  margin-bottom:8px;
-}
-</style>
-
-<style id="ORB2D_CSS_V1">
-:root{
-  --orb-a: var(--grad-a);
-  --orb-b: var(--grad-b);
-  --orb-size: 64px;
-  --orb-blur: 18px;
-  --orb-ring: 0 0 0 1px rgba(255,255,255,.12) inset, 0 10px 30px rgba(0,0,0,.35);
-}
-#fab{
-  position:fixed;
-  right:14px;
-  bottom:14px;
-  z-index:120;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-#fab .fab-btn{display:none !important;}
-#orb2d{
-  width:var(--orb-size);
-  height:var(--orb-size);
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  position:relative;
-  cursor:pointer;
-  box-shadow: var(--orb-ring);
-  background:
-    radial-gradient(120% 120% at 30% 20%, color-mix(in oklab, var(--orb-a) 65%, transparent), transparent 60%),
-    radial-gradient(120% 120% at 80% 70%, color-mix(in oklab, var(--orb-b) 60%, transparent), transparent 50%),
-    conic-gradient(from 0deg, color-mix(in oklab, var(--orb-b) 45%, transparent), transparent 40%, color-mix(in oklab, var(--orb-a) 45%, transparent));
-  filter:saturate(1.1);
-  animation: orb-spin 10s linear infinite, orb-breath 3.6s ease-in-out infinite;
-  outline:none;
-  -webkit-tap-highlight-color:transparent;
-}
-#orb2d::before{
-  content:'';
-  position:absolute;
-  inset:6px;
-  border-radius:inherit;
-  background:radial-gradient(80% 80% at 50% 40%, rgba(255,255,255,.35), transparent 60%);
-  mix-blend-mode:screen;
-  pointer-events:none;
-}
-#orb2d::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  box-shadow:inset 0 0 30px rgba(255,255,255,.12);
-  pointer-events:none;
-}
-#fab.open #orb2d{
-  animation-duration:6s;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.18) inset,
-    0 14px 40px rgba(0,0,0,.45),
-    0 0 80px color-mix(in oklab, var(--orb-b) 35%, transparent);
-}
-#orb-picker{
-  position:absolute;
-  right:72px;
-  bottom:0;
-  display:none;
-  flex-direction:column;
-  gap:6px;
-}
-#fab.show-picker #orb-picker{display:flex;}
-#orb-picker .chip{
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:10px;
-  padding:.45rem .7rem;
-  background:linear-gradient(42deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  color:var(--ink);
-}
-@keyframes orb-spin{
-  to{transform:rotate(360deg);}
-}
-@keyframes orb-breath{
-  0%,100%{filter:saturate(1) blur(0px);}
-  50%{filter:saturate(1.2) blur(1px);}
-}
-</style>
-
-<style id="FAB_BTN_TWEAKS_V3">
-:root{
-  --fab-btn-opacity:.92;
-  --fab-btn-bg:rgba(255,255,255,.10);
-  --fab-btn-brd:rgba(255,255,255,.20);
-}
-#fab .menu{
-  display:none;
-  position:absolute;
-  right:72px;
-  bottom:0;
-  gap:8px;
-  flex-direction:column;
-}
-#fab.open .menu{display:flex;}
-#fab .menu .btn,
-#fab .menu button,
-#fab .menu a{
-  opacity:var(--fab-btn-opacity);
-  border:1px solid var(--fab-btn-brd);
-  background:linear-gradient(42deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
-  color:var(--ink,#e8ecf6);
-  border-radius:12px;
-  padding:.55rem .75rem;
-  font:600 14px/1.1 system-ui,sans-serif;
-  box-shadow:0 6px 20px rgba(0,0,0,.25);
-}
-#fab .menu .btn:active{transform:translateY(1px);opacity:1;}
-</style>
-
 </head>
 <body data-theme="nebula" data-stream-bg="default" data-apps-view="rail">
   <div class="shell">
@@ -2248,7 +1347,7 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
       </article>
     </section>
 
-    <!-- Saudação + intenção -->
+    <!-- Saudação + intenção + Card do Dia -->
     <section class="greeting-strip">
       <div class="greeting-line">
         <span class="greeting-name" id="greetingName">Olá, KODUX</span>
@@ -2263,11 +1362,21 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
           placeholder="Qual é a intenção do seu Streaming de hoje?"
         />
       </div>
+
+      <div class="card-of-day" id="cardOfDay">
+        <div class="card-of-day-main">
+          <div class="card-of-day-label">Arquétipo do dia</div>
+          <div class="card-of-day-title" id="cardOfDayTitle">
+            Hoje você está no modo KAION — Engrenagem Criativa Ativa
+          </div>
+        </div>
+        <div class="card-of-day-symbol" id="cardOfDaySymbol">⚙🌀</div>
+      </div>
     </section>
 
     <!-- RAILS · STREAMING POR CATEGORIA -->
 
-        <!-- Trilhas & Ativações (fileira de destaque solta) -->
+    <!-- Trilhas & Ativações (fileira de destaque solta) -->
     <section class="section-title">
       <span>Trilhas & Ativações</span>
       <span>Faixas para abrir o campo.</span>
@@ -2362,7 +1471,7 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
       <div class="apps-grid" id="portalGrid"></div>
     </section>
 
-    <!-- STACKS · PLAY STORE / UPLOAD HTML / CHAT -->
+    <!-- STACKS · PLAY STORE / UPLOAD HTML / CHAT + EMBED DO SEU JEITO -->
     <section class="apps-stacks">
       <!-- Stack 1: Meus apps / cápsulas -->
       <details class="stack-card" open>
@@ -2466,7 +1575,7 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
       </details>
 
       <!-- Stack 3: Painel de Chat / Webhook / OpenRouter -->
-      <details class="stack-card">
+      <details class="stack-card" id="chatStack">
         <summary>
           <div class="stack-summary-main">
             <div class="stack-title">Chat · Webhook / OpenRouter</div>
@@ -2559,6 +1668,40 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
             Lógica: se houver Webhook preenchido, envia primeiro pra ele. Se não houver,
             usa OpenRouter (se API Key + modelo estiverem configurados).
           </div>
+
+          <!-- EMBED · DO SEU JEITO · LIVRO VIVO -->
+          <details class="stack-card" style="margin-top:8px;">
+            <summary>
+              <div class="stack-summary-main">
+                <div class="stack-title">Do seu jeito. Sempre único. Sempre seu.</div>
+                <div class="stack-sub">
+                  Módulo colapsável pronto para embutir em qualquer app com render Livro Vivo + TTS.
+                </div>
+              </div>
+              <span class="stack-pill">Embed · Dual Chat 78</span>
+            </summary>
+            <div class="stack-body">
+              <div class="embed-response-card">
+                <div class="embed-header">
+                  <div>
+                    <strong>Livros Vivos em blocos</strong>
+                    <div style="font-size:11px;color:var(--text-muted);">
+                      Clique para ouvir · clique duplo para reenviar o bloco ao chat.
+                    </div>
+                  </div>
+                  <button class="tts-btn" type="button" id="embedTtsAllBtn" title="Ouvir tudo">
+                    ◎
+                  </button>
+                </div>
+                <div class="embed-body" id="embedResponseBody">
+                  <!-- blocos de resposta Livro Vivo aparecem aqui -->
+                </div>
+                <div class="embed-footer">
+                  Do seu jeito. <strong>Sempre</strong> único. <strong>Sempre</strong> seu.
+                </div>
+              </div>
+            </div>
+          </details>
         </div>
       </details>
     </section>
@@ -2625,6 +1768,9 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
     </div>
   </div>
 
+  <!-- ORB SUPREMO -->
+  <button class="orb-fab" id="orbFab" type="button">◎</button>
+
   <script>
     // ============================
     // HELPERS · YOUTUBE + PLAYLIST
@@ -2648,9 +1794,9 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
         subtitle,
         tag: tag || category,
         category,
-        thumb: `https://img.youtube.com/vi/${id}/hqdefault.jpg`,
-        heroImg: `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
-        embedUrl: `https://www.youtube.com/embed/${id}`,
+        thumb: "https://img.youtube.com/vi/" + id + "/hqdefault.jpg",
+        heroImg: "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg",
+        embedUrl: "https://www.youtube.com/embed/" + id,
         bgMode: bgMode || categoryToBg(category),
         kind: "youtube"
       };
@@ -2664,19 +1810,19 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
         tag: tag || "Playlist",
         category,
         thumb: thumbVideoId
-          ? `https://img.youtube.com/vi/${thumbVideoId}/hqdefault.jpg`
+          ? "https://img.youtube.com/vi/" + thumbVideoId + "/hqdefault.jpg"
           : "",
         heroImg: thumbVideoId
-          ? `https://img.youtube.com/vi/${thumbVideoId}/maxresdefault.jpg`
+          ? "https://img.youtube.com/vi/" + thumbVideoId + "/maxresdefault.jpg"
           : "",
-        embedUrl: `https://www.youtube.com/embed/videoseries?list=${listId}`,
+        embedUrl: "https://www.youtube.com/embed/videoseries?list=" + listId,
         bgMode: bgMode || categoryToBg(category),
         kind: "youtube-playlist"
       };
     }
 
     // ============================
-    // DADOS · STREAMING DO DIA (seus vídeos)
+    // DADOS · STREAMING DO DIA (SEUS VÍDEOS)
     // ============================
 
     const streamingItems = [
@@ -2967,6 +2113,16 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
     const timeMini = document.getElementById("timeMini");
     const intentInput = document.getElementById("intentInput");
 
+    const cardOfDay = document.getElementById("cardOfDay");
+    const cardOfDayTitle = document.getElementById("cardOfDayTitle");
+    const cardOfDaySymbol = document.getElementById("cardOfDaySymbol");
+
+    const streamRailTrilhas = document.getElementById("streamRailTrilhas");
+    const streamRailSinopses = document.getElementById("streamRailSinopses");
+    const streamRailAmbiente = document.getElementById("streamRailAmbiente");
+    const streamRailNeuro = document.getElementById("streamRailNeuro");
+    const streamRailMeditacoes = document.getElementById("streamRailMeditacoes");
+
     const capsuleNameInput = document.getElementById("capsuleNameInput");
     const capsuleUrlInput = document.getElementById("capsuleUrlInput");
     const capsuleThumbInput = document.getElementById("capsuleThumbInput");
@@ -2997,7 +2153,6 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
     const portalRail = document.getElementById("portalRail");
     const portalGrid = document.getElementById("portalGrid");
 
-    // Chat elements
     const chatWebhookUrlInput = document.getElementById("chatWebhookUrlInput");
     const chatUserNameInput = document.getElementById("chatUserNameInput");
     const chatOpenRouterKeyInput = document.getElementById("chatOpenRouterKeyInput");
@@ -3005,316 +2160,427 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
     const chatSystemPromptInput = document.getElementById("chatSystemPromptInput");
     const chatSaveConfigBtn = document.getElementById("chatSaveConfigBtn");
     const chatClearConfigBtn = document.getElementById("chatClearConfigBtn");
-    const chatMessagesEl = document.getElementById("chatMessages");
-    const chatInputEl = document.getElementById("chatInput");
+    const chatMessages = document.getElementById("chatMessages");
+    const chatInput = document.getElementById("chatInput");
     const chatSendBtn = document.getElementById("chatSendBtn");
     const chatModeLabel = document.getElementById("chatModeLabel");
     const chatModePill = document.getElementById("chatModePill");
 
+    const embedResponseBody = document.getElementById("embedResponseBody");
+    const embedTtsAllBtn = document.getElementById("embedTtsAllBtn");
+
+    const chatStack = document.getElementById("chatStack");
+    const orbFab = document.getElementById("orbFab");
+
     // ============================
-    // FUNÇÕES AUXILIARES
+    // GERAL · THEME / TTS / UTILS
     // ============================
 
-    function formatTimeMini(){
-      const now = new Date();
-      const h = String(now.getHours()).padStart(2,"0");
-      const m = String(now.getMinutes()).padStart(2,"0");
-      return `${h}:${m} · modo Streaming`;
-    }
-
-    function applyBgTheme(bgMode){
-      const mode = bgMode || "default";
-      document.body.setAttribute("data-stream-bg", mode);
-    }
-
-    function applyHeroFromItem(item){
-      if(!item) return;
-      heroTag.textContent = item.tag || "Streaming";
-      heroTitle.textContent = item.title;
-      heroSubtitle.textContent = item.subtitle || "";
-      document.documentElement.style.setProperty(
-        "--hero-img-url",
-        `url("${item.heroImg || item.thumb}")`
-      );
-      applyBgTheme(item.bgMode);
-    }
-
-    function openInViewer({title, subtitle, url, note}){
-      viewTitle.textContent = title || "Viewer interno";
-      viewSubtitle.textContent = subtitle || "";
-      viewNote.textContent = note || "Abrindo com o viewer interno.";
-      viewVideoHolder.innerHTML = "";
-
-      if(url){
-        const iframe = document.createElement("iframe");
-        iframe.src = url;
-        iframe.allow =
-          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-        iframe.allowFullscreen = true;
-        viewVideoHolder.appendChild(iframe);
+    function initTheme(){
+      const saved = localStorage.getItem("portalTheme");
+      if (saved === "nebula" || saved === "madeira"){
+        document.body.setAttribute("data-theme", saved);
       }
-
-      viewOverlay.classList.add("visible");
+      themeToggleBtn?.addEventListener("click", () => {
+        const current = document.body.getAttribute("data-theme") === "madeira" ? "nebula" : "madeira";
+        document.body.setAttribute("data-theme", current);
+        localStorage.setItem("portalTheme", current);
+      });
+      menuNebulaBtn?.addEventListener("click", () => {
+        document.body.setAttribute("data-theme", "nebula");
+        localStorage.setItem("portalTheme", "nebula");
+      });
+      menuMadeiraBtn?.addEventListener("click", () => {
+        document.body.setAttribute("data-theme", "madeira");
+        localStorage.setItem("portalTheme", "madeira");
+      });
     }
 
-    function closeViewer(){
-      viewOverlay.classList.remove("visible");
-      viewVideoHolder.innerHTML = "";
+    const synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+
+    function speak(text){
+      if (!synth || !text) return;
+      try{
+        synth.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "pt-BR";
+        u.rate = 1.0;
+        u.pitch = 1.0;
+        synth.speak(u);
+      }catch(e){
+        console.warn("TTS falhou", e);
+      }
+    }
+
+    function stripMd(text){
+      if (!text) return "";
+      return text
+        .replace(/\*\*(.+?)\*\*/g, "$1")
+        .replace(/`([^`]+)`/g, "$1")
+        .replace(/$begin:math:display$\\\[btn\:\[\^$end:math:display$]+\]\]/g, "")
+        .replace(/::(info|warn|success|question|aside)\s+/gi, "")
+        .replace(/^>\s*/gm, "")
+        .trim();
     }
 
     // ============================
-    // RENDER · STREAMING POR CATEGORIA
+    // LIVRO VIVO · PARSER
     // ============================
+
+    function livroVivoToHtml(text){
+      if (!text) return "";
+      let html = text;
+
+      // inline
+      html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+      html = html.replace(/`([^`]+)`/g, "<span class=\"lv-code-inline\">$1</span>");
+      html = html.replace(/\[\[btn:([^\]|]+)(?:\|([^\]]+))?\]\]/g, function(_m, action, label){
+        const act = (action || "").trim();
+        const lab = (label || action || "").trim();
+        return "<button class=\"lv-btn\" data-action=\"" + act + "\">" + lab + "</button>";
+      });
+
+      const lines = html.split(/\r?\n/);
+      const out = [];
+      for (let line of lines){
+        if (/^::(info|warn|success|question|aside)\s+/i.test(line)){
+          const type = RegExp.$1.toLowerCase();
+          const content = line.replace(/^::(info|warn|success|question|aside)\s+/i, "");
+          out.push("<div class=\"lv-callout lv-" + type + "\">" + content + "</div>");
+        }else if (/^> /.test(line)){
+          out.push("<blockquote>" + line.replace(/^> /, "") + "</blockquote>");
+        }else if (line.trim() === ""){
+          out.push("<br/>");
+        }else{
+          out.push("<p>" + line + "</p>");
+        }
+      }
+      return out.join("");
+    }
+
+    function renderLivroVivoToElement(el, text){
+      if (!el) return;
+      el.innerHTML = livroVivoToHtml(text);
+      // delega clicks em botões lv-btn se quiser mais tarde
+    }
+
+    // ============================
+    // GREETING + CARD DO DIA
+    // ============================
+
+    const archetypesOfDay = [
+      {
+        id: "KAION",
+        symbol: "⚙🌀",
+        phrase: "KAION — Engrenagem Criativa Ativa"
+      },
+      {
+        id: "NOVA",
+        symbol: "✨📖",
+        phrase: "NOVA — Expansão em aprendizado contínuo"
+      },
+      {
+        id: "ELYSHA",
+        symbol: "🔮⚡🧠",
+        phrase: "ELYSHA — Intuição de alta frequência"
+      },
+      {
+        id: "MANIFESTA",
+        symbol: "🌱⭕",
+        phrase: "MANIFESTA — Semeadura de realidades"
+      }
+    ];
+
+    function pickArchetypeOfDay(){
+      const today = new Date();
+      const seed = today.getFullYear()*1000 + (today.getMonth()+1)*50 + today.getDate();
+      const idx = seed % archetypesOfDay.length;
+      return archetypesOfDay[idx];
+    }
+
+    function initGreeting(){
+      const savedName = localStorage.getItem("portalUserName") || "KODUX";
+      greetingName.textContent = "Olá, " + savedName;
+
+      chatUserNameInput.value = savedName;
+
+      const now = new Date();
+      const h = now.getHours();
+      let period = "Streaming do dia";
+      if (h >= 5 && h < 12) period = "Manhã de Streaming";
+      else if (h >= 12 && h < 18) period = "Tarde de Streaming";
+      else period = "Noite de Streaming";
+
+      timeMini.textContent = period + " · pronto";
+
+      chatUserNameInput.addEventListener("change", () => {
+        const name = chatUserNameInput.value.trim() || "KODUX";
+        localStorage.setItem("portalUserName", name);
+        greetingName.textContent = "Olá, " + name;
+      });
+
+      const arch = pickArchetypeOfDay();
+      if (arch && cardOfDayTitle && cardOfDaySymbol){
+        cardOfDayTitle.textContent = "Hoje você está no modo " + arch.id + " — " + arch.phrase.split("—")[1].trim();
+        cardOfDaySymbol.textContent = arch.symbol;
+      }
+    }
+
+    // ============================
+    // STREAMING · RAILS + HERO
+    // ============================
+
+    const streamRailMap = {
+      "Trilhas e Ativações": streamRailTrilhas,
+      "Sinopses": streamRailSinopses,
+      "Ambiente e Espaço da Mente": streamRailAmbiente,
+      "Neurociência e Bem-Estar": streamRailNeuro,
+      "Meditações Guiadas": streamRailMeditacoes
+    };
 
     function createStreamCard(item){
       const card = document.createElement("article");
       card.className = "stream-card";
-      card.dataset.streamId = item.id;
-
-      const thumb = document.createElement("div");
-      thumb.className = "stream-thumb";
-      if(item.thumb){
-        thumb.style.backgroundImage = `url("${item.thumb}")`;
-      }
+      const thumbDiv = document.createElement("div");
+      thumbDiv.className = "stream-thumb";
+      thumbDiv.style.backgroundImage = item.thumb ? "url('" + item.thumb + "')" : "none";
 
       const inner = document.createElement("div");
       inner.className = "stream-inner";
 
-      const tag = document.createElement("div");
-      tag.className = "stream-tag";
-      tag.textContent = item.tag || "Streaming";
+      const tagSpan = document.createElement("div");
+      tagSpan.className = "stream-tag";
+      tagSpan.textContent = item.tag || item.category;
 
       const ttsBtn = document.createElement("button");
       ttsBtn.className = "tts-btn stream-tts";
       ttsBtn.type = "button";
       ttsBtn.textContent = "◎";
       ttsBtn.title = "Ouvir título";
+      ttsBtn.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        speak(item.title + ". " + (item.subtitle || ""));
+      });
 
-      const title = document.createElement("div");
-      title.className = "stream-title";
-      title.textContent = item.title;
+      const titleEl = document.createElement("div");
+      titleEl.className = "stream-title";
+      titleEl.textContent = item.title;
 
-      const sub = document.createElement("div");
-      sub.className = "stream-sub";
-      sub.textContent = item.subtitle || "";
+      const subEl = document.createElement("div");
+      subEl.className = "stream-sub";
+      subEl.textContent = item.subtitle || "";
 
-      inner.appendChild(title);
-      inner.appendChild(sub);
+      inner.appendChild(titleEl);
+      inner.appendChild(subEl);
 
-      card.appendChild(thumb);
+      card.appendChild(thumbDiv);
       card.appendChild(inner);
-      card.appendChild(tag);
+      card.appendChild(tagSpan);
       card.appendChild(ttsBtn);
 
       card.addEventListener("click", () => {
-        applyHeroFromItem(item);
-        openInViewer({
-          title: item.title,
-          subtitle: item.subtitle,
-          url: item.embedUrl,
-          note: "Streaming do dia rodando no viewer interno."
-        });
-      });
-
-      ttsBtn.addEventListener("click", ev => {
-        ev.stopPropagation();
-        if("speechSynthesis" in window){
-          const u = new SpeechSynthesisUtterance(
-            `${item.title}. ${item.subtitle || ""}`
-          );
-          u.lang = "pt-BR";
-          window.speechSynthesis.speak(u);
-        }
+        openViewerForItem(item, "Streaming do dia · " + (item.category || ""));
       });
 
       return card;
     }
 
-    function renderStreamingRails(){
-      const railsConfig = [
-        {
-          id: "streamRailTrilhas",
-          categories: ["Trilhas e Ativações"]
-        },
-        {
-          id: "streamRailSinopses",
-          categories: ["Sinopses"]
-        },
-        {
-          id: "streamRailAmbiente",
-          categories: ["Ambiente e Espaço da Mente"]
-        },
-        {
-          id: "streamRailNeuro",
-          categories: ["Neurociência e Bem-Estar"]
-        },
-        {
-          id: "streamRailMeditacoes",
-          categories: ["Meditações Guiadas"]
+    function openViewerForItem(item, contextSubtitle){
+      if (!item) return;
+      document.body.setAttribute("data-stream-bg", item.bgMode || "default");
+      viewTitle.textContent = item.title || "Streaming do dia";
+      viewSubtitle.textContent = contextSubtitle || item.subtitle || "";
+      viewNote.textContent = "Abrindo com o viewer interno do Portal Supremo.";
+      let iframe;
+      if (item.embedUrl){
+        iframe = document.createElement("iframe");
+        iframe.src = item.embedUrl;
+        iframe.allowFullscreen = true;
+        iframe.loading = "lazy";
+      }else if (item.srcdoc){
+        iframe = document.createElement("iframe");
+        iframe.setAttribute("srcdoc", item.srcdoc);
+      }else if (item.url){
+        iframe = document.createElement("iframe");
+        iframe.src = item.url;
+      }
+      viewVideoHolder.innerHTML = "";
+      if (iframe) viewVideoHolder.appendChild(iframe);
+      viewOverlay.classList.add("visible");
+    }
+
+    function pickStreamingOfDay(){
+      if (!streamingItems.length) return null;
+      const today = new Date();
+      const seed = today.getFullYear()*366 + today.getMonth()*31 + today.getDate();
+      const idx = seed % streamingItems.length;
+      return streamingItems[idx];
+    }
+
+    function initStreaming(){
+      // rails
+      streamingItems.forEach(item => {
+        const rail = streamRailMap[item.category];
+        if (rail){
+          rail.appendChild(createStreamCard(item));
         }
-      ];
+      });
 
-      railsConfig.forEach(cfg => {
-        const track = document.getElementById(cfg.id);
-        if(!track) return;
-        track.innerHTML = "";
-
-        const list = streamingItems.filter(item =>
-          cfg.categories.includes(item.category)
-        );
-
-        if(!list.length){
-          const emptyMsg = document.createElement("div");
-          emptyMsg.style.fontSize = "11px";
-          emptyMsg.style.color = "var(--text-muted)";
-          emptyMsg.style.padding = "8px 2px";
-          emptyMsg.textContent = "Sem vídeos nessa categoria ainda.";
-          track.appendChild(emptyMsg);
-          return;
+      const heroItem = pickStreamingOfDay() || streamingItems[0];
+      if (heroItem){
+        heroTitle.textContent = heroItem.title;
+        heroSubtitle.textContent = heroItem.subtitle || "";
+        heroTag.textContent = heroItem.category || "Streaming do dia";
+        if (heroItem.heroImg){
+          heroBg.style.backgroundImage = "url('" + heroItem.heroImg + "')";
         }
+        document.body.setAttribute("data-stream-bg", heroItem.bgMode || "default");
 
-        list.forEach(item => {
-          track.appendChild(createStreamCard(item));
+        heroCard.addEventListener("click", () => {
+          openViewerForItem(heroItem, "Streaming do dia · " + (heroItem.category || ""));
         });
+        heroPlayBtn.addEventListener("click", (ev) => {
+          ev.stopPropagation();
+          openViewerForItem(heroItem, "Streaming do dia · " + (heroItem.category || ""));
+        });
+        heroTtsBtn.addEventListener("click", (ev) => {
+          ev.stopPropagation();
+          speak(heroItem.title + ". " + (heroItem.subtitle || ""));
+        });
+      }
+
+      viewBackBtn.addEventListener("click", () => {
+        viewOverlay.classList.remove("visible");
+        viewVideoHolder.innerHTML = "";
+      });
+      viewOverlay.addEventListener("click", (ev) => {
+        if (ev.target === viewOverlay){
+          viewOverlay.classList.remove("visible");
+          viewVideoHolder.innerHTML = "";
+        }
       });
     }
 
     // ============================
-    // APP GROUPS · PARA GRADIENT
+    // PLAY STORE · PORTAL SUPREMO
     // ============================
 
-    function getAppGroup(app){
-      const k = (app.key || "").toLowerCase();
-      const t = (app.title || "").toLowerCase();
-
-      if(k.includes("dual") || k.includes("unouno") || t.includes("dual")){
-        return "dual";
-      }
-      if(k.includes("solar") || t.includes("solar") || t.includes("nos.s°lar")){
-        return "solar";
-      }
-      if(k.includes("d0x") || k.includes("info") || t.includes("livro")){
-        return "docs";
-      }
+    function inferAppGroup(app){
+      if (app.key === "nossolar-dual") return "solar";
+      if (["d0x","d0x-2","info-doc"].includes(app.key)) return "docs";
+      if (["dual-editor","dual-app","unouno-oraculo"].includes(app.key)) return "dual";
       return "base";
     }
-
-    // ============================
-    // RENDER · PORTAL SUPREMO (apps)
-    // ============================
 
     function createAppCard(app){
       const card = document.createElement("article");
       card.className = "stream-card app-card";
-      card.dataset.portalId = app.key;
-      card.dataset.appGroup = getAppGroup(app);
+      card.dataset.appGroup = inferAppGroup(app);
 
-      const thumb = document.createElement("div");
-      thumb.className = "stream-thumb";
-      if(app.icon){
-        thumb.style.backgroundImage = `url("${app.icon}")`;
+      const thumbDiv = document.createElement("div");
+      thumbDiv.className = "stream-thumb";
+      if (app.icon){
+        thumbDiv.style.backgroundImage = "url('" + app.icon + "')";
       }
 
       const inner = document.createElement("div");
       inner.className = "stream-inner";
 
-      const tag = document.createElement("div");
-      tag.className = "stream-tag";
-      tag.textContent = "App";
+      const titleEl = document.createElement("div");
+      titleEl.className = "stream-title";
+      titleEl.textContent = app.title;
 
-      const title = document.createElement("div");
-      title.className = "stream-title";
-      title.textContent = app.title;
+      const subEl = document.createElement("div");
+      subEl.className = "stream-sub";
+      subEl.textContent = app.desc || "";
 
-      const sub = document.createElement("div");
-      sub.className = "stream-sub";
-      sub.textContent = app.desc || "";
+      inner.appendChild(titleEl);
+      inner.appendChild(subEl);
 
-      inner.appendChild(title);
-      inner.appendChild(sub);
-
-      card.appendChild(thumb);
+      card.appendChild(thumbDiv);
       card.appendChild(inner);
-      card.appendChild(tag);
 
       card.addEventListener("click", () => {
-        applyBgTheme("deep");
-        openInViewer({
-          title: app.title,
-          subtitle: app.desc || "",
-          url: app.url,
-          note: "App do Portal Supremo rodando no viewer (Play Store interna)."
-        });
+        openViewerForItem({url: app.url, title: app.title, subtitle: app.desc, bgMode: "deep"}, "Portal Supremo / Sistema");
       });
 
       return card;
     }
 
-    function renderPortalApps(){
-      portalRail.innerHTML = "";
-      portalGrid.innerHTML = "";
+    function initPlayStore(){
       playStoreApps.forEach(app => {
-        const cardRail = createAppCard(app);
-        portalRail.appendChild(cardRail);
+        const card = createAppCard(app);
+        portalRail.appendChild(card.cloneNode(true));
 
-        const cardGrid = createAppCard(app);
-        portalGrid.appendChild(cardGrid);
+        const gridCard = createAppCard(app);
+        gridCard.style.minWidth = "0";
+        gridCard.style.maxWidth = "none";
+        portalGrid.appendChild(gridCard);
+      });
+
+      appsViewToggleBtn.addEventListener("click", () => {
+        const current = document.body.getAttribute("data-apps-view") || "rail";
+        const next = current === "rail" ? "grid" : "rail";
+        document.body.setAttribute("data-apps-view", next);
+        appsViewToggleBtn.textContent = next === "grid" ? "▤ Rail" : "▤ Grid";
+      });
+
+      heroOpenAppBtn.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        if (featuredApp){
+          openViewerForItem({url: featuredApp.url, title: featuredApp.title, subtitle: featuredApp.desc, bgMode: "deep"}, "Portal Supremo / Sistema");
+        }
       });
     }
 
     // ============================
-    // PLAY STORE / CÁPSULAS (locais)
+    // CÁPSULAS + VIEWER LOCAL
     // ============================
 
-    const CAPSULE_KEY = "dual_portal_stream_capsules_v1";
+    const CAPSULES_KEY = "portalSupremoCapsules";
 
     function loadCapsules(){
       try{
-        const raw = localStorage.getItem(CAPSULE_KEY);
-        if(!raw) return [];
-        return JSON.parse(raw);
+        const raw = localStorage.getItem(CAPSULES_KEY);
+        if (!raw) return [];
+        const arr = JSON.parse(raw);
+        return Array.isArray(arr) ? arr : [];
       }catch(e){
+        console.warn("Erro ao carregar cápsulas", e);
         return [];
       }
     }
 
-    function saveCapsules(caps){
-      localStorage.setItem(CAPSULE_KEY, JSON.stringify(caps));
+    function saveCapsules(list){
+      localStorage.setItem(CAPSULES_KEY, JSON.stringify(list || []));
     }
 
     function renderCapsules(){
-      const caps = loadCapsules();
+      const list = loadCapsules();
       capsuleListEl.innerHTML = "";
-      if(!caps.length){
-        const empty = document.createElement("li");
-        empty.className = "capsule-pill";
-        empty.innerHTML =
-          '<div class="capsule-main"><div class="capsule-title">Nenhuma cápsula salva ainda</div><div class="capsule-tag">Salve um link ou HTML para começar.</div></div>';
-        capsuleListEl.appendChild(empty);
+      if (!list.length){
+        const li = document.createElement("li");
+        li.style.fontSize = "11px";
+        li.style.color = "var(--text-muted)";
+        li.textContent = "Nenhuma cápsula salva ainda.";
+        capsuleListEl.appendChild(li);
         return;
       }
-
-      caps.forEach((cap, index) => {
+      list.forEach((cap, idx) => {
         const li = document.createElement("li");
         li.className = "capsule-pill";
 
         const main = document.createElement("div");
         main.className = "capsule-main";
+        const t = document.createElement("div");
+        t.className = "capsule-title";
+        t.textContent = cap.name || "Cápsula";
 
-        const title = document.createElement("div");
-        title.className = "capsule-title";
-        title.textContent = cap.name || "(sem nome)";
-
-        const isHtml = !!cap.html || cap.isHtml;
         const tag = document.createElement("div");
         tag.className = "capsule-tag";
-        tag.textContent = cap.tag
-          ? cap.tag + (isHtml ? " · HTML" : "")
-          : isHtml
-          ? "HTML interno"
-          : cap.url || "";
+        tag.textContent = (cap.tag || "") + (cap.url ? " · " + cap.url : "");
 
-        main.appendChild(title);
+        main.appendChild(t);
         main.appendChild(tag);
 
         const actions = document.createElement("div");
@@ -3322,57 +2588,31 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
 
         const btnViewer = document.createElement("button");
         btnViewer.className = "pill-btn";
-        btnViewer.type = "button";
-        btnViewer.textContent = "▶ Abrir no viewer";
+        btnViewer.textContent = "▶ Viewer";
         btnViewer.addEventListener("click", () => {
-          applyBgTheme("deep");
-          openInViewer({
-            title: cap.name || "Cápsula",
-            subtitle: cap.tag || "",
-            url: isHtml ? "about:blank" : cap.url,
-            note: isHtml
-              ? "HTML interno sendo renderizado pelo viewer."
-              : "Cápsula da Play Store interna usando o viewer do Portal."
-          });
-
-          if(isHtml){
-            const iframe = viewVideoHolder.querySelector("iframe");
-            if(iframe){
-              iframe.addEventListener("load", () => {
-                iframe.contentWindow.document.open();
-                iframe.contentWindow.document.write(cap.html || "");
-                iframe.contentWindow.document.close();
-              });
-            }
-          }
+          openViewerForItem({url: cap.url, title: cap.name, subtitle: cap.tag || "", bgMode: "deep"}, "Cápsula salva");
         });
 
-        const btnPreview = document.createElement("button");
-        btnPreview.className = "pill-btn";
-        btnPreview.type = "button";
-        btnPreview.textContent = "⧉ Preview local";
-        btnPreview.addEventListener("click", () => {
-          if(isHtml && cap.html){
-            localViewerFrame.innerHTML = cap.html;
-          }else if(cap.url){
-            localViewerFrame.innerHTML =
-              `<iframe src="${cap.url}" style="width:100%;height:100%;border:0;border-radius:0 0 18px 18px;"></iframe>`;
-          }
+        const btnTab = document.createElement("button");
+        btnTab.className = "pill-btn";
+        btnTab.textContent = "⧉ Aba nova";
+        btnTab.addEventListener("click", () => {
+          if (cap.url) window.open(cap.url, "_blank");
         });
 
-        const btnRemove = document.createElement("button");
-        btnRemove.className = "pill-btn";
-        btnRemove.type = "button";
-        btnRemove.textContent = "🗑 Remover";
-        btnRemove.addEventListener("click", () => {
-          const updated = loadCapsules().filter((_, i) => i !== index);
-          saveCapsules(updated);
+        const btnDel = document.createElement("button");
+        btnDel.className = "pill-btn";
+        btnDel.textContent = "✕ Remover";
+        btnDel.addEventListener("click", () => {
+          const arr = loadCapsules();
+          arr.splice(idx, 1);
+          saveCapsules(arr);
           renderCapsules();
         });
 
         actions.appendChild(btnViewer);
-        actions.appendChild(btnPreview);
-        actions.appendChild(btnRemove);
+        actions.appendChild(btnTab);
+        actions.appendChild(btnDel);
 
         li.appendChild(main);
         li.appendChild(actions);
@@ -3381,1779 +2621,353 @@ blockquote.bq-l3{border-left-width:9px;opacity:.92}
       });
     }
 
-    saveCapsuleBtn.addEventListener("click", () => {
-      const name = capsuleNameInput.value.trim();
-      const url = capsuleUrlInput.value.trim();
-      const thumb = capsuleThumbInput.value.trim();
-      const tag = capsuleTagInput.value.trim();
-
-      if(!url){
-        alert("Precisa pelo menos de uma URL.");
-        return;
-      }
-
-      const caps = loadCapsules();
-      caps.unshift({name, url, thumb, tag, isHtml:false});
-      saveCapsules(caps);
+    function initCapsules(){
       renderCapsules();
 
-      capsuleNameInput.value = "";
-      capsuleUrlInput.value = "";
-      capsuleThumbInput.value = "";
-      capsuleTagInput.value = "";
-    });
-
-    clearCapsulesBtn.addEventListener("click", () => {
-      if(confirm("Apagar todas as cápsulas salvas?")){
-        localStorage.removeItem(CAPSULE_KEY);
+      saveCapsuleBtn.addEventListener("click", () => {
+        const name = capsuleNameInput.value.trim() || "Cápsula";
+        const url = capsuleUrlInput.value.trim();
+        if (!url){
+          alert("Informe uma URL para salvar a cápsula.");
+          return;
+        }
+        const thumb = capsuleThumbInput.value.trim();
+        const tag = capsuleTagInput.value.trim();
+        const list = loadCapsules();
+        list.push({name, url, thumb, tag});
+        saveCapsules(list);
         renderCapsules();
-      }
-    });
-
-    resetLocalViewerBtn.addEventListener("click", () => {
-      localViewerFrame.innerHTML = "";
-    });
-
-    // HTML colado
-    previewHtmlBtn.addEventListener("click", () => {
-      const html = htmlPasteArea.value.trim();
-      if(!html){
-        alert("Cole algum HTML primeiro.");
-        return;
-      }
-      localViewerFrame.innerHTML = html;
-    });
-
-    openHtmlInViewerBtn.addEventListener("click", () => {
-      const html = htmlPasteArea.value.trim();
-      if(!html){
-        alert("Cole algum HTML primeiro.");
-        return;
-      }
-      openInViewer({
-        title: "HTML local",
-        subtitle: "Conteúdo colado sendo exibido pelo viewer interno.",
-        url: "about:blank",
-        note: "HTML colado sendo renderizado diretamente dentro do viewer."
       });
-      const iframe = viewVideoHolder.querySelector("iframe");
-      if(iframe){
-        iframe.addEventListener("load", () => {
-          iframe.contentWindow.document.open();
-          iframe.contentWindow.document.write(html);
-          iframe.contentWindow.document.close();
-        });
-      }
-    });
 
-    // Salvar HTML como cápsula
-    saveHtmlCapsuleBtn.addEventListener("click", () => {
-      const html = htmlPasteArea.value.trim();
-      if(!html){
-        alert("Cole algum HTML primeiro para salvar.");
-        return;
-      }
-      const name = capsuleNameInput.value.trim() || "Canal interno HTML";
-      const tag = capsuleTagInput.value.trim() || "HTML interno";
-
-      const caps = loadCapsules();
-      caps.unshift({
-        name,
-        url: "",
-        html,
-        tag,
-        isHtml: true
+      clearCapsulesBtn.addEventListener("click", () => {
+        if (confirm("Limpar todas as cápsulas salvas?")){
+          saveCapsules([]);
+          renderCapsules();
+        }
       });
-      saveCapsules(caps);
-      renderCapsules();
-    });
+
+      resetLocalViewerBtn.addEventListener("click", () => {
+        localViewerFrame.innerHTML = "";
+      });
+    }
+
+    // HTML local -> mini viewer + viewer principal + cápsula
+    function initHtmlLocal(){
+      previewHtmlBtn.addEventListener("click", () => {
+        const html = htmlPasteArea.value;
+        const iframe = document.createElement("iframe");
+        iframe.setAttribute("srcdoc", html);
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "0";
+        localViewerFrame.innerHTML = "";
+        localViewerFrame.appendChild(iframe);
+      });
+
+      openHtmlInViewerBtn.addEventListener("click", () => {
+        const html = htmlPasteArea.value;
+        if (!html.trim()){
+          alert("Cole um HTML para abrir no viewer.");
+          return;
+        }
+        openViewerForItem({srcdoc: html, title: "HTML Local", subtitle: "Canal interno", bgMode: "deep"}, "Canal interno · HTML Local");
+      });
+
+      saveHtmlCapsuleBtn.addEventListener("click", () => {
+        const html = htmlPasteArea.value;
+        if (!html.trim()){
+          alert("Cole um HTML para salvar como cápsula.");
+          return;
+        }
+        const name = capsuleNameInput.value.trim() || "HTML Local";
+        // data URL simples
+        const dataUrl = "data:text/html;charset=utf-8," + encodeURIComponent(html);
+        const list = loadCapsules();
+        list.push({name, url: dataUrl, thumb: "", tag: "HTML Local"});
+        saveCapsules(list);
+        renderCapsules();
+      });
+    }
 
     // ============================
-    // CHAT SUPREMO · STATE + CONFIG
+    // MENU LATERAL + ORB
     // ============================
 
-    const CHAT_CFG_KEY = "dual_portal_chat_config_v1";
+    function initMenu(){
+      openMenuBtn.addEventListener("click", () => {
+        menuOverlay.classList.add("visible");
+      });
+      menuCloseBtn.addEventListener("click", () => {
+        menuOverlay.classList.remove("visible");
+      });
+      menuOverlay.addEventListener("click", (ev) => {
+        if (ev.target === menuOverlay){
+          menuOverlay.classList.remove("visible");
+        }
+      });
+
+      menuStreamingBtn.addEventListener("click", () => {
+        menuOverlay.classList.remove("visible");
+        heroCard.scrollIntoView({behavior:"smooth", block:"start"});
+      });
+      menuPortalBtn.addEventListener("click", () => {
+        menuOverlay.classList.remove("visible");
+        portalRail.scrollIntoView({behavior:"smooth", block:"start"});
+      });
+      menuChatBtn.addEventListener("click", () => {
+        menuOverlay.classList.remove("visible");
+        chatStack.open = true;
+        chatStack.scrollIntoView({behavior:"smooth", block:"start"});
+      });
+
+      orbFab.addEventListener("click", () => {
+        // Orb abre/fecha menu como estado principal
+        const visible = menuOverlay.classList.contains("visible");
+        if (visible){
+          menuOverlay.classList.remove("visible");
+        }else{
+          menuOverlay.classList.add("visible");
+        }
+      });
+    }
+
+    // ============================
+    // CHAT SUPREMO · WEBHOOK + OPENROUTER
+    // ============================
+
+    const CHAT_CFG_KEY = "portalSupremoChatConfig";
 
     function loadChatConfig(){
       try{
         const raw = localStorage.getItem(CHAT_CFG_KEY);
-        if(!raw) return {};
-        return JSON.parse(raw);
+        if (!raw) return {};
+        const cfg = JSON.parse(raw);
+        return cfg || {};
       }catch(e){
+        console.warn("Erro ao carregar config do chat", e);
         return {};
       }
     }
 
     function saveChatConfig(cfg){
-      localStorage.setItem(CHAT_CFG_KEY, JSON.stringify(cfg));
+      localStorage.setItem(CHAT_CFG_KEY, JSON.stringify(cfg || {}));
     }
 
-    function refreshChatModeLabel(cfg){
-      const hasWebhook = !!cfg.webhookUrl;
-      const hasOR = !!cfg.openRouterKey && !!cfg.openRouterModel;
-      let label = "Sem destino configurado ainda.";
-      let pill = "Modo ocioso";
+    function applyChatConfigUi(cfg){
+      chatWebhookUrlInput.value = cfg.webhookUrl || "";
+      chatUserNameInput.value = cfg.userName || (localStorage.getItem("portalUserName") || "KODUX");
+      chatOpenRouterKeyInput.value = cfg.openRouterKey || "";
+      chatOpenRouterModelInput.value = cfg.model || "";
+      chatSystemPromptInput.value = cfg.systemPrompt || "";
+      greetingName.textContent = "Olá, " + chatUserNameInput.value;
 
-      if(hasWebhook && hasOR){
-        label = "Envia primeiro para Webhook · fallback OpenRouter.";
-        pill = "Webhook → OpenRouter";
-      }else if(hasWebhook){
-        label = "Enviando mensagens apenas para seu Webhook.";
-        pill = "Somente Webhook";
-      }else if(hasOR){
-        label = "Enviando mensagens apenas para OpenRouter.";
-        pill = "Somente OpenRouter";
+      let mode = "Local";
+      if (cfg.webhookUrl) mode = "Webhook";
+      else if (cfg.openRouterKey) mode = "OpenRouter";
+      chatModeLabel.textContent = "Modo atual: " + mode;
+      chatModePill.textContent = mode === "Webhook" ? "Webhook → OpenRouter" :
+        mode === "OpenRouter" ? "OpenRouter direto" : "Local / aguardando config";
+    }
+
+    function addChatMessage(who, text){
+      const msg = document.createElement("div");
+      msg.className = "chat-message " + (who === "ai" ? "ai" : "me");
+      if (who === "ai"){
+        renderLivroVivoToElement(msg, text);
+      }else{
+        msg.textContent = text;
       }
 
-      chatModeLabel.textContent = label;
-      chatModePill.textContent = pill;
-    }
-
-    function applyChatConfigToInputs(cfg){
-      chatWebhookUrlInput.value = cfg.webhookUrl || "";
-      chatUserNameInput.value = cfg.userName || "";
-      chatOpenRouterKeyInput.value = cfg.openRouterKey || "";
-      chatOpenRouterModelInput.value = cfg.openRouterModel || "";
-      chatSystemPromptInput.value = cfg.systemPrompt || "";
-      refreshChatModeLabel(cfg);
-    }
-
-    const chatConfigInitial = loadChatConfig();
-    applyChatConfigToInputs(chatConfigInitial);
-
-    chatSaveConfigBtn.addEventListener("click", () => {
-      const cfg = {
-        webhookUrl: chatWebhookUrlInput.value.trim(),
-        userName: chatUserNameInput.value.trim(),
-        openRouterKey: chatOpenRouterKeyInput.value.trim(),
-        openRouterModel: chatOpenRouterModelInput.value.trim(),
-        systemPrompt: chatSystemPromptInput.value.trim()
-      };
-      saveChatConfig(cfg);
-      refreshChatModeLabel(cfg);
-      alert("Configuração de chat salva.");
-    });
-
-    chatClearConfigBtn.addEventListener("click", () => {
-      if(!confirm("Limpar configuração de chat (Webhook / OpenRouter / Prompt)?")) return;
-      localStorage.removeItem(CHAT_CFG_KEY);
-      applyChatConfigToInputs({});
-    });
-
-    // ============================
-    // CHAT SUPREMO · MENSAGENS
-    // ============================
-
-    const chatMessages = [];
-
-    function renderChatMessages(){
-      chatMessagesEl.innerHTML = "";
-      chatMessages.forEach(msg => {
-        const div = document.createElement("div");
-        div.className = "chat-message " + msg.role;
-        div.textContent = msg.text;
-        chatMessagesEl.appendChild(div);
+      msg.addEventListener("click", () => {
+        if (who === "ai"){
+          speak(stripMd(text));
+        }else{
+          speak(text);
+        }
       });
-      chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+
+      msg.addEventListener("dblclick", () => {
+        // reenviar bloco como prompt
+        const pure = who === "ai" ? stripMd(text) : text;
+        chatInput.value = pure;
+        chatInput.focus();
+      });
+
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // espelho no embed Livro Vivo
+      if (who === "ai"){
+        const block = document.createElement("div");
+        block.className = "embed-page-block";
+        renderLivroVivoToElement(block, text);
+        block.addEventListener("click", () => {
+          speak(stripMd(text));
+        });
+        block.addEventListener("dblclick", () => {
+          chatInput.value = stripMd(text);
+          chatInput.focus();
+        });
+        embedResponseBody.appendChild(block);
+      }
     }
 
-    function pushChatMessage(role, text){
-      chatMessages.push({role, text});
-      renderChatMessages();
+    async function sendToWebhook(cfg, text){
+      const payload = {
+        user: cfg.userName || "Usuário",
+        message: text,
+        intent: intentInput.value || null,
+        source: "PortalSupremo",
+        archetypeOfDay: cardOfDayTitle ? cardOfDayTitle.textContent : null
+      };
+      const res = await fetch(cfg.webhookUrl, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+      });
+      let replyText = "";
+      try{
+        const ct = res.headers.get("content-type") || "";
+        if (ct.includes("application/json")){
+          const j = await res.json();
+          replyText = j.reply || j.message || JSON.stringify(j,null,2);
+        }else{
+          replyText = await res.text();
+        }
+      }catch(e){
+        replyText = "(Webhook respondeu, mas não deu pra ler o corpo)";
+      }
+      return replyText || "(Webhook não retornou conteúdo)";
     }
 
-    async function sendChat(){
-      const text = chatInputEl.value.trim();
-      if(!text) return;
+    async function sendToOpenRouter(cfg, text){
+      if (!cfg.openRouterKey){
+        return "(Configure sua chave do OpenRouter primeiro.)";
+      }
+      const model = cfg.model || "openai/gpt-4.1-mini";
+      const messages = [];
+      if (cfg.systemPrompt){
+        messages.push({role:"system", content: cfg.systemPrompt});
+      }
+      messages.push({role:"user", content: text});
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + cfg.openRouterKey
+        },
+        body: JSON.stringify({
+          model,
+          messages
+        })
+      });
+      const data = await res.json();
+      const reply = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+      return reply || "(Sem resposta do modelo OpenRouter)";
+    }
+
+    let sending = false;
+
+    async function handleSendChat(){
+      if (sending) return;
+      const text = chatInput.value.trim();
+      if (!text) return;
+      chatInput.value = "";
+      addChatMessage("me", text);
 
       const cfg = loadChatConfig();
-      const {webhookUrl, openRouterKey, openRouterModel, systemPrompt, userName} = cfg;
-
-      pushChatMessage("me", text);
-      chatInputEl.value = "";
-
-      let used = null;
       let reply = "";
-
+      sending = true;
       try{
-        if(webhookUrl){
-          used = "webhook";
-          const payload = {
-            sender: userName || "Kodux",
-            message: text,
-            system: systemPrompt || "",
-            source: "DualOiNet-10"
-          };
-
-          const res = await fetch(webhookUrl, {
-            method:"POST",
-            headers:{
-              "Content-Type":"application/json"
-            },
-            body:JSON.stringify(payload)
-          });
-
-          if(!res.ok){
-            throw new Error("Status " + res.status);
+        if (cfg.webhookUrl){
+          reply = await sendToWebhook(cfg, text);
+          if (!reply && cfg.openRouterKey){
+            reply = await sendToOpenRouter(cfg, text);
           }
-
-          const data = await res.json().catch(() => ({}));
-          reply =
-            data.reply ||
-            data.response ||
-            data.message ||
-            data.content ||
-            JSON.stringify(data).slice(0,400);
-        }else if(openRouterKey && openRouterModel){
-          used = "openrouter";
-          const body = {
-            model: openRouterModel,
-            messages: [
-              systemPrompt
-                ? {role:"system", content:systemPrompt}
-                : null,
-              {
-                role:"user",
-                content: (userName ? userName + ": " : "") + text
-              }
-            ].filter(Boolean)
-          };
-
-          const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-            method:"POST",
-            headers:{
-              "Content-Type":"application/json",
-              "Authorization":"Bearer " + openRouterKey
-            },
-            body:JSON.stringify(body)
-          });
-
-          if(!res.ok){
-            throw new Error("Status " + res.status);
-          }
-
-          const data = await res.json();
-          reply =
-            data.choices?.[0]?.message?.content?.trim() ||
-            "[Sem conteúdo de resposta do modelo]";
+        }else if (cfg.openRouterKey){
+          reply = await sendToOpenRouter(cfg, text);
         }else{
-          used = "none";
-          reply =
-            "Nenhum destino configurado.\n" +
-            "Preencha o Webhook ou a API Key + Modelo do OpenRouter em cima para ativar o Chat Supremo.";
+          reply = "::info Sem configuração externa\n\nConfigure um Webhook ou OpenRouter para respostas reais.\n\n[[btn:config|Abrir configurações de chat]]";
         }
-      }catch(err){
-        reply = "Erro ao buscar resposta (" + (used || "indefinido") + "): " + err.message;
+      }catch(e){
+        console.error(e);
+        reply = "::warn Ocorreu um erro ao enviar sua mensagem.\n\nVerifique o Webhook / OpenRouter e tente novamente.";
+      }finally{
+        sending = false;
       }
 
-      pushChatMessage("ai", reply);
+      if (reply){
+        addChatMessage("ai", reply);
+      }
     }
 
-    chatSendBtn.addEventListener("click", sendChat);
-    chatInputEl.addEventListener("keydown", ev => {
-      if(ev.key === "Enter" && !ev.shiftKey){
-        ev.preventDefault();
-        sendChat();
-      }
-    });
+    function initChat(){
+      const cfg = loadChatConfig();
+      applyChatConfigUi(cfg);
 
-    // ============================
-    // TEMA E MENU
-    // ============================
-
-    function setTheme(theme){
-      document.body.setAttribute("data-theme", theme);
-      localStorage.setItem("dual_portal_theme", theme);
-    }
-
-    function toggleTheme(){
-      const current = document.body.getAttribute("data-theme") || "nebula";
-      setTheme(current === "nebula" ? "madeira" : "nebula");
-    }
-
-    themeToggleBtn.addEventListener("click", toggleTheme);
-
-    const savedTheme = localStorage.getItem("dual_portal_theme");
-    if(savedTheme){
-      setTheme(savedTheme);
-    }
-
-    openMenuBtn.addEventListener("click", () => {
-      menuOverlay.classList.add("visible");
-    });
-    menuCloseBtn.addEventListener("click", () => {
-      menuOverlay.classList.remove("visible");
-    });
-    menuOverlay.addEventListener("click", e => {
-      if(e.target === menuOverlay){
-        menuOverlay.classList.remove("visible");
-      }
-    });
-
-    menuStreamingBtn.addEventListener("click", () => {
-      menuOverlay.classList.remove("visible");
-      window.scrollTo({top:0,behavior:"smooth"});
-    });
-
-    menuPortalBtn.addEventListener("click", () => {
-      menuOverlay.classList.remove("visible");
-      const appsStacks = document.querySelector(".apps-stacks");
-      if(appsStacks){
-        const rect = appsStacks.getBoundingClientRect();
-        const offset = window.scrollY + rect.top - 40;
-        window.scrollTo({top:offset,behavior:"smooth"});
-      }
-    });
-
-    menuChatBtn.addEventListener("click", () => {
-      menuOverlay.classList.remove("visible");
-      const stacks = document.querySelectorAll(".apps-stacks details.stack-card");
-      const chatStack = stacks[2]; // terceiro stack (Chat Supremo)
-      if(chatStack){
-        chatStack.open = true;
-        const rect = chatStack.getBoundingClientRect();
-        const offset = window.scrollY + rect.top - 40;
-        window.scrollTo({top:offset,behavior:"smooth"});
-      }
-    });
-
-    menuNebulaBtn.addEventListener("click", () => setTheme("nebula"));
-    menuMadeiraBtn.addEventListener("click", () => setTheme("madeira"));
-
-    // ============================
-    // HERO / VIEWER
-    // ============================
-
-    heroCard.addEventListener("click", () => {
-      const first = streamingItems[0];
-      if(!first) return;
-      applyHeroFromItem(first);
-      openInViewer({
-        title: first.title,
-        subtitle: first.subtitle,
-        url: first.embedUrl,
-        note: "Streaming do dia rodando no viewer interno."
+      chatSaveConfigBtn.addEventListener("click", () => {
+        const newCfg = {
+          webhookUrl: chatWebhookUrlInput.value.trim() || "",
+          userName: chatUserNameInput.value.trim() || "KODUX",
+          openRouterKey: chatOpenRouterKeyInput.value.trim() || "",
+          model: chatOpenRouterModelInput.value.trim() || "",
+          systemPrompt: chatSystemPromptInput.value.trim() || ""
+        };
+        saveChatConfig(newCfg);
+        applyChatConfigUi(newCfg);
       });
-    });
 
-    heroPlayBtn.addEventListener("click", e => {
-      e.stopPropagation();
-      const first = streamingItems[0];
-      if(!first) return;
-      applyHeroFromItem(first);
-      openInViewer({
-        title: first.title,
-        subtitle: first.subtitle,
-        url: first.embedUrl,
-        note: "Streaming do dia rodando no viewer interno."
+      chatClearConfigBtn.addEventListener("click", () => {
+        saveChatConfig({});
+        applyChatConfigUi({});
       });
-    });
 
-    heroOpenAppBtn.addEventListener("click", e => {
-      e.stopPropagation();
-      if(!featuredApp) return;
-      openInViewer({
-        title: featuredApp.title,
-        subtitle: featuredApp.desc || "",
-        url: featuredApp.url,
-        note: "App destaque (cápsula destacada) rodando como Streaming automático do dia."
+      chatSendBtn.addEventListener("click", handleSendChat);
+      chatInput.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter" && !ev.shiftKey){
+          ev.preventDefault();
+          handleSendChat();
+        }
       });
-    });
 
-    heroTtsBtn.addEventListener("click", e => {
-      e.stopPropagation();
-      if("speechSynthesis" in window){
-        const u = new SpeechSynthesisUtterance(
-          `${heroTitle.textContent}. ${heroSubtitle.textContent || ""}`
+      embedTtsAllBtn.addEventListener("click", () => {
+        const blocks = embedResponseBody.querySelectorAll(".embed-page-block");
+        if (!blocks.length) return;
+        let combined = "";
+        blocks.forEach((b) => {
+          combined += " " + stripMd(b.textContent || "");
+        });
+        speak(combined.trim());
+      });
+
+      // Mensagem inicial
+      if (!chatMessages.childElementCount){
+        addChatMessage("ai",
+          "::info Portal Supremo ligado\n\n" +
+          "Você pode falar comigo pelo Chat Supremo, usar Webhook ou OpenRouter, " +
+          "e ver as respostas renderizadas aqui como Livro Vivo em blocos clicáveis."
         );
-        u.lang = "pt-BR";
-        window.speechSynthesis.speak(u);
-      }
-    });
-
-    viewBackBtn.addEventListener("click", closeViewer);
-    viewOverlay.addEventListener("click", e => {
-      if(e.target === viewOverlay) closeViewer();
-    });
-
-    // ============================
-    // SAUDAÇÃO / INTENÇÃO
-    // ============================
-
-    greetingName.textContent = "Olá, KODUX";
-    timeMini.textContent = formatTimeMini();
-
-    if(featuredApp){
-      heroSubtitle.textContent =
-        "Streaming alinhado com o app destaque: " + featuredApp.title;
-    }
-
-    intentInput.addEventListener("change", () => {
-      const txt = intentInput.value.trim();
-      if(!txt) return;
-      localStorage.setItem("dual_portal_intent_of_the_day", txt);
-    });
-
-    const savedIntent = localStorage.getItem("dual_portal_intent_of_the_day");
-    if(savedIntent){
-      intentInput.value = savedIntent;
-    }
-
-    // ============================
-    // TOGGLE GRID / RAIL (APPS)
-    // ============================
-
-    function applyAppsView(mode){
-      const finalMode = mode === "grid" ? "grid" : "rail";
-      document.body.setAttribute("data-apps-view", finalMode);
-      localStorage.setItem("dual_portal_apps_view", finalMode);
-      if(finalMode === "grid"){
-        appsViewToggleBtn.textContent = "↔ Rail";
-      }else{
-        appsViewToggleBtn.textContent = "▤ Grid";
       }
     }
-
-    const savedAppsView = localStorage.getItem("dual_portal_apps_view") || "rail";
-    applyAppsView(savedAppsView);
-
-    appsViewToggleBtn.addEventListener("click", () => {
-      const current = document.body.getAttribute("data-apps-view") || "rail";
-      applyAppsView(current === "rail" ? "grid" : "rail");
-    });
 
     // ============================
     // BOOT
     // ============================
 
-    renderStreamingRails();
-    renderPortalApps();
-    renderCapsules();
-    applyHeroFromItem(streamingItems[2] || streamingItems[0]);
+    function initPortalSupremo(){
+      initTheme();
+      initGreeting();
+      initStreaming();
+      initPlayStore();
+      initCapsules();
+      initHtmlLocal();
+      initMenu();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initPortalSupremo();
+      initChat();
+    });
   </script>
-
-<!-- OVERRIDE v2 · Organizador de stack-card com data-stack-target -->
-<script>
-  (function () {
-    const ATTR_TARGET = "data-stack-target";
-    const ATTR_ORDER = "data-stack-order";
-
-    function moveStacks(root) {
-      const scope = root || document;
-      const selector = "details.stack-card[" + ATTR_TARGET + "]";
-      const cards = Array.from(scope.querySelectorAll(selector));
-
-      cards.forEach(function (card) {
-        const targetSelector = card.getAttribute(ATTR_TARGET) || ".apps-stacks";
-        if (!targetSelector) return;
-
-        const target = document.querySelector(targetSelector);
-        if (!target) return;
-
-        // já está dentro do target? não mexe
-        if (card.closest(targetSelector) === target) return;
-
-        const orderRaw = card.getAttribute(ATTR_ORDER);
-        const order = orderRaw != null ? parseFloat(orderRaw) : null;
-
-        if (order == null || Number.isNaN(order)) {
-          target.appendChild(card);
-          return;
-        }
-
-        // insere respeitando data-stack-order
-        const siblings = Array.from(
-          target.querySelectorAll("details.stack-card[" + ATTR_ORDER + "]")
-        ).filter(function (el) {
-          return el !== card;
-        });
-
-        let inserted = false;
-        for (let i = 0; i < siblings.length; i++) {
-          const sOrderRaw = siblings[i].getAttribute(ATTR_ORDER);
-          const sOrder = sOrderRaw != null ? parseFloat(sOrderRaw) : null;
-          if (sOrder != null && !Number.isNaN(sOrder) && sOrder > order) {
-            target.insertBefore(card, siblings[i]);
-            inserted = true;
-            break;
-          }
-        }
-
-        if (!inserted) {
-          target.appendChild(card);
-        }
-      });
-    }
-
-    function initMove() {
-      moveStacks(document);
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initMove);
-    } else {
-      initMove();
-    }
-
-    // Observa novos patches (ex: injetor HTML jogando cards depois)
-    const observer = new MutationObserver(function (mutations) {
-      for (const m of mutations) {
-        m.addedNodes.forEach(function (node) {
-          if (!(node instanceof Element)) return;
-
-          if (
-            node.matches &&
-            node.matches("details.stack-card[" + ATTR_TARGET + "]")
-          ) {
-            moveStacks(node);
-          } else if (node.querySelector) {
-            const inner = node.querySelector("details.stack-card[" + ATTR_TARGET + "]");
-            if (inner) moveStacks(node);
-          }
-        });
-      }
-    });
-
-    observer.observe(document.documentElement, {
-      childList: true,
-      subtree: true
-    });
-
-    console.log("[OVERRIDE v2] Ativo · aguardando stack-card com data-stack-target");
-  })();
-</script>
-
-<!-- STACK · Motor de Stacks v3 · Nested + Add App (inner card) + TTS global -->
-<details
-  class="stack-card"
-  id="stack-manager-override"
-  data-stack-target=".apps-stacks"
-  data-stack-order="0"
->
-  <summary>
-    <div class="stack-summary-main">
-      <div class="stack-title">Motor de Stacks v3 · Nested</div>
-      <div class="stack-sub">
-        Ler todos os cards, ligar/desligar, agrupar, criar apps/patches e ativar TTS global.
-      </div>
-    </div>
-    <span class="stack-pill">Manager · Global</span>
-  </summary>
-
-  <div class="stack-body">
-    <!-- VISÃO GERAL -->
-    <div class="stack-field-label">Visão geral</div>
-    <p class="flow-text" style="font-size:11px;color:var(--text-soft);line-height:1.6;margin-bottom:0.4rem;">
-      Este motor enxerga todos os <code>details.stack-card</code> do seu index
-      (vídeos, apps, root...) e permite:
-      <br>· Ligar/desligar cada card (ON/OFF)
-      <br>· Ligar/desligar grupos inteiros (nested)
-      <br>· Criar novos cards de patch ou App
-      <br>· Adicionar TTS em todos os stacks, com botão dedicado por card
-    </p>
-
-    <!-- GRUPOS NESTED -->
-    <div class="stack-field-label">Grupos de cards (nested)</div>
-    <div id="stackMgrGroupsNested" style="display:flex;flex-direction:column;gap:6px;margin-bottom:0.6rem;">
-      <!-- grupos + cards gerados via JS -->
-    </div>
-
-    <button class="pill-btn" type="button" id="stackMgrReloadBtn" style="font-size:11px;margin-bottom:0.7rem;">
-      🔄 Recarregar lista de cards
-    </button>
-
-    <hr style="border:none;border-top:1px solid var(--border-soft,rgba(148,163,184,0.5));margin:0.7rem 0;">
-
-    <!-- INNER CARD · CRIAÇÃO DE NOVOS CARDS -->
-    <details class="mgr-inner-card" open>
-      <summary>
-        <div class="mgr-inner-header">
-          <div class="mgr-inner-main">
-            <div class="mgr-inner-title">Criar novo card</div>
-            <div class="mgr-inner-sub">Patch genérico ou App nested com URL, tag e TTS.</div>
-          </div>
-          <span class="mgr-inner-pill">Novo · Stack</span>
-        </div>
-      </summary>
-
-      <div class="mgr-inner-body">
-        <!-- Tipo de card -->
-        <div id="stackMgrTypeRow" style="display:flex;gap:4px;flex-wrap:wrap;margin:0.2rem 0 0.45rem;">
-          <button type="button" class="mgr-type-pill is-active" data-type="patch">
-            🧩 Patch genérico
-          </button>
-          <button type="button" class="mgr-type-pill" data-type="app">
-            📱 App (nested)
-          </button>
-        </div>
-
-        <div class="stack-input-row" style="display:flex;flex-direction:column;gap:4px;margin-bottom:0.35rem;">
-          <label style="font-size:11px;color:var(--text-soft);">
-            Título do card
-            <input
-              id="stackMgrNewTitle"
-              class="stack-input"
-              type="text"
-              placeholder="Ex: Emoção v3 · Modo experimental"
-            >
-          </label>
-
-          <label style="font-size:11px;color:var(--text-soft);">
-            Grupo (<code>data-stack-group</code>)
-            <input
-              id="stackMgrNewGroup"
-              class="stack-input"
-              type="text"
-              placeholder="Ex: apps, videos, grego, ritual (default: apps p/ tipo App)"
-            >
-          </label>
-
-          <label style="font-size:11px;color:var(--text-soft);">
-            Target (<code>data-stack-target</code>)
-            <input
-              id="stackMgrNewTarget"
-              class="stack-input"
-              type="text"
-              placeholder=".apps-stacks"
-              value=".apps-stacks"
-            >
-          </label>
-
-          <label style="font-size:11px;color:var(--text-soft);">
-            Ordem opcional (<code>data-stack-order</code>)
-            <input
-              id="stackMgrNewOrder"
-              class="stack-input"
-              type="number"
-              min="0"
-              step="1"
-              placeholder="Ex: 10"
-            >
-          </label>
-        </div>
-
-        <!-- Campos extras para tipo App -->
-        <div id="stackMgrAppFields" style="display:none;flex-direction:column;gap:4px;margin-bottom:0.35rem;">
-          <div class="stack-field-label" style="margin-bottom:0;">Campos para tipo App</div>
-
-          <label style="font-size:11px;color:var(--text-soft);">
-            URL do app
-            <input
-              id="stackMgrNewAppUrl"
-              class="stack-input"
-              type="text"
-              placeholder="Ex: https://meu-app.vercel.app"
-            >
-          </label>
-
-          <label style="font-size:11px;color:var(--text-soft);">
-            Tag / categoria do app
-            <input
-              id="stackMgrNewAppTag"
-              class="stack-input"
-              type="text"
-              placeholder="Ex: Player, Editor, Ritual"
-            >
-          </label>
-
-          <label style="font-size:11px;color:var(--text-soft);">
-            Descrição curta (usada também no TTS)
-            <input
-              id="stackMgrNewAppDesc"
-              class="stack-input"
-              type="text"
-              placeholder="Ex: Player de trilhas do KOBLLUX"
-            >
-          </label>
-        </div>
-
-        <label class="stack-field-label" for="stackMgrNewHtml">
-          HTML interno do card (modo Patch genérico)
-        </label>
-        <textarea
-          id="stackMgrNewHtml"
-          class="stack-input"
-          rows="5"
-          placeholder="Modo Patch: cole aqui o conteúdo interno do card (sem &lt;details&gt;).&#10;Modo App: este campo é opcional."
-          style="font-family:monospace;font-size:11px;"
-        ></textarea>
-
-        <div style="display:flex;gap:6px;margin-top:0.4rem;flex-wrap:wrap;">
-          <button class="pill-btn" type="button" id="stackMgrAddBtn" style="font-size:11px;">
-            ➕ Criar card
-          </button>
-          <button class="pill-btn" type="button" id="stackMgrClearFormBtn" style="font-size:11px;">
-            🧹 Limpar formulário
-          </button>
-        </div>
-
-        <div class="stack-footnote" style="margin-top:0.4rem;">
-          • Tipo <strong>Patch</strong> cria um stack genérico com o HTML que você colar.<br>
-          • Tipo <strong>App</strong> cria um card com botão de abrir e descrição, entrando no grupo definido (ou em <code>apps</code> por padrão).
-        </div>
-      </div>
-    </details>
-  </div>
-</details>
-
-<style>
-  /* Motor de Stacks v3 · estilos locais (nested + inner card + TTS global) */
-
-  /* INNER CARD (nested dentro do Manager) */
-  #stack-manager-override .mgr-inner-card {
-    border-radius: 10px;
-    border: 1px solid var(--border-soft, rgba(148,163,184,0.7));
-    background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.88));
-    margin-top: 0.4rem;
-    overflow: hidden;
-  }
-  #stack-manager-override .mgr-inner-card summary {
-    list-style: none;
-    cursor: pointer;
-  }
-  #stack-manager-override .mgr-inner-card summary::-webkit-details-marker {
-    display: none;
-  }
-  #stack-manager-override .mgr-inner-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 4px 8px;
-  }
-  #stack-manager-override .mgr-inner-main {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-  #stack-manager-override .mgr-inner-title {
-    font-size: 11px;
-    color: var(--text-strong,#e5f0ff);
-  }
-  #stack-manager-override .mgr-inner-sub {
-    font-size: 10px;
-    color: var(--text-soft,#9ca3af);
-  }
-  #stack-manager-override .mgr-inner-pill {
-    font-size: 10px;
-    padding-inline: 0.6rem;
-    padding-block: 0.2rem;
-    border-radius: 999px;
-    border: 1px solid var(--border-soft,rgba(148,163,184,0.8));
-    background: rgba(15,23,42,0.92);
-    white-space: nowrap;
-  }
-  #stack-manager-override .mgr-inner-body {
-    padding: 4px 8px 8px;
-    border-top: 1px solid rgba(15,23,42,0.96);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  #stack-manager-override .mgr-type-pill {
-    font-size: 10px;
-    padding-inline: 0.6rem;
-    padding-block: 0.2rem;
-    border-radius: 999px;
-    border: 1px solid var(--border-soft, rgba(148,163,184,0.6));
-    background: rgba(15,23,42,0.92);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background .18s ease, border-color .18s ease, transform .08s ease;
-  }
-  #stack-manager-override .mgr-type-pill.is-active {
-    border-color: var(--accent, #38bdf8);
-    background: radial-gradient(circle at 0% 0%, rgba(56,189,248,0.32), transparent 68%);
-    transform: translateY(-1px);
-  }
-
-  /* GRUPOS NESTED */
-  #stack-manager-override .mgr-group {
-    border-radius: 10px;
-    border: 1px solid var(--border-soft, rgba(148,163,184,0.6));
-    background: rgba(15,23,42,0.9);
-    overflow: hidden;
-  }
-
-  #stack-manager-override .mgr-group summary {
-    list-style: none;
-    cursor: pointer;
-  }
-  #stack-manager-override .mgr-group summary::-webkit-details-marker {
-    display: none;
-  }
-
-  #stack-manager-override .mgr-group-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 4px 8px;
-  }
-
-  #stack-manager-override .mgr-group-main {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  #stack-manager-override .mgr-group-title {
-    font-size: 11px;
-    color: var(--text-strong, #e5f0ff);
-  }
-
-  #stack-manager-override .mgr-group-meta {
-    font-size: 10px;
-    color: var(--text-soft, #9ca3af);
-  }
-
-  #stack-manager-override .mgr-group-btn {
-    font-size: 10px;
-    padding-inline: 0.5rem;
-    padding-block: 0.15rem;
-    border-radius: 999px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--border-soft, rgba(148,163,184,0.6));
-    background: rgba(15,23,42,0.9);
-    white-space: nowrap;
-    cursor: pointer;
-  }
-
-  #stack-manager-override .mgr-group-btn.is-off {
-    border-color: #f97316;
-    background: radial-gradient(circle at 0% 0%, rgba(248,113,113,0.24), transparent 70%);
-    color: #fed7aa;
-  }
-
-  #stack-manager-override .mgr-group-body {
-    padding: 4px 8px 6px;
-    border-top: 1px solid rgba(15,23,42,0.9);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  #stack-manager-override .mgr-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 6px;
-    border-radius: 7px;
-    border: 1px solid var(--border-soft, rgba(148,163,184,0.5));
-    background: rgba(15,23,42,0.98);
-  }
-
-  #stack-manager-override .mgr-row-main {
-    flex: 1;
-    min-width: 0;
-  }
-
-  #stack-manager-override .mgr-row-title {
-    font-size: 11px;
-    color: var(--text-strong, #e5f0ff);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  #stack-manager-override .mgr-row-meta {
-    font-size: 10px;
-    color: var(--text-soft, #9ca3af);
-  }
-
-  #stack-manager-override .mgr-row-actions {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  #stack-manager-override .mgr-btn {
-    font-size: 10px;
-    padding-inline: 0.5rem;
-    padding-block: 0.15rem;
-    border-radius: 999px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--border-soft, rgba(148,163,184,0.6));
-    background: rgba(15,23,42,0.9);
-    white-space: nowrap;
-    cursor: pointer;
-  }
-
-  #stack-manager-override .mgr-btn-toggle-on {
-    border-color: #22c55e;
-    background: radial-gradient(circle at 0% 0%, rgba(34,197,94,0.24), transparent 70%);
-    color: #bbf7d0;
-  }
-
-  #stack-manager-override .mgr-btn-toggle-off {
-    border-color: #f97316;
-    background: radial-gradient(circle at 0% 0%, rgba(248,113,113,0.24), transparent 70%);
-    color: #fed7aa;
-  }
-
-  #stack-manager-override .mgr-btn-tts {
-    border-color: #38bdf8;
-    background: radial-gradient(circle at 0% 0%, rgba(56,189,248,0.28), transparent 70%);
-    color: #e0f2fe;
-    border-radius: 999px;
-    min-width: 26px;
-    min-height: 26px;
-    padding-inline: 0.3rem;
-  }
-
-  #stack-manager-override .mgr-btn-tts span {
-    font-size: 13px;
-  }
-
-  /* Botão TTS global que aparece em TODO stack-card (fora do manager) */
-  .stack-tts-btn {
-    margin-left: 4px;
-    border-radius: 999px;
-    border: 1px solid rgba(148,163,184,0.7);
-    background: radial-gradient(circle at 0% 0%, rgba(56,189,248,0.3), transparent 70%);
-    padding: 0 6px;
-    height: 20px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  .stack-tts-btn span {
-    font-size: 11px;
-  }
-</style>
-
-<script>
-  // Motor de Stacks v3 · Nested + Add App + TTS global
-  (function () {
-    const root = document.getElementById("stack-manager-override");
-    if (!root) return;
-
-    const VIS_KEY = "dual_stack_visibility_v3";
-    const GROUP_KEY = "dual_stack_groups_v3";
-
-    const groupsContainer = root.querySelector("#stackMgrGroupsNested");
-    const reloadBtn = root.querySelector("#stackMgrReloadBtn");
-
-    const titleInput = root.querySelector("#stackMgrNewTitle");
-    const groupInput = root.querySelector("#stackMgrNewGroup");
-    const targetInput = root.querySelector("#stackMgrNewTarget");
-    const orderInput = root.querySelector("#stackMgrNewOrder");
-    const htmlInput = root.querySelector("#stackMgrNewHtml");
-
-    const appFieldsBox = root.querySelector("#stackMgrAppFields");
-    const appUrlInput = root.querySelector("#stackMgrNewAppUrl");
-    const appTagInput = root.querySelector("#stackMgrNewAppTag");
-    const appDescInput = root.querySelector("#stackMgrNewAppDesc");
-
-    const typeRow = root.querySelector("#stackMgrTypeRow");
-    const typePills = typeRow ? Array.from(typeRow.querySelectorAll(".mgr-type-pill")) : [];
-    let currentType = "patch";
-
-    const addBtn = root.querySelector("#stackMgrAddBtn");
-    const clearBtn = root.querySelector("#stackMgrClearFormBtn");
-
-    const CARD_SELECTOR = "details.stack-card";
-    const SELF_ID = "stack-manager-override";
-
-    // ==== TTS helper ====
-    function speakText(text) {
-      try {
-        // Modo IA externo (OpenRouter etc.)
-        if (window.stackTtsMode === "ai" && typeof window.playStackTtsAI === "function") {
-          window.playStackTtsAI(text);
-          return;
-        }
-        // Modo TTS custom do app
-        if (typeof window.playStackTts === "function") {
-          window.playStackTts(text);
-          return;
-        }
-      } catch (e) {}
-
-      // Fallback: Web Speech API
-      if (!("speechSynthesis" in window)) return;
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = "pt-BR";
-      utter.rate = 1;
-      utter.pitch = 1;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utter);
-    }
-
-    // Adiciona botão TTS em TODO stack-card (uma vez só)
-    function ensureStackTtsButton(card, groupName) {
-      if (!card || card.id === SELF_ID) return;
-      const summary = card.querySelector("summary");
-      if (!summary) return;
-
-      // já existe botão?
-      if (summary.querySelector(".stack-tts-btn")) return;
-
-      const anchor =
-        summary.querySelector(".stack-summary-main") ||
-        summary;
-
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "stack-tts-btn";
-      btn.title = "Ouvir este card";
-      btn.innerHTML = "<span>◎</span>";
-
-      btn.addEventListener("click", function (ev) {
-        ev.stopPropagation();
-        const title = getTitle(card);
-        let bodyText = "";
-        const body = card.querySelector(".stack-body");
-        if (body) {
-          bodyText = body.innerText || body.textContent || "";
-        }
-        const phrase = "Grupo " + groupName + ". Card: " + title + ". " + bodyText;
-        speakText(phrase);
-      });
-
-      anchor.appendChild(btn);
-    }
-
-    // Tipo de card (Patch/App)
-    if (typeRow) {
-      typePills.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const t = btn.dataset.type || "patch";
-          currentType = t;
-
-          typePills.forEach((b) => b.classList.toggle("is-active", b === btn));
-
-          if (t === "app") {
-            appFieldsBox.style.display = "flex";
-          } else {
-            appFieldsBox.style.display = "none";
-          }
-        });
-      });
-    }
-
-    function loadMap(key) {
-      try {
-        const raw = localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : {};
-      } catch (e) {
-        return {};
-      }
-    }
-
-    function saveMap(key, map) {
-      try {
-        localStorage.setItem(key, JSON.stringify(map));
-      } catch (e) {}
-    }
-
-    function getAllCards() {
-      const all = Array.from(document.querySelectorAll(CARD_SELECTOR));
-      return all.filter(function (el) {
-        return el.id !== SELF_ID;
-      });
-    }
-
-    function ensureCardId(card, idx) {
-      let id = card.getAttribute("id") || card.getAttribute("data-stack-id");
-      if (!id) {
-        id = "stack-" + (idx + 1) + "-" + Date.now();
-        card.setAttribute("data-stack-id", id);
-      }
-      return id;
-    }
-
-    function detectGroup(card) {
-      const explicit = card.getAttribute("data-stack-group");
-      if (explicit) return explicit;
-
-      if (card.closest(".video-accordion")) return "videos";
-      if (card.closest(".apps-stacks")) return "apps";
-
-      return "root";
-    }
-
-    function getTitle(card) {
-      const t = card.querySelector(".stack-title");
-      if (t && t.textContent.trim()) return t.textContent.trim();
-      return card.getAttribute("id") || card.getAttribute("data-stack-id") || "Stack sem título";
-    }
-
-    function applyVisibility(card, visible, visMap, id) {
-      const key = id || ensureCardId(card, 0);
-      visMap[key] = !!visible;
-      card.hidden = !visible;
-    }
-
-    function render() {
-      const cards = getAllCards();
-      const visMap = loadMap(VIS_KEY);
-      const groupState = loadMap(GROUP_KEY);
-
-      // Estado inicial respeita tela ou storage
-      cards.forEach(function (card, idx) {
-        const id = ensureCardId(card, idx);
-        const currentVisible = !card.hidden;
-        const stored = visMap.hasOwnProperty(id) ? !!visMap[id] : currentVisible;
-        card.hidden = !stored;
-        visMap[id] = stored;
-      });
-      saveMap(VIS_KEY, visMap);
-
-      // Agrupar por grupo detectado
-      const groups = {};
-      cards.forEach(function (card, idx) {
-        const g = detectGroup(card);
-        if (!groups[g]) groups[g] = [];
-        groups[g].push(card);
-      });
-
-      // Render nested
-      groupsContainer.innerHTML = "";
-      Object.keys(groups)
-        .sort()
-        .forEach(function (g) {
-          const groupCards = groups[g];
-          const active = groupState[g] !== false; // default: true
-
-          const details = document.createElement("details");
-          details.className = "mgr-group";
-          details.open = true;
-
-          const summary = document.createElement("summary");
-          const header = document.createElement("div");
-          header.className = "mgr-group-header";
-
-          const main = document.createElement("div");
-          main.className = "mgr-group-main";
-
-          const titleEl = document.createElement("div");
-          titleEl.className = "mgr-group-title";
-          titleEl.textContent = g;
-
-          const metaEl = document.createElement("div");
-          metaEl.className = "mgr-group-meta";
-          metaEl.textContent = groupCards.length + " card(s)";
-
-          main.appendChild(titleEl);
-          main.appendChild(metaEl);
-
-          const btnGroup = document.createElement("button");
-          btnGroup.type = "button";
-          btnGroup.className = "mgr-group-btn" + (active ? "" : " is-off");
-          btnGroup.textContent = active ? "Grupo ON" : "Grupo OFF";
-
-          btnGroup.addEventListener("click", function (ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-
-            const nowActive = groupState[g] !== false;
-            const next = !nowActive;
-            groupState[g] = next;
-            saveMap(GROUP_KEY, groupState);
-
-            btnGroup.classList.toggle("is-off", !next);
-            btnGroup.textContent = next ? "Grupo ON" : "Grupo OFF";
-
-            const visMapLocal = loadMap(VIS_KEY);
-            groupCards.forEach(function (card, idx) {
-              const id = ensureCardId(card, idx);
-              if (!next) {
-                applyVisibility(card, false, visMapLocal, id);
-              } else {
-                const stored = visMapLocal.hasOwnProperty(id) ? !!visMapLocal[id] : true;
-                applyVisibility(card, stored, visMapLocal, id);
-              }
-            });
-            saveMap(VIS_KEY, visMapLocal);
-          });
-
-          header.appendChild(main);
-          header.appendChild(btnGroup);
-          summary.appendChild(header);
-
-          const body = document.createElement("div");
-          body.className = "mgr-group-body";
-
-          groupCards.forEach(function (card, idx) {
-            const id = ensureCardId(card, idx);
-            const visible = !card.hidden;
-            const title = getTitle(card);
-            const order = card.getAttribute("data-stack-order") || "—";
-
-            // garante botão TTS no próprio stack
-            ensureStackTtsButton(card, g);
-
-            const row = document.createElement("div");
-            row.className = "mgr-row";
-            row.dataset.stackId = id;
-
-            const rMain = document.createElement("div");
-            rMain.className = "mgr-row-main";
-
-            const rTitle = document.createElement("div");
-            rTitle.className = "mgr-row-title";
-            rTitle.textContent = title;
-
-            const rMeta = document.createElement("div");
-            rMeta.className = "mgr-row-meta";
-            rMeta.textContent = "id: " + id + " · ordem: " + order;
-
-            rMain.appendChild(rTitle);
-            rMain.appendChild(rMeta);
-
-            const actions = document.createElement("div");
-            actions.className = "mgr-row-actions";
-
-            // Botão TTS (resumo curto do card)
-            const btnTts = document.createElement("button");
-            btnTts.type = "button";
-            btnTts.className = "mgr-btn mgr-btn-tts";
-            btnTts.innerHTML = "<span>◎</span>";
-            btnTts.title = "Ouvir resumo do card";
-
-            btnTts.addEventListener("click", function (ev) {
-              ev.stopPropagation();
-              const bodyEl = card.querySelector(".stack-body");
-              const shortText = bodyEl
-                ? (bodyEl.innerText || bodyEl.textContent || "").slice(0, 240)
-                : "";
-              const phrase = "Grupo " + g + ". Card: " + title + ". " + shortText;
-              speakText(phrase);
-            });
-
-            // Botão ON/OFF
-            const btnToggle = document.createElement("button");
-            btnToggle.type = "button";
-            btnToggle.className =
-              "mgr-btn " + (visible ? "mgr-btn-toggle-on" : "mgr-btn-toggle-off");
-            btnToggle.textContent = visible ? "ON" : "OFF";
-
-            btnToggle.addEventListener("click", function () {
-              const visMapLocal = loadMap(VIS_KEY);
-              const nowVisible = !card.hidden;
-              const next = !nowVisible;
-              applyVisibility(card, next, visMapLocal, id);
-              saveMap(VIS_KEY, visMapLocal);
-
-              btnToggle.textContent = next ? "ON" : "OFF";
-              btnToggle.classList.toggle("mgr-btn-toggle-on", next);
-              btnToggle.classList.toggle("mgr-btn-toggle-off", !next);
-            });
-
-            actions.appendChild(btnTts);
-            actions.appendChild(btnToggle);
-
-            row.appendChild(rMain);
-            row.appendChild(actions);
-            body.appendChild(row);
-          });
-
-          details.appendChild(summary);
-          details.appendChild(body);
-          groupsContainer.appendChild(details);
-        });
-    }
-
-    if (reloadBtn) {
-      reloadBtn.addEventListener("click", render);
-    }
-
-    if (addBtn) {
-      addBtn.addEventListener("click", function () {
-        const title = (titleInput && titleInput.value.trim()) || "Card";
-        let group = groupInput && groupInput.value.trim();
-        const target = (targetInput && targetInput.value.trim()) || ".apps-stacks";
-        const order = orderInput && orderInput.value.trim();
-        const innerHtml = (htmlInput && htmlInput.value.trim()) || "";
-
-        let type = currentType || "patch";
-
-        if (type === "app" && !group) {
-          group = "apps";
-        }
-
-        const details = document.createElement("details");
-        details.className = "stack-card";
-        details.setAttribute("data-stack-target", target);
-        if (group) details.setAttribute("data-stack-group", group);
-        if (order) details.setAttribute("data-stack-order", order);
-
-        const summary = document.createElement("summary");
-        summary.innerHTML =
-          '<div class="stack-summary-main">' +
-          '<div class="stack-title">' + title.replace(/</g, "&lt;") + '</div>' +
-          '<div class="stack-sub">Card criado via Motor de Stacks v3 · ' +
-          (type === "app" ? "App" : "Patch") +
-          '.</div>' +
-          "</div>" +
-          '<span class="stack-pill">' + (type === "app" ? "App" : "Patch") + "</span>";
-
-        const body = document.createElement("div");
-        body.className = "stack-body";
-
-        if (type === "app") {
-          const url = appUrlInput && appUrlInput.value.trim();
-          const tag = appTagInput && appTagInput.value.trim();
-          const desc = appDescInput && appDescInput.value.trim();
-
-          body.innerHTML =
-            '<div class="stack-field-label">App</div>' +
-            '<p style="font-size:11px;color:var(--text-soft);line-height:1.6;margin-bottom:0.45rem;">' +
-            (desc ? desc.replace(/</g, "&lt;") : "App criado via Manager.") +
-            "</p>" +
-            '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:0.4rem;">' +
-            (tag
-              ? '<span class="stack-pill" style="font-size:10px;">' +
-                tag.replace(/</g, "&lt;") +
-                "</span>"
-              : "") +
-            (url
-              ? '<button type="button" class="pill-btn app-open-btn" data-app-url="' +
-                url.replace(/"/g, "&quot;") +
-                '" style="font-size:11px;">Abrir app</button>'
-              : "") +
-            "</div>" +
-            (url
-              ? '<div class="stack-footnote" style="font-size:10px;word-break:break-all;">' +
-                url.replace(/</g, "&lt;") +
-                "</div>"
-              : "");
-        } else {
-          if (innerHtml) {
-            body.innerHTML = innerHtml;
-          } else {
-            body.innerHTML =
-              '<div class="stack-field-label">Novo card vazio</div>' +
-              '<p style="font-size:11px;color:var(--text-soft);">Edite este conteúdo depois.</p>';
-          }
-        }
-
-        details.appendChild(summary);
-        details.appendChild(body);
-
-        document.body.appendChild(details);
-
-        // apps: botão "Abrir app"
-        setTimeout(() => {
-          const btns = details.querySelectorAll(".app-open-btn");
-          btns.forEach((b) => {
-            b.addEventListener("click", () => {
-              const url = b.getAttribute("data-app-url");
-              if (!url) return;
-
-              const frame = document.getElementById("localViewerFrame");
-              if (frame && frame.tagName === "IFRAME") {
-                frame.src = url;
-              } else {
-                window.open(url, "_blank");
-              }
-            });
-          });
-        }, 0);
-
-        setTimeout(render, 200);
-      });
-    }
-
-    if (clearBtn) {
-      clearBtn.addEventListener("click", function () {
-        if (titleInput) titleInput.value = "";
-        if (groupInput) groupInput.value = "";
-        if (orderInput) orderInput.value = "";
-        if (htmlInput) htmlInput.value = "";
-        if (appUrlInput) appUrlInput.value = "";
-        if (appTagInput) appTagInput.value = "";
-        if (appDescInput) appDescInput.value = "";
-      });
-    }
-
-    function init() {
-      render();
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", init);
-    } else {
-      init();
-    }
-  })();
-</script>
-
-<!-- ============ OVERRIDE V9 — TTS ORB NOS STACKS ============ -->
-<script>
-(() => {
-  // Só roda quando o DOM estiver pronto
-  const run = () => {
-    const stacks = document.querySelectorAll('details.stack-card');
-    if (!stacks.length) return;
-
-    // Função de fala reutilizável
-    function speak(text) {
-      if (!text || !('speechSynthesis' in window)) return;
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'pt-BR';
-      u.rate = 1.0;
-      u.pitch = 1.02;
-      try { window.speechSynthesis.cancel(); } catch (e) {}
-      window.speechSynthesis.speak(u);
-    }
-
-    // Monta o texto de um stack inteiro
-    function getStackText(stackEl) {
-      const parts = [];
-
-      const title = stackEl.querySelector('.stack-title');
-      if (title && title.textContent.trim()) {
-        parts.push(title.textContent.trim());
-      }
-
-      const sub = stackEl.querySelector('.stack-sub');
-      if (sub && sub.textContent.trim()) {
-        parts.push(sub.textContent.trim());
-      }
-
-      // labels + possíveis valores
-      stackEl.querySelectorAll('.stack-field-label').forEach(lbl => {
-        const labelText = lbl.textContent.trim();
-        let valueText = '';
-
-        // tenta achar um input/textarea logo depois
-        const next = lbl.nextElementSibling;
-        if (next && next.classList.contains('stack-input')) {
-          if ('value' in next && next.value) {
-            valueText = next.value.trim();
-          } else if (next.textContent) {
-            valueText = next.textContent.trim();
-          }
-        }
-
-        if (labelText || valueText) {
-          parts.push(labelText + (valueText ? ': ' + valueText : ''));
-        }
-      });
-
-      // notas/footnotes e parágrafos
-      stackEl.querySelectorAll('.stack-footnote, .stack-body p').forEach(el => {
-        const t = el.textContent.trim();
-        if (t) parts.push(t);
-      });
-
-      return parts.join('. ');
-    }
-
-    stacks.forEach(stackEl => {
-      const summary = stackEl.querySelector('summary');
-      if (!summary) return;
-
-      // Se já tiver orb de TTS, não duplica
-      if (summary.querySelector('.tts-btn, .stack-tts')) return;
-
-      // Cria orb usando a mesma estética de TTS já existente
-      const orb = document.createElement('button');
-      orb.type = 'button';
-      orb.className = 'tts-btn stack-tts';
-      orb.setAttribute('aria-label', 'Ouvir este stack');
-      orb.textContent = '◎';
-
-      orb.addEventListener('click', (ev) => {
-        ev.stopPropagation(); // não abrir/fechar o details ao clicar no orb
-        const text = getStackText(stackEl);
-        speak(text);
-      });
-
-      // Joga o orb no final do summary (lado direito, junto da pill)
-      summary.appendChild(orb);
-    });
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', run, { once: true });
-  } else {
-    run();
-  }
-})();
-</script>
-<!-- ============ /OVERRIDE V9 — TTS ORB NOS STACKS ============ -->
-
-
-<!-- OVERRIDE v9 · Viewers (mini + principal) -->
-
-<!-- OVERRIDE v10 · Viewers (mini + principal) -->
-<style>
-  /* ============================
-     MINI VIEWER · ALTURA 220/620
-     ============================ */
-  .stack-viewer-card{
-    position: relative;
-  }
-
-  .stack-viewer-toggle-size{
-    border-radius: 999px;
-    padding: 6px 10px;
-    font-size: 11px;
-    border: 0;
-    cursor: pointer;
-    background: radial-gradient(circle at 0 0, #3bffb3 0%, #00d4ff 40%, #141429 100%);
-    color: #02030a;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-  }
-
-  .stack-viewer-toggle-size span{
-    font-size: 12px;
-  }
-
-  /* Estado padrão: compacto (220px) */
-  .stack-viewer-card[data-size="min"] .stack-viewer-frame{
-    height: 220px;
-  }
-
-  /* Estado expandido: 620px */
-  .stack-viewer-card[data-size="max"] .stack-viewer-frame{
-    height: 620px;
-  }
-
-  @media (max-width: 640px){
-    .stack-viewer-card[data-size="max"] .stack-viewer-frame{
-      height: 520px;
-    }
-  }
-
-  /* ============================
-     VIEWER PRINCIPAL · COMPACT/FULL
-     ============================ */
-
-  /* Mantém o fade de opacidade e adiciona background */
-  .view-overlay{
-    transition: opacity 0.24s ease, background 0.25s ease;
-  }
-
-  .view-panel{
-    transition: max-height 0.25s ease, transform 0.25s ease;
-  }
-
-  /* Agora o body ocupa a altura do panel */
-  .view-body{
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-
-  /* Zera a min-height fixa anterior do iframe
-     (este seletor ganha do #viewVideoHolder iframe isolado) */
-  .view-overlay #viewVideoHolder iframe{
-    min-height: 0;
-    height: auto;
-  }
-
-  /* COMPACT = “antigo maximizado” (viewer grande padrão) */
-  .view-overlay[data-size="compact"] .view-panel{
-    max-height: 60vh;
-  }
-
-  .view-overlay[data-size="compact"] #viewVideoHolder iframe{
-    height: 296px;
-    min-height: 296px;
-  }
-
-  /* FULL = modo app 9:16, quase tela cheia */
-  .view-overlay[data-size="full"] .view-panel{
-    max-height: 100vh;
-    height: 100vh;
-  }
-
-  .view-overlay[data-size="full"] .view-body{
-    padding-bottom: 4px;
-  }
-
-  .view-overlay[data-size="full"] #viewVideoHolder iframe{
-    height: 78vh;
-    min-height: 78vh;
-  }
-
-  /* Mobile: garante que continua gigante no iPhone */
-  @media (max-width: 640px){
-    .view-overlay[data-size="compact"] #viewVideoHolder iframe{
-      height: 39vh;
-      min-height: 39vh;
-    }
-    .view-overlay[data-size="full"] #viewVideoHolder iframe{
-      height: 78vh;
-      min-height: 78vh;
-    }
-  }
-
-  /* Botão de tamanho do viewer (mesmo estilo que você já tinha) */
-  .view-size-toggle-btn{
-    border-radius: 999px;
-    border: 0;
-    padding: 6px 10px;
-    font-size: 8px;
-    cursor: pointer;
-    background: radial-gradient(circle at 100% 0, #ffcf8a 0%, #ff7ad9 35%, #141429 100%);
-    color: #02030a;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-  }
-
-  .view-size-toggle-btn span{
-    font-size: 8px;
-  }
-
-  .view-header-actions{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-</style>
-
-<script>
-  (function(){
-    /* =========================================
-       MINI VIEWER (localViewerFrame) · TOGGLE
-       ========================================= */
-    const MINI_KEY = "dual_stackViewerSize_v1";
-
-    function setupMiniViewerToggle(){
-      const card = document.querySelector(".stack-viewer-card");
-      if(!card) return;
-
-      const resetBtn = card.querySelector(".stack-viewer-reset");
-      const header  = card.querySelector(".stack-viewer-header");
-      if(!header || !resetBtn) return;
-
-      const currentSize = localStorage.getItem(MINI_KEY) === "max" ? "max" : "min";
-      card.dataset.size = currentSize;
-
-      // Cria o botão de toggle
-      const toggleBtn = document.createElement("button");
-      toggleBtn.type = "button";
-      toggleBtn.className = "stack-viewer-toggle-size";
-      const iconSpan = document.createElement("span");
-      iconSpan.textContent = "⬍";
-      const labelSpan = document.createElement("span");
-      toggleBtn.appendChild(iconSpan);
-      toggleBtn.appendChild(labelSpan);
-
-      function applyLabel(size){
-        if(size === "max"){
-          labelSpan.textContent = "Minimizar preview";
-        }else{
-          labelSpan.textContent = "Expandir preview";
-        }
-      }
-      applyLabel(currentSize);
-
-      toggleBtn.addEventListener("click", function(){
-        const next = card.dataset.size === "max" ? "min" : "max";
-        card.dataset.size = next;
-        localStorage.setItem(MINI_KEY, next);
-        applyLabel(next);
-      });
-
-      // Insere o botão antes do reset pra ficar lado a lado
-      resetBtn.parentNode.insertBefore(toggleBtn, resetBtn);
-    }
-
-    /* =========================================
-       VIEWER PRINCIPAL (viewOverlay) · TOGGLE
-       ========================================= */
-    const VIEW_KEY = "dual_viewOverlaySize_v1";
-
-    function setupMainViewerToggle(){
-      const viewOverlay = document.getElementById("viewOverlay");
-      if(!viewOverlay) return;
-
-      const header = viewOverlay.querySelector(".view-header");
-      const backBtn = document.getElementById("viewBackBtn");
-      if(!header) return;
-
-      // Wrapper opcional pra alinhar botões à direita
-      let actionsWrap = header.querySelector(".view-header-actions");
-      if(!actionsWrap){
-        actionsWrap = document.createElement("div");
-        actionsWrap.className = "view-header-actions";
-        // joga o botão back existente pra dentro do wrapper
-        if(backBtn && backBtn.parentNode === header){
-          header.removeChild(backBtn);
-          actionsWrap.appendChild(backBtn);
-        }
-        header.appendChild(actionsWrap);
-      }
-
-      const sizeBtn = document.createElement("button");
-      sizeBtn.type = "button";
-      sizeBtn.className = "view-size-toggle-btn";
-      const iconSpan = document.createElement("span");
-      iconSpan.textContent = "▢";
-      const labelSpan = document.createElement("span");
-      sizeBtn.appendChild(iconSpan);
-      sizeBtn.appendChild(labelSpan);
-      actionsWrap.appendChild(sizeBtn);
-
-      function applyViewSize(mode){
-        const safe = mode === "full" ? "full" : "compact";
-        viewOverlay.dataset.size = safe;
-        localStorage.setItem(VIEW_KEY, safe);
-        if(safe === "full"){
-          labelSpan.textContent = "Modo compacto";
-        }else{
-          labelSpan.textContent = "Maximizar viewer";
-        }
-      }
-
-      const initialMode = localStorage.getItem(VIEW_KEY) || "compact";
-      applyViewSize(initialMode);
-
-      sizeBtn.addEventListener("click", function(){
-        const next = viewOverlay.dataset.size === "full" ? "compact" : "full";
-        applyViewSize(next);
-      });
-
-      // Hook leve no openInViewer pra respeitar o último modo escolhido
-      if(typeof window.openInViewer === "function"){
-        const originalOpen = window.openInViewer;
-        window.openInViewer = function(opts){
-          originalOpen(opts || {});
-          const saved = localStorage.getItem(VIEW_KEY) || "compact";
-          applyViewSize(saved);
-        };
-      }
-    }
-
-    // Run depois que tudo existe no DOM
-    if(document.readyState === "loading"){
-      document.addEventListener("DOMContentLoaded", function(){
-        setupMiniViewerToggle();
-        setupMainViewerToggle();
-      });
-    }else{
-      setupMiniViewerToggle();
-      setupMainViewerToggle();
-    }
-  })();
-</script>
-
-  <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('./sw.js')
-        .catch(err => console.error('SW erro:', err));
-    });
-  }
-</script>
-</body>
-</html>
 </body>
 </html>
